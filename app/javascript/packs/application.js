@@ -7,8 +7,10 @@ import Rails from "@rails/ujs"
 import "@hotwired/turbo-rails"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-// import { Turbo, cable } from "@hotwired/turbo-rails"
-// window.Turbo = Turbo
+require("trix")
+require("@rails/actiontext")
+import { Turbo, cable } from "@hotwired/turbo-rails"
+window.Turbo = Turbo
 
 Rails.start()
 ActiveStorage.start()
