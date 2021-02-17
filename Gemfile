@@ -40,6 +40,7 @@ group :development do
   # Display performance information such as SQL time and flame graphs for each request in your browser.
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem "listen", "~> 3.3"
+  gem "pry-rails"
   gem "rack-mini-profiler", "~> 2.0"
   gem "rubocop"
   gem "rubocop-rails"
@@ -60,7 +61,7 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 gem "devise", "~> 4.7"
 
-gem "turbo-rails", "~> 0.5.9"
+gem "hotwire-rails"
 
 gem "tailwindcss-rails", "~> 0.3.3"
 
