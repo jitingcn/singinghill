@@ -1,0 +1,24 @@
+<turbo-frame id="file_list" class="w-64 bg-gray-100 flex flex-col px-4 py-2 font-sans" data-controller="file-list-component" data-file-list-component-current-value="<%= @file_id %>" target="_top">
+  <div id="file_list_header" class="flex flex-row justify-between text-sm font-semibold mb-2">
+    <div class="">
+      文件
+    </div>
+    <div class="flex flex-row justify-between gap-1 text-center">
+      <div class="w-8">草稿</div>
+      <div class="w-8">完成</div>
+      <div class="w-8">总计</div>
+    </div>
+  </div>
+  <div id="file_list_body" class="overflow-auto hidden-scrollbar max-h-full my-2">
+    <% @project_files.each_with_index do |project_file, index| %>
+      <div id="<%= project_file.name %>" class="flex flex-row justify-between">
+        <%= link_to project_file.name, "/project_files/#{project_file.name}", data: { action: "file-list-component#click" } %>
+        <div class="flex flex-row justify-between gap-1 text-center">
+          <div class="w-8"><%= @progress[index][:draft] %></div>
+          <div class="w-8"><%= @progress[index][:finished] %></div>
+          <div class="w-8"><%= @progress[index][:total] %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</turbo-frame>

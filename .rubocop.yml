@@ -25,3 +25,9 @@ Style/FrozenStringLiteralComment:
 
 Layout/LineLength:
   Max: 120
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: aligned
+
+Lint/MissingSuper:
+  Enabled: false

@@ -11,7 +11,11 @@
     <%= stylesheet_pack_tag "application", "data-turbo-track": "reload" %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="w-screen h-screen bg-blue-300 flex flex-col">
+    <header class="w-full h-10 bg-gray-200 ">
+    </header>
+    <main class="w-full h-5/6 flex flex-row flex-1">
+      <%= yield %>
+    </main>
   </body>
 </html>
