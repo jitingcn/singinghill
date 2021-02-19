@@ -24,7 +24,7 @@ class ProjectFilesController < ApplicationController
     @project_files = ProjectFile.all
     @progress = ProjectFile.joins(:entries)
                            .select("project_files.name as filename",
-                                   "count(nullif(chinese, '')) as draft",
+                                   "count(nullif(chinese, '')) - sum(entries.status) as draft",
                                    "sum(entries.status) as finished",
                                    "COUNT(*) as total")
                            .group("project_files.id")
