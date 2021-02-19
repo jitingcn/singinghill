@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<!--<table>-->
+<!--  <thead>-->
+<!--    <tr>-->
+<!--      <th >文件名</th>-->
+<!--      <th >进度</th>-->
+<!--    </tr>-->
+<!--  </thead>-->
+
+<!--  <tbody>-->
+    <%# @project_files.each_with_index do |project_file, index| %>
+<!--      <tr>-->
+<!--        <td ><%#= link_to project_file.name, edit_project_file_path(project_file) %></td>-->
+<!--        <td ><%#= @progress[index]["finished"] %> / <%#= @progress[index]["total"] %></td>-->
+<!--        <td><%#= link_to 'Edit', edit_project_file_path(project_file) %></td>-->
+<!--        <td><%#= link_to 'Destroy', project_file, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+<!--      </tr>-->
+    <%# end %>
+<!--  </tbody>-->
+<!--</table>-->
+
+<%= render(FileListComponent.new(@project_files, @progress)) %>
+
+<div class="bg-gray-200 flex flex-auto">
+  <div id="editor" class="bg-green-200 flex flex-col">
+  </div>
+  <div id="hint" class="flex-grow bg-gray-200"></div>
+</div>
+

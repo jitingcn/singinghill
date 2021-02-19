@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<%= render(FileListComponent.new(@project_files, @progress, file_id: params[:id] || params[:name])) %>
+
+<div class="bg-gray-200 flex flex-auto">
+  <div id="editor" class="bg-green-200 flex flex-col">
+    <div class="bg-purple-200 mx-4 my-2">
+      <%= render(EntryListComponent.new(@entries)) %>
+    </div>
+    <div class="flex flex-col bg-blue-200 mx-4 my-2">
+      条目详情
+      <div id="source" class="h-32">source</div>
+      <div id="english" class="h-32">english</div>
+      <div id="chinese" class="h-32">chinese</div>
+    </div>
+  </div>
+  <div id="hint" class="flex-grow bg-pink-200">提示</div>
+</div>
