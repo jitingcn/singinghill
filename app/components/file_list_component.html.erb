@@ -14,7 +14,7 @@
       <div id="<%= project_file.name %>" class="flex flex-row justify-between">
         <%= link_to project_file.name, "/project_files/#{project_file.name}", data: { action: "file-list-component#click" } %>
         <div class="flex flex-row justify-between gap-1 text-center">
-          <div class="w-8"><%= @progress[index][:draft] %></div>
+          <div class="w-8"><%= @progress[index][:draft].to_i > 0 ? @progress[index][:draft].to_i : 0 %></div>
           <div class="w-8"><%= @progress[index][:finished] %></div>
           <div class="w-8"><%= @progress[index][:total] %></div>
         </div>
