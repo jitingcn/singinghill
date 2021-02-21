@@ -4,7 +4,7 @@ export default class extends Controller {
   static values = { current: Number }
 
   connect() {
-    console.log("connect to file list")
+    console.log("connect to file list components!")
     if (this.currentValue !== 0) {
       const file_name =  `${this.currentValue - 1}.evd.txt`
       console.log(file_name)

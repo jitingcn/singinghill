@@ -30,11 +30,11 @@ event_jp_files.size.times do |i|
   content_jp.size.times do |j|
     location = content_jp[j].scan(/^[-\d]+,[-\d]+,/)[0] || ""
     source = content_jp[j].remove(location)
-                          .gsub("CR", '\n')
+                          .gsub("CR", "\n")
                           .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
     english = content_en[j].remove(location)
                            .gsub(/^[-\d]+,[-\d]+,/, "")
-                           .gsub("CR", '\n')
+                           .gsub("CR", "\n")
                            .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
                            .tr("\uFF01-\uFF5E\u3000\u2019", "\u0021-\u007E\u0020\u0027")
     entry = Entry.find_by(location: location, source: source, project_file_id: project_file.id)
@@ -44,7 +44,7 @@ event_jp_files.size.times do |i|
     next if content_zh.nil?
 
     chinese = content_zh[j].remove(location)
-                           .gsub("CR", '\n')
+                           .gsub("CR", "\n")
                            .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
     entry.update(chinese: chinese)
   end
