@@ -67,3 +67,7 @@ gem "hotwire-rails"
 gem "tailwindcss-rails", "~> 0.3.3"
 
 gem "view_component", require: "view_component/engine"
+
+gem "omniauth-gitlab", github: "kwent/omniauth-gitlab"
+
+gem "rack-brotli"

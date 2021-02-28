@@ -1,0 +1,19 @@
+
+<turbo-frame id="entry_list" class="bg-gray-100 flex flex-col px-4 py-2 font-sans" data-controller="entry-list-component" >
+  <div id="entry_list_header" class="flex flex-row justify-start font-semibold gap-x-2">
+    <div class="w-12">状态</div>
+    <div class="w-16">编号</div>
+    <div class="w-full">文本</div>
+  </div>
+  <div id="entry_list_body" class="flex flex-col max-h-72 overflow-auto">
+    <% entries.each do |entry| %>
+      <div id="project_file_<%= @project_file.id %>_entry_<%= entry.id %>" class="flex flex-row justify-start gap-x-2" data-action="click->entry-list-component#click">
+        <div class="w-12 text-sm"><%= entry.status == "finished" ? "完成": "草稿" %></div>
+        <div class="w-16"><%= entry.location %></div>
+        <div class="w-64 truncate"><%= entry.source %></div>
+        <div class="w-64 mr-6 truncate"><%= entry.english %></div>
+        <div class="w-64 truncate"><%= entry.chinese %></div>
+      </div>
+    <% end %>
+  </div>
+</turbo-frame>

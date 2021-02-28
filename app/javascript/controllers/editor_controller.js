@@ -4,5 +4,6 @@ export default class extends Controller {
   connect() {
     document.getElementById("source").disabled = true
     document.getElementById("english").disabled = true
+    document.getElementById("chinese").disabled = true
   }
 }

@@ -9,10 +9,12 @@
       <div class="w-8">总计</div>
     </div>
   </div>
-  <div id="file_list_body" class="overflow-auto hidden-scrollbar max-h-full my-2">
+  <turbo-frame id="file_list_body" class="overflow-auto hidden-scrollbar my-2">
     <% @project_files.each_with_index do |project_file, index| %>
-      <div id="<%= project_file.name %>" class="flex flex-row justify-between">
-        <%= link_to project_file.name, "/project_files/#{project_file.name}", data: { action: "file-list-component#click" } %>
+      <div id="<%= dom_id project_file %>" class="flex flex-row justify-between">
+        <%= link_to project_file.name, "/project_files/#{project_file.id}", id: project_file.id,
+                    first_entry: project_file.entries.first.id,
+                    data: { action: "file-list-component#click" } %>
         <div class="flex flex-row justify-between gap-1 text-center">
           <div class="w-8"><%= @progress[index][:draft].to_i > 0 ? @progress[index][:draft].to_i : 0 %></div>
           <div class="w-8"><%= @progress[index][:finished] %></div>
@@ -20,5 +22,23 @@
         </div>
       </div>
     <% end %>
+  </turbo-frame>
+  <div id="file_list_nav" class="flex">
+    <div class="flex-initial w-24 flex justify-left">
+      <% unless @page <= 0 %>
+        <%= link_to "< prev", "/project_files/#{@file_id}?page=#{@page-1}", class: "border border-red-600 hover:bg-red-500 hover:text-white rounded-full py-1 px-3 m-1" %>
+      <% end %>
+    </div>
+    <div class="flex-grow flex justify-center">
+    <span class="border border-red-600 bg-red-500 text-white rounded-full py-1 px-3 m-1 object-center">
+      <%= @page + 1 %> / <%= @total_pages + 1 %>
+    </span>
+    </div>
+    <div class="flex-initial w-24">
+      <% unless @page + 1 > @total_pages %>
+        <%= link_to "more >", "/project_files/#{@file_id}?page=#{@page+1}", class: "border border-red-600 hover:bg-red-500 hover:text-white rounded-full py-1 px-3 m-1 float-right" %>
+      <% end %>
+    </div>
   </div>
+
 </div>

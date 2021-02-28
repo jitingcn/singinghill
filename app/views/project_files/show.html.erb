@@ -1,33 +1,14 @@
-<%= render(FileListComponent.new(@project_files, @progress, file_id: params[:id] || params[:name])) %>
+<%= turbo_stream_from @project_file %>
 
+<%= render(FileListComponent.new(@project_files, @progress, file_id: @file_id,
+                                 page: @page, total_pages: @total_pages)) %>
 <div class="bg-gray-200 flex flex-auto">
-  <div id="editor" class="bg-green-200 flex flex-col">
+  <turbo-frame id="editor" class="bg-green-200 flex flex-col flex-auto">
     <div class="bg-purple-200 mx-4 my-2">
-      <%= render(EntryListComponent.new(@entries)) %>
+      <%= render(template: "entries/index", locals: { entries: @project_file.entries }) %>
     </div>
-    <div id="entry-details" class="flex flex-col bg-blue-200 mx-4 my-2" data-controller="editor">
+    <turbo-frame id="entry-details" class="flex flex-col bg-blue-200 mx-4 my-2" src="/project_files/<%= @project_file.id %>/entries/<%= @project_file.entries.first.id %>">
       条目详情
-      <div class="flex flex-row gap-2 p-2">
-        <div class="w-1/2 h-32 flex flex-col">
-          <label for="source">source</label>
-          <textarea id="source" class="w-full h-32">
-
-          </textarea>
-        </div>
-        <div class="w-1/2 h-32 flex flex-col">
-          <label for="english">english</label>
-          <textarea id="english" class="w-full h-32">
-
-          </textarea>
-        </div>
-      </div>
-      <div class="h-32 flex flex-col">
-        <label for="chinese">chinese</label>
-        <textarea id="chinese" class="w-full h-32">
-
-        </textarea>
-      </div>
-    </div>
-  </div>
-  <div id="hint" class="flex-grow bg-pink-200">提示</div>
+    </turbo-frame>
+  </turbo-frame>
 </div>

@@ -5,31 +5,24 @@ export default class extends Controller {
 
   connect() {
     console.log("connect to file list components!")
-    if (this.currentValue !== 0) {
-      const file_name =  `${this.currentValue - 1}.evd.txt`
-      console.log(file_name)
-      document.getElementById(file_name).classList.add("font-bold", "text-red-600")
-      document.getElementById(file_name).scrollIntoView()
+    if (!isNaN(this.currentValue)) {
+      console.log(this.currentValue)
+      document.getElementById(`project_file_${this.currentValue}`)?.classList.add("font-bold", "text-red-600")
+      // document.getElementById(`project_file_${this.currentValue}`).scrollIntoView()
     }
   }
 
   click(event) {
     event.preventDefault();
-    if (this.currentValue !== 0) {
-      const file_name = `${this.currentValue - 1}.evd.txt`;
-      document.getElementById(file_name).classList.remove("font-bold", "text-red-600")
+    if (!isNaN(this.currentValue)) {
+      document.getElementById(`project_file_${this.currentValue}`)?.classList.remove("font-bold", "text-red-600")
     }
-    this.currentValue = parseInt(event.currentTarget.text.match(/\d+/))+1
-    const file_name = `${this.currentValue - 1}.evd.txt`
-    document.getElementById(file_name).classList.add("font-bold", "text-red-600")
-    window.history.pushState('','', `/project_files/${file_name}`)
-    fetch(`/project_files/${file_name}`)
-        .then(response => response.text())
-        .then((html) => {
-            document.getElementById('editor').innerHTML =
-            new DOMParser().parseFromString(html, 'text/html').getElementById('editor').innerHTML
-        })
-
+    console.log(event.currentTarget)
+    this.currentValue = parseInt(event.currentTarget.id.match(/\d+/))
+    event.currentTarget.parentElement.classList.add("font-bold", "text-red-600")
+    let url = `${event.currentTarget.href}/entries/${event.currentTarget.getAttribute("first_entry")}`
+    window.history.pushState('','', event.currentTarget.href)
+    document.getElementById("entry_list").setAttribute("src", url)
   }
 
 }

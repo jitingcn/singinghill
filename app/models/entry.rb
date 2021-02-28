@@ -1,5 +1,15 @@
 class Entry < ApplicationRecord
-  enum status: { unfinished: 0, finished: 1 }
+  enum status: { draft: 0, finished: 1 }
   belongs_to :user, optional: true
   belongs_to :project_file
+  after_save :update_associates
+
+  after_update_commit do
+    broadcast_replace_to "entry", target: "entry_#{id}", partial: "entries/entry"
+    broadcast_replace_to "project_file", target: "project_file_#{project_file.id}_entry_#{id}", partial: "entries/entry_list", locals: { entries: self }
+  end
+
+  def update_associates
+    project_file.touch if project_file.present?
+  end
 end
