@@ -1,0 +1,7 @@
+<div id="project_file_<%= entry.project_file.id %>_entry_<%= entry.id %>" class="flex flex-row justify-start gap-x-2" data-action="click->entry-list-component#click">
+  <div class="w-12 text-sm"><%= entry.status == "finished" ? "完成": "草稿" %></div>
+  <div class="w-16"><%= entry.location %></div>
+  <div class="w-64 truncate"><%= entry.source %></div>
+  <div class="w-64 mr-6 truncate"><%= entry.english %></div>
+  <div class="w-64 truncate"><%= entry.chinese %></div>
+</div>

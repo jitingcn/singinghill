@@ -1,4 +1,5 @@
 class ProjectFile < ApplicationRecord
-  enum status: { unfinished: 0, finished: 1 }
+  enum status: { working: 0, done: 1 }
   has_many :entries
+  broadcasts
 end

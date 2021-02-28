@@ -1,14 +1,13 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static values = { entry: String }
+  static values = { }
+
   connect() {
   }
+
   click(event) {
-    const entry = JSON.parse(event.currentTarget.getAttribute("value"))
-    console.log(entry)
-    document.getElementById("source").value = entry["source"]
-    document.getElementById("english").value = entry["english"]
-    document.getElementById("chinese").value = entry["chinese"]
+    let id = event.currentTarget.id.match(/project_file_(\d+)_entry_(\d+)/)
+    document.getElementById("entry-details").setAttribute("src", `/project_files/${id[1]}/entries/${id[2]}`)
   }
 }
