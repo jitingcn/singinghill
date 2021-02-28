@@ -1,13 +1,15 @@
-<%= turbo_stream_from @project_file %>
+<%= turbo_stream_from "entry_list" %>
+<%= turbo_stream_from "entry" %>
 
 <%= render(FileListComponent.new(@project_files, @progress, file_id: @file_id,
                                  page: @page, total_pages: @total_pages)) %>
+
 <div class="bg-gray-200 flex flex-auto">
   <turbo-frame id="editor" class="bg-green-200 flex flex-col flex-auto">
     <div class="bg-purple-200 mx-4 my-2">
-      <%= render(template: "entries/index", locals: { entries: @project_file.entries }) %>
+      <%= render(partial: "entries/entry_list", locals: { entries: @entries }) %>
     </div>
-    <turbo-frame id="entry-details" class="flex flex-col bg-blue-200 mx-4 my-2" src="/project_files/<%= @project_file.id %>/entries/<%= @project_file.entries.first.id %>">
+    <turbo-frame id="entry-details" class="flex flex-col bg-blue-200 mx-4 my-2">
       条目详情
     </turbo-frame>
   </turbo-frame>

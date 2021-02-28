@@ -20,8 +20,8 @@ class ProjectFilesController < ApplicationController
                              { filename: filename, draft: draft, finished: finished, total: total }
                            }
     respond_to do |format|
-      format.turbo_stream { redirect_to "/project_files/0.evd.txt" }
-      format.html { redirect_to "/project_files/0.evd.txt" }
+      format.turbo_stream { redirect_to ProjectFile.first }
+      format.html { redirect_to ProjectFile.first }
       format.json { render }
     end
   end
@@ -46,6 +46,7 @@ class ProjectFilesController < ApplicationController
                               .map { |filename, draft, finished, total|
                              { filename: filename, draft: draft, finished: finished, total: total }
                            }
+    @entries = @project_file.entries.order(:id)
   end
 
   # GET /project_files/new

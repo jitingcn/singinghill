@@ -9,20 +9,23 @@
       <div class="w-8">总计</div>
     </div>
   </div>
+  <% cache @project_files do %>
   <turbo-frame id="file_list_body" class="overflow-auto hidden-scrollbar my-2">
     <% @project_files.each_with_index do |project_file, index| %>
-      <div id="<%= dom_id project_file %>" class="flex flex-row justify-between">
-        <%= link_to project_file.name, "/project_files/#{project_file.id}", id: project_file.id,
-                    first_entry: project_file.entries.first.id,
-                    data: { action: "file-list-component#click" } %>
-        <div class="flex flex-row justify-between gap-1 text-center">
-          <div class="w-8"><%= @progress[index][:draft].to_i > 0 ? @progress[index][:draft].to_i : 0 %></div>
-          <div class="w-8"><%= @progress[index][:finished] %></div>
-          <div class="w-8"><%= @progress[index][:total] %></div>
-        </div>
-      </div>
+      <% cache project_file, @progress[index] do %>
+        <%= link_to project_file, id: "project_file_#{project_file.id}", class: "flex flex-row justify-between",
+                    data: { "turbo-frame": "editor", action: "file-list-component#click" } do %>
+          <div class=""><%= project_file.name %></div>
+          <div class="flex flex-row justify-between gap-1 text-center">
+            <div class="w-8"><%= @progress[index][:draft].to_i > 0 ? @progress[index][:draft].to_i : 0 %></div>
+            <div class="w-8"><%= @progress[index][:finished] %></div>
+            <div class="w-8"><%= @progress[index][:total] %></div>
+          </div>
+        <% end %>
+      <% end %>
     <% end %>
   </turbo-frame>
+  <% end %>
   <div id="file_list_nav" class="flex">
     <div class="flex-initial w-24 flex justify-left">
       <% unless @page <= 0 %>
