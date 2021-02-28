@@ -4,10 +4,11 @@ export default class extends Controller {
   static values = { }
 
   connect() {
+    let id = document.querySelectorAll('[id^=entry_list_item]')?.[0]?.id.match(/(\d+)/)?.[0]
+    document.getElementById("entry-details")?.setAttribute("src", `/entries/${id}`)
   }
 
   click(event) {
-    let id = event.currentTarget.id.match(/project_file_(\d+)_entry_(\d+)/)
-    document.getElementById("entry-details").setAttribute("src", `/project_files/${id[1]}/entries/${id[2]}`)
+    console.log(event.currentTarget)
   }
 }

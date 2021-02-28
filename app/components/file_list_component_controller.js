@@ -13,16 +13,14 @@ export default class extends Controller {
   }
 
   click(event) {
-    event.preventDefault();
+    // event.preventDefault();
     if (!isNaN(this.currentValue)) {
       document.getElementById(`project_file_${this.currentValue}`)?.classList.remove("font-bold", "text-red-600")
     }
     console.log(event.currentTarget)
     this.currentValue = parseInt(event.currentTarget.id.match(/\d+/))
-    event.currentTarget.parentElement.classList.add("font-bold", "text-red-600")
-    let url = `${event.currentTarget.href}/entries/${event.currentTarget.getAttribute("first_entry")}`
+    event.currentTarget.classList.add("font-bold", "text-red-600")
     window.history.pushState('','', event.currentTarget.href)
-    document.getElementById("entry_list").setAttribute("src", url)
   }
 
 }
