@@ -1,7 +1,7 @@
-import { Controller } from "stimulus"
+import ApplicationController from './application_controller'
 
-export default class extends Controller {
+export default class extends ApplicationController {
   connect() {
-    this.element.textContent = "Hello World!"
+    console.log("Hello World!")
   }
 }

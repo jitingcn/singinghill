@@ -28,23 +28,23 @@ event_jp_files.size.times do |i|
   raise ParseError("File: #{filename} content miss match") if content_jp.size != content_en.size
 
   content_jp.size.times do |j|
-    location = content_jp[j].scan(/^[-\d]+,[-\d]+,/)[0] || ""
-    source = content_jp[j].remove(location)
-                          .gsub("CR", "\n")
+    location, narrator_id = content_jp[j].scan(/^[-\d]+,[-\d]+,/)[0]&.split(",") || ["", ""]
+    source = content_jp[j].remove("#{location},#{narrator_id},")
+                          .gsub("CR", "\r\n")
                           .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
-    english = content_en[j].remove(location)
+    english = content_en[j].remove("#{location},#{narrator_id},")
                            .gsub(/^[-\d]+,[-\d]+,/, "")
-                           .gsub("CR", "\n")
+                           .gsub("CR", "\r\n")
                            .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
                            .tr("\uFF01-\uFF5E\u3000\u2019", "\u0021-\u007E\u0020\u0027")
-    entry = Entry.find_by(location: location, source: source, project_file_id: project_file.id)
+    entry = Entry.find_by(location: location, narrator_id: narrator_id, source: source, project_file_id: project_file.id)
     if entry.nil?
-      entry = Entry.create(location: location, source: source, english: english, project_file_id: project_file.id)
+      entry = Entry.create(location: location, narrator_id: narrator_id, source: source, english: english, project_file_id: project_file.id)
     end
     next if content_zh.nil?
 
-    chinese = content_zh[j].remove(location)
-                           .gsub("CR", "\n")
+    chinese = content_zh[j].remove("#{location},#{narrator_id},")
+                           .gsub("CR", "\r\n")
                            .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
     entry.update(chinese: chinese)
   end

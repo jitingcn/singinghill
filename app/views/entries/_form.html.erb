@@ -1,17 +1,28 @@
-<%= form_with(model: entry) do |form| %>
-  <% if entry.errors.any? %>
+<%= form_for @entry, data: { "turbo-frame": "entry-details" } do |form| %>
+  <% if @entry.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
+      <h2><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
 
       <ul>
-        <% entry.errors.each do |error| %>
+        <% @entry.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
+  <div class="flex flex-col sm:flex-row-reverse">
+    <div id="hint" class="w-full h-24">
+      提示框: TODO
+    </div>
+    <div class="w-full h-40">
+      <%= form.label :chinese, "中文翻译" %>
+      <br>
+      <%= form.text_area :chinese, class: "w-full h-32" %>
+    </div>
+  </div>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "更新条目", class: "rounded border-2 border-solid px-3 py-1 border-res bg-gray-100",
+                    submitId: "entry_#{ @entry.id }", data: { action: "editor#submit" } %>
   </div>
 <% end %>

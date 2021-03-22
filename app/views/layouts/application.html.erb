@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
   <head>
     <title>Singinghill</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -10,22 +10,32 @@
     <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %>
     <%= stylesheet_pack_tag "application", "data-turbo-track": "reload" %>
   </head>
-
-  <body class="w-screen h-screen bg-blue-300 flex flex-col">
-    <header class="w-full h-12 bg-gray-200 flex flex-row px-4 py-2 items-center justify-between">
-      <div id="logo" class="w-6 h-6 rounded-full text-gray-700 font-bold">SingingHill</div>
-      <div id="notice"><%= notice %></div>
-      <div class="flex flex-row gap-x-3 items-center justify-center">
-        <% if user_signed_in? %>
-          <div class="">Hello, <%= current_user.nickname %></div>
-          <%= link_to "退出", destroy_user_session_path, class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-red-400 text-center tracking-wide", method: :delete %>
-        <% else %>
-          <%= link_to "登录", user_gitlab_omniauth_authorize_path, class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-gray-300 text-center tracking-wide" %>
+  <body class="">
+    <div>
+      <%#= turbo_frame_tag "flash", class: "z-60 absolute top-8 right-4" do %>
+        <%#= render "shared/flash" %>
+      <%# end %>
+      <header class="sticky top-0 z-40 lg:z-50 w-full max-w-8xl h-12 mx-auto bg-gray-100 flex-none flex flex-row px-4 py-2 items-center justify-between">
+        <div id="logo" class="w-6 h-6 rounded-full text-gray-700 font-bold">SingingHill</div>
+        <%= turbo_frame_tag "flash", class: "" do %>
+          <%= render "shared/flash" %>
         <% end %>
-      </div>
-    </header>
-    <main class="w-full h-5/6 flex flex-row flex-auto">
-      <%= yield %>
-    </main>
+        <div class="text-red-600">
+          站点处于开发阶段，一切更改将定期回滚，重要数据请自行保存
+        </div>
+        <div class="flex flex-row gap-x-3 items-center justify-center">
+          <% if user_signed_in? %>
+            <div class="">Hello, <%= current_user.nickname %></div>
+            <%= link_to "退出", destroy_user_session_path, class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-red-400 text-center tracking-wide", method: :delete %>
+          <% else %>
+            <%= link_to "登录", user_gitlab_omniauth_authorize_path, class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-gray-300 text-center tracking-wide" %>
+          <% end %>
+        </div>
+      </header>
+<!--      <main class="w-full h-5/6 flex flex-row flex-auto">-->
+      <main class="w-full max-w-8xl mx-auto">
+          <%= yield %>
+      </main>
+    </div>
   </body>
 </html>

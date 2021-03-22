@@ -1,7 +1,7 @@
-ITEMS_PER_PAGE ||= 30
+ITEMS_PER_PAGE ||= 50
 
 class ProjectFilesController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_project_file, only: %i[ show edit update destroy ]
 
   # GET /project_files or /project_files.json
@@ -47,31 +47,32 @@ class ProjectFilesController < ApplicationController
                              { filename: filename, draft: draft, finished: finished, total: total }
                            }
     @entries = @project_file.entries.order(:id)
+    redirect_to @project_file if @filename
   end
 
   # GET /project_files/new
-  def new
-    @project_file = ProjectFile.new
-  end
+  # def new
+  #   @project_file = ProjectFile.new
+  # end
 
   # GET /project_files/1/edit
   def edit
   end
 
   # POST /project_files or /project_files.json
-  def create
-    @project_file = ProjectFile.new(project_file_params)
-
-    respond_to do |format|
-      if @project_file.save
-        format.html { redirect_to @project_file, notice: "Project file was successfully created." }
-        format.json { render :show, status: :created, location: @project_file }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @project_file.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def create
+  #   @project_file = ProjectFile.new(project_file_params)
+  #
+  #   respond_to do |format|
+  #     if @project_file.save
+  #       format.html { redirect_to @project_file, notice: "Project file was successfully created." }
+  #       format.json { render :show, status: :created, location: @project_file }
+  #     else
+  #       format.html { render :new, status: :unprocessable_entity }
+  #       format.json { render json: @project_file.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /project_files/1 or /project_files/1.json
   def update
@@ -96,9 +97,15 @@ class ProjectFilesController < ApplicationController
   # end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
   def set_project_file
-    @project_file = ProjectFile.find_by(name: params[:name]) || ProjectFile.find(params[:id])
+    if params[:filename]&.match(/\d+.evd.txt/)
+      @filename = params[:filename].match(/\d+.evd.txt/)[0]
+      return @project_file = ProjectFile.find_by(name: @filename)
+    end
+
+    @project_file = ProjectFile.find(params[:id])
   end
 
     # Only allow a list of trusted parameters through.

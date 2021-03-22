@@ -4,6 +4,26 @@
 
 @import "./actiontext.scss";
 
+@supports ((position: -webkit-sticky) or (position:sticky)) {
+  .sticky\?\:h-screen {
+    height:100vh!important
+  }
+
+  .sticky\?\:h-\(screen-24\) {
+    height: calc(100vh - 6rem);
+  }
+
+  @media (min-width:1024px) {
+    .sticky\?lg\:h-screen {
+      height:100vh!important
+    }
+
+    .sticky\?lg\:h-\(screen-40\) {
+      height: calc(100vh - 10rem);
+    }
+  }
+}
+
 .hidden-scrollbar::-webkit-scrollbar {
   display: none;
 }

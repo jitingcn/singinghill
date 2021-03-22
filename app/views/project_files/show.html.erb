@@ -1,16 +1,38 @@
-<%= turbo_stream_from "entry_list" %>
-<%= turbo_stream_from "entry" %>
+<div class="lg:flex" x-data="{ file_list: 'close' }">
+  <%= turbo_stream_from "entry" %>
 
-<%= render(FileListComponent.new(@project_files, @progress, file_id: @file_id,
-                                 page: @page, total_pages: @total_pages)) %>
+  <button id="nav-switch" type="button" class="fixed z-50 bottom-3 right-4 w-10 h-10 rounded-full bg-gray-900 text-white block lg:hidden" @click="file_list = 'open'">
+    <span class="sr-only">Open file list</span>
+    <svg width="24" height="24" fill="none" class="absolute top-1/2 left-1/2 -mt-3 -ml-3 transition duration-300 transform"
+         :class="{ 'opacity-0 scale-80': file_list === 'open' }"
+    >
+      <path d="M4 8h16M4 16h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <svg width="24" height="24" fill="none" class="absolute top-1/2 left-1/2 -mt-3 -ml-3 transition duration-300 transform"
+         :class="{ 'opacity-0 scale-80': file_list === 'close' }">
+      <path d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </button>
 
-<div class="bg-gray-200 flex flex-auto">
-  <turbo-frame id="editor" class="bg-green-200 flex flex-col flex-auto">
-    <div class="bg-purple-200 mx-4 my-2">
-      <%= render(partial: "entries/entry_list", locals: { entries: @entries }) %>
-    </div>
-    <turbo-frame id="entry-details" class="flex flex-col bg-blue-200 mx-4 my-2">
-      条目详情
+  <div id="sidebar"
+       :class="{ 'hidden': file_list === 'close' }"
+       @click.away="file_list = 'close'"
+       class="fixed z-40 inset-0 flex-none h-full bg-black bg-opacity-25 w-full lg:bg-white lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-64 xl:w-64 lg:block transition duration-300 transform">
+    <%= render(FileListComponent.new(@project_files, @progress, file_id: @file_id,
+                                     page: @page, total_pages: @total_pages)) %>
+  </div>
+
+  <div id="content-wrapper" class="min-w-0 w-full flex-auto lg:static lg:max-h-full lg:overflow-visible"
+       :class="{ 'overflow-hidden max-h-screen fixed': file_list === 'open' }">
+    <turbo-frame id="editor" class="mt-2 flex flex-col flex-auto gap-2" data-controller="editor">
+      <div class="bg-blue-200 rounded-md shadow-lg mx-2">
+        <%= render(partial: "entries/entry_list", locals: { entries: @entries }) %>
+      </div>
+      <turbo-frame id="entry-details" class="flex flex-col bg-blue-200 rounded-md shadow-lg p-2 mx-2">
+      </turbo-frame>
+      <turbo-frame id="entry-edit" class="flex flex-col bg-blue-200 rounded-md shadow-lg p-2 mx-2">
+      </turbo-frame>
     </turbo-frame>
-  </turbo-frame>
+  </div>
+
 </div>

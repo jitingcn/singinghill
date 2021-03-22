@@ -1,14 +1,19 @@
-<turbo-frame id="entry_list" class="bg-gray-100 flex flex-col px-4 py-2 font-sans" data-controller="entry-list-component">
+<turbo-frame id="entry_list" class="flex flex-col px-4 py-2 font-sans" data-controller="entry-list-component">
   <div id="entry_list_header" class="flex flex-row justify-start font-semibold gap-x-2">
     <div class="w-12">状态</div>
-    <div class="w-16">编号</div>
+    <div class="w-12 hidden md:block">编号</div>
+    <div class="w-12 hidden md:block mr-3">narrator</div>
     <div class="w-full">文本</div>
   </div>
-  <div id="entry_list_body" class="flex flex-col max-h-72 overflow-auto">
+  <div id="entry_list_body" class="flex flex-col max-h-96 overflow-auto">
     <% cache entries do %>
       <% entries.each do |entry| %>
         <%= render partial: 'entries/entry_list_item', locals: { entry: entry } %>
       <% end %>
     <% end %>
+  </div>
+  <div class="flex flex-row items-center justify-between text-sm">
+    <div class="">文件名: <%= entries.first.project_file.name %></div>
+<!--    <div class="">最后修改于: <%#= entries.first.project_file.updated_at %></div>-->
   </div>
 </turbo-frame>

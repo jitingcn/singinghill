@@ -1,9 +1,12 @@
-import { Controller } from "stimulus"
+import ApplicationController from './application_controller'
 
-export default class extends Controller {
+export default class extends ApplicationController {
   connect() {
-    document.getElementById("source").disabled = true
-    document.getElementById("english").disabled = true
-    document.getElementById("chinese").disabled = true
+
+  }
+
+  submit(event) {
+    let submitID = event.currentTarget.getAttribute("submitID")
+    // document.getElementById("editor").setAttribute(`${submitID}_submitted`, "")
   }
 }

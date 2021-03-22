@@ -1,5 +1,5 @@
-<div id="file_list" class="w-64 bg-gray-100 flex flex-col px-4 py-2 font-sans" data-controller="file-list-component" data-file-list-component-current-value="<%= @file_id %>">
-  <div id="file_list_header" class="flex flex-row justify-between text-sm font-semibold mb-2">
+<turbo-frame id="file_list" class="font-sans flex flex-col bg-blue-200 px-2 py-1 lg:w-auto lg:ml-2 lg:mt-2 lg:rounded-md lg:shadow-xl" data-controller="file-list-component" data-file-list-component-current-value="<%= @file_id %>"> <!-- w-80 -->
+  <div id="file_list_header" class="mt-1 flex flex-row justify-between text-sm font-semibold mb-2">
     <div class="">
       文件
     </div>
@@ -10,7 +10,7 @@
     </div>
   </div>
   <% cache @project_files do %>
-  <turbo-frame id="file_list_body" class="overflow-auto hidden-scrollbar my-2">
+  <div id="file_list_body" class="overflow-y-scroll hidden-scrollbar mb-2 bg-gray-100 rounded-md p-1 sticky?:h-(screen-25) h-75vh sticky?lg:h-(screen-40)">
     <% @project_files.each_with_index do |project_file, index| %>
       <% cache project_file, @progress[index] do %>
         <%= link_to project_file, id: "project_file_#{project_file.id}", class: "flex flex-row justify-between",
@@ -24,24 +24,28 @@
         <% end %>
       <% end %>
     <% end %>
-  </turbo-frame>
+  </div>
   <% end %>
-  <div id="file_list_nav" class="flex">
-    <div class="flex-initial w-24 flex justify-left">
+  <div id="file_list_nav" class="ml-4 w-80 flex text-sm my-2 items-center justify-between rounded-md lg:w-auto lg:ml-0" total_pages="<%= @total_pages + 1 %>">
+    <div class="w-32 h-8 flex">
       <% unless @page <= 0 %>
-        <%= link_to "< prev", "/project_files/#{@file_id}?page=#{@page-1}", class: "border border-red-600 hover:bg-red-500 hover:text-white rounded-full py-1 px-3 m-1" %>
+        <%= link_to "< prev", "/project_files/#{@file_id}?page=#{@page-1}",
+                    class: "border-2 border-blue-300 hover:bg-blue-500 hover:text-white rounded-md py-1 px-2",
+                    data: { "turbo-frame": "file_list" } %>
       <% end %>
     </div>
-    <div class="flex-grow flex justify-center">
-    <span class="border border-red-600 bg-red-500 text-white rounded-full py-1 px-3 m-1 object-center">
+    <div class="w-32 h-8 flex">
+    <span class="border-2 border-blue-300 bg-blue-300 text-gray-700 rounded-md py-1 px-2 object-center">
       <%= @page + 1 %> / <%= @total_pages + 1 %>
     </span>
     </div>
-    <div class="flex-initial w-24">
+    <div class="w-32 h-8 flex">
       <% unless @page + 1 > @total_pages %>
-        <%= link_to "more >", "/project_files/#{@file_id}?page=#{@page+1}", class: "border border-red-600 hover:bg-red-500 hover:text-white rounded-full py-1 px-3 m-1 float-right" %>
+        <%= link_to "next >", "/project_files/#{@file_id}?page=#{@page+1}",
+                    class: "border-2 border-blue-300 hover:bg-blue-500 hover:text-white rounded-md py-1 px-2",
+                    data: { "turbo-frame": "file_list" } %>
       <% end %>
     </div>
   </div>
+</turbo-frame>
 
-</div>

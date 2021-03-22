@@ -71,3 +71,7 @@ gem "view_component", require: "view_component/engine"
 gem "omniauth-gitlab", github: "kwent/omniauth-gitlab"
 
 gem "rack-brotli"
+
+gem "action_policy", "~> 0.5.5"
+
+gem "audit-log", "~> 1.1"
