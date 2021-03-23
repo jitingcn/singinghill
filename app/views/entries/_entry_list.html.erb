@@ -1,4 +1,4 @@
-<turbo-frame id="entry_list" class="flex flex-col px-4 py-2 font-sans" data-controller="entry-list-component">
+<turbo-frame id="entry_list" class="flex flex-col font-sans" data-controller="entry-list-component">
   <div id="entry_list_header" class="flex flex-row justify-start font-semibold gap-x-2">
     <div class="w-12">状态</div>
     <div class="w-12 hidden md:block">编号</div>
@@ -13,7 +13,15 @@
     <% end %>
   </div>
   <div class="flex flex-row items-center justify-between text-sm">
-    <div class="">文件名: <%= entries.first.project_file.name %></div>
+    <div class="">文件名: <%= entries.first.project_file.name %>
+      <a href="<%= project_file_output_path @project_file.id %>"
+         class="ml-4 text-red-600"
+         target="_blank"
+      >
+        下载
+      </a>
+    </div>
+
 <!--    <div class="">最后修改于: <%#= entries.first.project_file.updated_at %></div>-->
   </div>
 </turbo-frame>

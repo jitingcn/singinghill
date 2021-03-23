@@ -13,4 +13,31 @@ class Entry < ApplicationRecord
   def update_associates
     project_file.touch if project_file.present?
   end
+
+  def prefix
+    [location, narrator_id].map do |i|
+      return "" if i.blank?
+
+      "#{i},"
+    end.join
+  end
+
+  def text
+    string = chinese.blank? ? source : chinese
+    symbol = 0
+    string.chars.map do |char|
+      return char if symbol == 1
+
+      case char
+      when "{"  # match control symbol start
+        symbol = 1
+        ""
+      when "}"  # match control symbol end
+        symbol = 0
+        ""
+      else
+        char.to_fullwidth
+      end
+    end.join.gsub("\r\n", "CR")
+  end
 end

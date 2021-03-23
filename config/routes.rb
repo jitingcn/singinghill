@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root "project_files#index"
-  resources :project_files
+  resources :project_files do
+    get "output", to: "project_files#output", as: :output
+  end
   resources :entries
   # get "project_files/:name", controller: "project_files",
   #                            action: :show,

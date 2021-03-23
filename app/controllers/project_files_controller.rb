@@ -50,6 +50,11 @@ class ProjectFilesController < ApplicationController
     redirect_to @project_file if @filename
   end
 
+  def output
+    @project_file = ProjectFile.find(params[:project_file_id])
+    send_data(@project_file.to_evdtxt, filename: @project_file.name)
+  end
+
   # GET /project_files/new
   # def new
   #   @project_file = ProjectFile.new
