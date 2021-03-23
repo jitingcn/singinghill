@@ -11,9 +11,16 @@
     </div>
   <% end %>
 
-  <div class="flex flex-col sm:flex-row-reverse">
+  <div class="flex flex-col gap-2 sm:flex-row-reverse">
     <div id="hint" class="w-full h-24">
-      提示框: TODO
+      提示:
+      <div class="flex flex-col">
+        <% unless @entry.narrator.nil? %>
+          <div>
+            叙述者: <%= @entry.narrator.narrator_chinese %>
+          </div>
+        <% end %>
+      </div>
     </div>
     <div class="w-full h-40">
       <%= form.label :chinese, "中文翻译" %>

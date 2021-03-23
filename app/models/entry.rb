@@ -14,6 +14,10 @@ class Entry < ApplicationRecord
     project_file.touch if project_file.present?
   end
 
+  def narrator
+    Narrator.find_by(narrator_id: narrator_id)
+  end
+
   def prefix
     [location, narrator_id].map do |i|
       return "" if i.blank?

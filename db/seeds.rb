@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require "csv"
 
 exit unless Dir.exist?("db/Event_JP") && Dir.exist?("db/Event_EN")
 
@@ -46,6 +47,17 @@ event_jp_files.size.times do |i|
     chinese = content_zh[j].remove("#{location},#{narrator_id},")
                            .gsub("CR", "\r\n")
                            .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
+    next unless entry.chinese.blank?
+
     entry.update(chinese: chinese)
+  end
+end
+
+if File.exist?("db/narrator.csv")
+  csv_text = File.read("db/narrator.csv")
+  csv = CSV.parse(csv_text, headers: true)
+  csv.each do |row|
+    narrator = Narrator.find_or_initialize_by(narrator_id: row["narrator_id"])
+    narrator.update(narrator_source: row["narrator_source"] || "", narrator_chinese: row["narrator_chinese"] || "")
   end
 end

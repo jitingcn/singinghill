@@ -1,0 +1,2 @@
+class Narrator < ApplicationRecord
+end

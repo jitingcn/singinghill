@@ -75,3 +75,7 @@ gem "rack-brotli"
 gem "action_policy", "~> 0.5.5"
 
 gem "audit-log", "~> 1.1"
+
+gem "lograge", "~> 0.11.2"
+
+gem "natto", "~> 1.2"

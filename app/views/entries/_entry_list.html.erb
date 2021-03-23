@@ -2,10 +2,10 @@
   <div id="entry_list_header" class="flex flex-row justify-start font-semibold gap-x-2">
     <div class="w-12">状态</div>
     <div class="w-12 hidden md:block">编号</div>
-    <div class="w-12 hidden md:block mr-3">narrator</div>
+    <div class="w-16 hidden md:block mr-3">叙述者</div>
     <div class="w-full">文本</div>
   </div>
-  <div id="entry_list_body" class="flex flex-col max-h-96 overflow-auto">
+  <div id="entry_list_body" class="flex flex-col max-h-60 overflow-auto">
     <% cache entries do %>
       <% entries.each do |entry| %>
         <%= render partial: 'entries/entry_list_item', locals: { entry: entry } %>
