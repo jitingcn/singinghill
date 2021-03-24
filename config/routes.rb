@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       get "sign_out", to: "users/sessions#destroy", as: :destroy_user_session
     end
   end
-
+  authenticate :user, -> (u) { u.id == 1 } do
+    mount AuditLog::Engine => "/audit-log"
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

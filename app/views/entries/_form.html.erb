@@ -19,6 +19,9 @@
           <div>
             叙述者: <%= @entry.narrator.narrator_chinese %>
           </div>
+          <div>
+            <%= @entry.hints %>
+          </div>
         <% end %>
       </div>
     </div>
@@ -32,4 +35,16 @@
     <%= form.submit "更新条目", class: "rounded border-2 border-solid px-3 py-1 border-res bg-gray-100",
                     submitId: "entry_#{ @entry.id }", data: { action: "editor#submit" } %>
   </div>
+  <% unless @entry.history_change.none? %>
+    <div class="mt-2 flex flex-col">
+      条目[<%= @entry.id %>] 更改历史
+      <% @entry.history_change.each do |history| %>
+        <div class="flex flex-row gap-2">
+          <div>[<%= history[0] || "匿名" %>]</div>
+          <div>[<%= history[2].in_time_zone("Asia/Shanghai").strftime('%Y-%m-%d %H:%M:%S') %>]</div>
+          <div><%= history[1] %></div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>

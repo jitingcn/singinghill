@@ -43,7 +43,7 @@ class EntriesController < ApplicationController
     respond_to do |format|
       if @entry.update(entry_params)
         if previous_chinese != @entry.chinese
-          audit! :update_entry, @entry, payload: entry_params.merge(previous_chinese: previous_chinese)
+          audit! :update_entry, @entry, payload: entry_params.permit(:chinese).merge(previous_chinese: previous_chinese)
         end
         format.html { redirect_to @entry, notice: "Entry was successfully updated." }
         format.json { render :show, status: :ok, location: @entry }
