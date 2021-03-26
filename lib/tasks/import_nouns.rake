@@ -8,7 +8,7 @@ task import_nouns: :environment do
       next if row["source"].nil?
 
       noun = Noun.find_or_initialize_by(source: row["source"])
-      noun.type = row.fetch("type", "") || ""
+      noun.leixing = row.fetch("type", "") || ""
       noun.english = row.fetch("english", "") || ""
       noun.chinese = row.fetch("chinese", "") || ""
       noun.comment = row.fetch("comment", "") || ""

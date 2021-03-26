@@ -4,7 +4,7 @@ class CreateNouns < ActiveRecord::Migration[6.1]
       t.string :source, unique: true, null: false
       t.string :english, null: false, default: ""
       t.string :chinese, null: false, default: ""
-      t.string :type,    null: false, default: ""
+      t.string :leixing, null: false, default: ""
       t.text :comment, null: false, default: ""
       t.references :user, null: true, foreign_key: true
 
