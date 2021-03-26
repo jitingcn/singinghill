@@ -81,7 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: singinghill_development
-#  database: singinghill_production
-#  username: singinghill
-#  password: <%#= ENV['SINGINGHILL_DATABASE_PASSWORD'] %>
+  database: singinghill_production
+  username: singinghill
+  password: <%= ENV['SINGINGHILL_DATABASE_PASSWORD'] %>
