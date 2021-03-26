@@ -22,7 +22,7 @@ task import_translations: :environment do
       next unless location == entry.location && narrator_id == entry.narrator_id &&
                   text != entry.source && text.to_halfwidth != entry.english
 
-      if entry.chinese.blank? && entry.status < 3 && !text.blank?
+      if entry.chinese.blank? && entry.status.to_i < 3 && !text.blank?
         entry.update(chinese: text, status: 1)
         audit! :update_entry, entry,
                payload: { message: "系统导入条目，状态变更为#{entry.status}，文本：#{entry.chinese}" }
