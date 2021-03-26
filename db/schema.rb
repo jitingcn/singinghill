@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 2021_03_25_164157) do
     t.string "source", null: false
     t.string "english", default: "", null: false
     t.string "chinese", default: "", null: false
-    t.string "type", default: "", null: false
+    t.string "leixing", default: "", null: false
     t.text "comment", default: "", null: false
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
