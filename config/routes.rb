@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root "project_files#index"
+  get "project_files/download", to: "project_files#download_all", as: :download_all_file
   resources :project_files do
     get "output", to: "project_files#output", as: :output
+    post "batch", to: "project_files#batch_update_entry", as: :batch_update_entry
   end
   resources :entries
   # get "project_files/:name", controller: "project_files",
@@ -19,7 +21,7 @@ Rails.application.routes.draw do
       get "sign_out", to: "users/sessions#destroy", as: :destroy_user_session
     end
   end
-  authenticate :user, -> (u) { u.id == 1 } do
+  authenticate :user, -> (u) { u.role == "admin" } do
     mount AuditLog::Engine => "/audit-log"
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

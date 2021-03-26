@@ -15,6 +15,7 @@ module.exports = {
   theme: {
     extend: {
       height: {
+        '60vh': '60vh',
         '75vh': '75vh',
       },
       maxHeight: {

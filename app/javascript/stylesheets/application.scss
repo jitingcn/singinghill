@@ -18,8 +18,8 @@
       height:100vh!important
     }
 
-    .sticky\?lg\:h-\(screen-40\) {
-      height: calc(100vh - 10rem);
+    .sticky\?lg\:h-\(screen-48\) {
+      height: calc(100vh - 12rem);
     }
   }
 }
@@ -32,4 +32,14 @@
 .hidden-scrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

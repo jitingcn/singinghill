@@ -1,0 +1,6 @@
+<turbo-frame id="project_file_<%= @project_file.id %>_progress" class="flex flex-row justify-between gap-1 text-center">
+  <div class="w-8"><%= @project_file.progress[:empty] %></div>
+  <div class="w-8"><%= @project_file.progress[:draft] %></div>
+  <div class="w-8"><%= @project_file.progress[:proofreading] %></div>
+  <div class="w-8"><%= @project_file.progress[:finished] %></div>
+</turbo-frame>

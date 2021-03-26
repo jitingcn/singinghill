@@ -1,6 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
+  static targets = [ "gotoFile" ]
   static values = { current: Number }
 
   connect() {
@@ -26,4 +27,11 @@ export default class extends Controller {
     }
   }
 
+  goto(event) {
+    const file_id = this.gotoFileTarget.value
+    const url = new URL(window.location.href)
+    url.search = ""
+    url.searchParams.set("filename", `${file_id}.evd.txt`)
+    window.location.href = url
+  }
 }

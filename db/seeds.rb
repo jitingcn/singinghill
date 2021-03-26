@@ -44,15 +44,15 @@ event_jp_files.size.times do |i|
       entry = Entry.create(location: location, narrator_id: narrator_id, source: source, english: english, project_file_id: project_file.id)
     end
 
-    if source == "はい"
-      entry.update(chinese: "是")
-      next
-    end
-
-    if source == "はい"
-      entry.update(chinese: "不是")
-      next
-    end
+    # if source == "はい"
+    #   entry.update(chinese: "是")
+    #   next
+    # end
+    #
+    # if source == "いいえ"
+    #   entry.update(chinese: "不是")
+    #   next
+    # end
 
     next if content_zh.nil?
 

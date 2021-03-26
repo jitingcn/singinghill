@@ -11,7 +11,7 @@ class EntryPolicy < ApplicationPolicy
 
   def update?
     # here we can access our context and record
-
+    allow! if user
   end
 
   # Scoping

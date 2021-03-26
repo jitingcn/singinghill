@@ -1,5 +1,5 @@
 <div class="lg:flex" x-data="{ file_list: 'close' }">
-  <%= turbo_stream_from "entry" %>
+  <%= turbo_stream_from "main-app" %>
 
   <button id="nav-switch" type="button" class="fixed z-50 bottom-3 right-4 w-10 h-10 rounded-full bg-gray-900 text-white block lg:hidden" @click="file_list = 'open'">
     <span class="sr-only">Open file list</span>
@@ -17,7 +17,7 @@
   <div id="sidebar"
        :class="{ 'hidden': file_list === 'close' }"
        @click.away="file_list = 'close'"
-       class="fixed z-40 inset-0 flex-none h-full bg-black bg-opacity-25 w-full lg:bg-white lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-64 xl:w-64 lg:block transition duration-300 transform">
+       class="fixed z-40 inset-0 flex-none h-full bg-black bg-opacity-25 w-full lg:bg-white lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-64 xl:w-72 lg:block transition duration-300 transform">
     <%= render(FileListComponent.new(@project_files, @progress, file_id: @file_id,
                                      page: @page, total_pages: @total_pages)) %>
   </div>
@@ -32,6 +32,7 @@
       </turbo-frame>
       <turbo-frame id="entry-edit" class="flex flex-col bg-blue-200 rounded-md shadow-lg p-2 mx-2">
       </turbo-frame>
+      <%= render(EntryBatchImportComponent.new(project_file: @project_file)) %>
     </turbo-frame>
   </div>
 

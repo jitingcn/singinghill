@@ -1,0 +1,7 @@
+<% cache @project_file do %>
+  <%= link_to @project_file, id: "project_file_#{@project_file.id}", class: "flex flex-row justify-between",
+              data: { "turbo-frame": "editor", action: "file-list-component#click" } do %>
+    <div class=""><%= @project_file.name %></div>
+    <%= render(FileProgressComponent.new(project_file: @project_file)) %>
+  <% end %>
+<% end %>

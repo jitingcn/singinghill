@@ -1,8 +1,15 @@
-<turbo-frame id="entry-details" class="flex flex-col bg-blue-200 rounded-md shadow-lg p-2 mx-2">
-  <%= render @entry %>
-  <div class="mt-2 flex flex-row items-center justify-between">
-    <%= link_to edit_entry_path(@entry), id: "entry_edit_button", class: "", data: { "turbo_frame": "entry-edit" } do %>
-      <span class="p-1 w-12 h-8 rounded-md shadow-sm bg-blue-400">编辑</span>
+<% cache @entry do %>
+  <turbo-frame id="entry-details" class="flex flex-col bg-blue-200 rounded-md shadow-lg p-2 mx-2 text-sm md:text-base">
+    <% unless @entry.user_id.nil? %>
+      <div class="">
+        最后编辑者: <%= @entry.user.nickname %>
+      </div>
     <% end %>
-  </div>
-</turbo-frame>
+    <%= render @entry %>
+    <div class="mt-2 flex flex-row items-center justify-between">
+      <%= link_to edit_entry_path(@entry), id: "entry_edit_button", class: "", data: { "turbo_frame": "entry-edit" } do %>
+        <span class="p-1 w-12 h-8 rounded-md shadow-sm bg-blue-400">编辑</span>
+      <% end %>
+    </div>
+  </turbo-frame>
+<% end %>

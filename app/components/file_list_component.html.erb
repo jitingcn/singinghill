@@ -1,35 +1,34 @@
 <turbo-frame id="file_list" class="font-sans flex flex-col bg-blue-200 px-2 py-1 lg:w-auto lg:ml-2 lg:mt-2 lg:rounded-md lg:shadow-xl" data-controller="file-list-component" data-file-list-component-current-value="<%= @file_id %>"> <!-- w-80 -->
-  <div id="file_list_header" class="mt-1 flex flex-row justify-between text-sm font-semibold mb-2">
+  <div id="file_list_header" class="flex flex-row justify-between text-sm font-semibold mb-2">
     <div class="">
       文件
     </div>
     <div class="flex flex-row justify-between gap-1 text-center">
+      <div class="w-8">空白</div>
       <div class="w-8">草稿</div>
+      <div class="w-8">校对</div>
       <div class="w-8">完成</div>
-      <div class="w-8">总计</div>
     </div>
   </div>
+
   <% cache @project_files do %>
-  <div id="file_list_body" class="overflow-y-scroll hidden-scrollbar mb-2 bg-gray-100 rounded-md p-1 sticky?:h-(screen-25) h-75vh sticky?lg:h-(screen-40)">
-    <% @project_files.each_with_index do |project_file, index| %>
-      <% cache project_file, @progress[index] do %>
-        <%= link_to project_file, id: "project_file_#{project_file.id}", class: "flex flex-row justify-between",
-                    data: { "turbo-frame": "editor", action: "file-list-component#click" } do %>
-          <div class=""><%= project_file.name %></div>
-          <div class="flex flex-row justify-between gap-1 text-center">
-            <div class="w-8"><%= @progress[index][:draft].to_i > 0 ? @progress[index][:draft].to_i : 0 %></div>
-            <div class="w-8"><%= @progress[index][:finished] %></div>
-            <div class="w-8"><%= @progress[index][:total] %></div>
-          </div>
-        <% end %>
+    <div id="file_list_body" class="overflow-y-scroll hidden-scrollbar mb-2 bg-gray-100 rounded-md p-1 h-75vh sticky?lg:h-(screen-48)">
+      <% @project_files.each do |project_file| %>
+        <%= render(FileListItemComponent.new(project_file: project_file)) %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
   <% end %>
+
+  <div class="flex flex-row justify-between gap-2 text-sm mx-4 md:mx-2">
+    <label class="">文件直达</label>
+    <div><input type="number" maxlength=3 class="w-12 hidden-arrows rounded" data-file-list-component-target="gotoFile">.evd.txt</div>
+    <button class="rounded-md px-2 border-2 border-blue-300 bg-indigo-300 font-semibold" data-action="file-list-component#goto">GO</button>
+  </div>
+
   <div id="file_list_nav" class="ml-4 w-80 flex text-sm my-2 items-center justify-between rounded-md lg:w-auto lg:ml-0" total_pages="<%= @total_pages + 1 %>">
     <div class="w-32 h-8 flex">
       <% unless @page <= 0 %>
-        <%= link_to "< prev", "/project_files/#{@file_id}?page=#{@page-1}",
+        <%= link_to "上一页", "/project_files/#{@file_id}?page=#{@page-1}",
                     class: "border-2 border-blue-300 hover:bg-blue-500 hover:text-white rounded-md py-1 px-2",
                     data: { "turbo-frame": "file_list" } %>
       <% end %>
@@ -41,7 +40,7 @@
     </div>
     <div class="w-32 h-8 flex">
       <% unless @page + 1 > @total_pages %>
-        <%= link_to "next >", "/project_files/#{@file_id}?page=#{@page+1}",
+        <%= link_to "下一页", "/project_files/#{@file_id}?page=#{@page+1}",
                     class: "border-2 border-blue-300 hover:bg-blue-500 hover:text-white rounded-md py-1 px-2",
                     data: { "turbo-frame": "file_list" } %>
       <% end %>

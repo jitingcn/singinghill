@@ -1,5 +1,5 @@
 class EntriesController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_entry, only: %i[ show edit update destroy ]
 
   # GET /entries or /entries.json
@@ -19,6 +19,17 @@ class EntriesController < ApplicationController
 
   # GET /entries/1/edit
   def edit
+    @hints = Entry.joins(:project_file)
+                  .where("source <-> '#{@entry.source}' < 0.6")
+                  .where.not(chinese: "")
+                  .where.not(id: @entry.id)
+                  .from("(select distinct on (chinese) * from entries where (source <-> '#{@entry.source}' < 0.6)) entries")
+                  .select(:name, :source, :chinese, "source <-> '#{@entry.source}' as distance")
+                  .order("distance")
+                  .limit(4)
+                  .to_a.map(&:serializable_hash)
+                  .uniq { |p| p["chinese"] }
+                  .each { |p| p.delete("id") }
   end
 
   # POST /entries or /entries.json
@@ -40,10 +51,17 @@ class EntriesController < ApplicationController
   def update
     # authorize! @entry
     previous_chinese = @entry.chinese
+    status_params = params.fetch(:entry, {}).permit(:status)
     respond_to do |format|
-      if @entry.update(entry_params)
+      if status_params && current_user.role == "admin" && status_params["status"] != @entry.status
+        @entry.update(status_params)
+        audit! :update_entry, @entry, payload: { message: "条目状态更改为 #{@entry.status}" }
+      elsif previous_chinese == entry_params.fetch(:chinese)
+        format.html { redirect_to @entry, notice: "" }
+        format.json { render :show, status: :ok, location: @entry }
+      elsif @entry.update(entry_params.merge(user_id: current_user.id))
         if previous_chinese != @entry.chinese
-          audit! :update_entry, @entry, payload: entry_params.permit(:chinese).merge(previous_chinese: previous_chinese)
+          audit! :update_entry, @entry, payload: entry_params.merge(previous_chinese: previous_chinese)
         end
         format.html { redirect_to @entry, notice: "Entry was successfully updated." }
         format.json { render :show, status: :ok, location: @entry }
@@ -75,6 +93,7 @@ class EntriesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def entry_params
-    params.fetch(:entry, {}).merge(user_id: current_user&.id).permit(:chinese, :user_id)
+    params["entry"]["chinese"] = params["entry"]["chinese"].gsub(/(?<!\r)\n/, "\r\n")
+    params.fetch(:entry, {}).permit(:chinese)
   end
 end

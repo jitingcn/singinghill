@@ -7,7 +7,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should also create an action method in this controller like this:
   def gitlab
     @user = User.from_omniauth(request.env["omniauth.auth"])
-
+    audit! :oauth_gitlab, @user, payload: request.env["omniauth.auth"]
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: "GitLab") if is_navigational_format?

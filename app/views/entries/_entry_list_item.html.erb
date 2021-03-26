@@ -2,7 +2,7 @@
   <%= link_to entry, id: "entry_list_item_#{entry.id}", class:"flex flex-row hover:bg-blue-300 justify-start gap-x-2",
               data: { "turbo-frame": "entry-details", "action": "entry-list-component#click" } do %>
     <div class="flex flex-row text-sm">
-      <div class="w-12"><%= entry_status(entry) %></div>
+      <div class="w-12"><%= entry.humanize_status %></div>
       <div class="w-12 hidden md:block"><%= entry.location %></div>
       <div class="w-20 hidden md:block"><%= entry.narrator&.narrator_chinese || "" %></div>
     </div>

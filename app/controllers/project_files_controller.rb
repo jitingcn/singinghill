@@ -1,24 +1,12 @@
-ITEMS_PER_PAGE ||= 50
+ITEMS_PER_PAGE ||= 40
 
 class ProjectFilesController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_project_file, only: %i[ show edit update destroy ]
 
   # GET /project_files or /project_files.json
   def index
     @project_files = ProjectFile.all
-    @progress = ProjectFile.joins(:entries)
-                           .select("project_files.name as filename",
-                                   "count(nullif(chinese, '')) as draft",
-                                   "sum(entries.status) as finished",
-                                   "COUNT(*) as total")
-                           .group("project_files.id")
-                           .order("project_files.id")
-                           .to_a.map(&:serializable_hash)
-                           .pluck("filename", "draft", "finished", "total")
-                           .map { |filename, draft, finished, total|
-                             { filename: filename, draft: draft, finished: finished, total: total }
-                           }
     respond_to do |format|
       format.turbo_stream { redirect_to ProjectFile.first }
       format.html { redirect_to ProjectFile.first }
@@ -28,31 +16,100 @@ class ProjectFilesController < ApplicationController
 
   # GET /project_files/1 or /project_files/1.json
   def show
+    if @project_file.nil?
+      render file: "public/404.html", status: :not_found, layout: false
+      return
+    end
+
     @file_id = @project_file.id
     @page = params[:page] ? params[:page].to_i : @file_id / ITEMS_PER_PAGE
     @total_pages = ProjectFile.count / ITEMS_PER_PAGE
     @project_files = ProjectFile.order(:id)
                                 .limit(ITEMS_PER_PAGE)
                                 .offset(@page * ITEMS_PER_PAGE)
-    @progress = @project_files.joins(:entries)
-                              .select("project_files.name as filename",
-                                      "count(nullif(chinese, '')) - sum(entries.status) as draft",
-                                      "sum(entries.status) as finished",
-                                      "COUNT(*) as total")
-                              .group("project_files.id")
-                              .order("project_files.id")
-                              .to_a.map(&:serializable_hash)
-                              .pluck("filename", "draft", "finished", "total")
-                              .map { |filename, draft, finished, total|
-                             { filename: filename, draft: draft, finished: finished, total: total }
-                           }
     @entries = @project_file.entries.order(:id)
     redirect_to @project_file if @filename
   end
 
+  # download single file
+  # GET /projects_files/1/output
   def output
     @project_file = ProjectFile.find(params[:project_file_id])
     send_data(@project_file.to_evdtxt, filename: @project_file.name)
+  end
+
+  # download all project file
+  # GET /projects_files/download
+  def download_all
+    dir = Dir.mktmpdir("ProjectFile_")
+    begin
+      ProjectFile.all.order(:id).each do |project_file|
+        next if project_file.entries.where.not(chinese: "").count.zero?
+
+        File.open("#{dir}/#{project_file.name}", "w", encoding: "UTF-8") do |file|
+          file.write(project_file.to_evdtxt)
+        end
+      end
+      file_list = `ls -1d #{dir}/*`.split.join(" ")
+      file = "#{Rails.root}/storage/ProjectFile_#{Time.now.to_i}.zip"
+      `zip -9 -j #{file} #{file_list}`
+      send_file(file)
+    ensure
+      RemoveTmpDirJob.perform_later(dir)
+      RemoveTmpDirJob.set(wait: 10.minutes).perform_later(file)
+    end
+  end
+
+  # POST /project_files/1/batch or /project_files/1/batch.json
+  def batch_update_entry
+    @project_file = ProjectFile.find(params[:project_file_id])
+    return render file: "public/404.html", status: :not_found, layout: false if @project_file.nil?
+
+    uploaded_file = params[:uploaded_file]
+    return render file: "public/404.html", status: :not_found, layout: false if uploaded_file.nil?
+
+    if uploaded_file.content_type != "text/plain" || uploaded_file.original_filename != @project_file.name ||
+       params["uploaded_file"].nil?
+      respond_to do |format|
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: @project_file.errors, status: :unprocessable_entity }
+      end
+    end
+
+    data = File.open(uploaded_file.tempfile, "r", encoding: "utf-8").read
+    data = data.split(/\r\n|(?<!\r)\n/).reject(&:empty?)
+    if data.count != @project_file.entries.count
+      respond_to do |format|
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: @project_file.errors, status: :unprocessable_entity }
+      end
+    end
+    entries = @project_file.entries.order(:id)
+    data.each_with_index do |line, index|
+      entry = entries[index]
+      next if entry.status.to_i >= 2
+
+      location, narrator_id = line.scan(/^[-\d]+,[-\d]+,/)[0]&.split(",") || ["", ""]
+      text = line.remove("#{location},#{narrator_id},")
+                 .gsub("CR", "\r\n")
+                 .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
+      next unless location == entry.location && narrator_id == entry.narrator_id &&
+                  text != entry.source && text.to_halfwidth != entry.english && text != entry.chinese && !text.blank?
+
+      entry.chinese = text
+      entry.status = 0
+      entry.user_id = current_user.id
+      if entry.save
+        audit! :update_entry, entry,
+               payload: { message: "从文件批量导入条目，状态变更为[#{entry.status}]，新文本：#{entry.chinese}" }
+      end
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @project_file, notice: "Project file was successfully updated." }
+      format.json { render :show, status: :ok, location: @project_file }
+    end
+
   end
 
   # GET /project_files/new

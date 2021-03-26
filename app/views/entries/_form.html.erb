@@ -1,4 +1,4 @@
-<%= form_for @entry, data: { "turbo-frame": "entry-details" } do |form| %>
+<%= form_for @entry, data: { "turbo-frame": "entry-details" }, class: "flex flex-col" do |form| %>
   <% if @entry.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
@@ -12,37 +12,58 @@
   <% end %>
 
   <div class="flex flex-col gap-2 sm:flex-row-reverse">
-    <div id="hint" class="w-full h-24">
+    <div id="hint" class="sm:w-3/5">
       提示:
-      <div class="flex flex-col">
+      <div class="flex flex-col overflow-y-scroll hidden-scrollbar">
         <% unless @entry.narrator.nil? %>
           <div>
             叙述者: <%= @entry.narrator.narrator_chinese %>
           </div>
-          <div>
-            <%= @entry.hints %>
-          </div>
         <% end %>
+          <% if @hints.any? %>
+            <% @hints.each do |hint| %>
+              <div class="flex flex-row gap-2 max-w-3xl">
+                <div class="text-sm">
+                  <%= hint["name"] %>
+                </div>
+                <div class="flex flex-col flex-no-wrap">
+                  <div class="text-xs">
+                    <span class="text-sm">原文:</span> <%= hint["source"] %>
+                  </div>
+                  <div class="text-sm">
+                    <span class="text-sm">译文:</span> <%= hint["chinese"] %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
       </div>
     </div>
-    <div class="w-full h-40">
+    <div class="sm:w-2/5 flex flex-col gap-1">
       <%= form.label :chinese, "中文翻译" %>
-      <br>
-      <%= form.text_area :chinese, class: "w-full h-32" %>
+      <div class="h-32">
+        <%= form.text_area :chinese, class: "w-full h-full" %>
+      </div>
+      <% if current_user.role == "admin" %>
+        <div id="admin_actions" class="">
+          <%= form.label :status, "更改状态" %>
+          <%= form.select :status, Entry.statuses.keys %>
+        </div>
+      <% end %>
+      <div class="actions">
+        <%= form.submit "更新条目", class: "rounded border-2 border-solid px-3 py-1 border-res bg-gray-100",
+                        submitId: "entry_#{ @entry.id }", data: { action: "editor#submit" } %>
+      </div>
     </div>
   </div>
-  <div class="actions">
-    <%= form.submit "更新条目", class: "rounded border-2 border-solid px-3 py-1 border-res bg-gray-100",
-                    submitId: "entry_#{ @entry.id }", data: { action: "editor#submit" } %>
-  </div>
   <% unless @entry.history_change.none? %>
-    <div class="mt-2 flex flex-col">
-      条目[<%= @entry.id %>] 更改历史
+    <div class="mt-2 flex flex-col text-sm sm:text-base">
+      条目[<%= @entry.id %>] 最近更改
       <% @entry.history_change.each do |history| %>
         <div class="flex flex-row gap-2">
-          <div>[<%= history[0] || "匿名" %>]</div>
           <div>[<%= history[2].in_time_zone("Asia/Shanghai").strftime('%Y-%m-%d %H:%M:%S') %>]</div>
-          <div><%= history[1] %></div>
+          <div>[<%= history[0] || "匿名" %>]</div>
+          <div><%= history[1]["message"] ? history[1]["message"] : history[1]["chinese"] %></div>
         </div>
       <% end %>
     </div>
