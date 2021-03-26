@@ -18,12 +18,6 @@ event_jp_files.size.times do |i|
   project_file = ProjectFile.find_by(name: filename) || ProjectFile.create(name: filename)
   content_jp = File.open(event_jp_files[i]).readlines.reject!(&:blank?).map { |el| el.remove("\r").remove("\n") }
   content_en = File.open(event_en_files[i]).readlines.reject!(&:blank?).map { |el| el.remove("\r").remove("\n") }
-  content_zh = if File.exist?("#{Rails.root}/data/Event_ZH/#{filename}")
-                 File.open("#{Rails.root}/data/Event_ZH/#{filename}")
-                     .readlines
-                     .reject!(&:blank?)
-                     .map { |el| el.remove("\r").remove("\n") }
-               end || nil
   raise ParseError("File: #{filename} content miss match") if content_jp.size != content_en.size
 
   content_jp.size.times do |j|
@@ -39,16 +33,7 @@ event_jp_files.size.times do |i|
     entry = Entry.find_by(location: location, narrator_id: narrator_id, source: source, project_file_id: project_file.id)
 
     if entry.nil?
-      entry = Entry.create(location: location, narrator_id: narrator_id, source: source, english: english, project_file_id: project_file.id)
+      Entry.create(location: location, narrator_id: narrator_id, source: source, english: english, project_file_id: project_file.id)
     end
-
-    # next if content_zh.nil?
-    #
-    # chinese = content_zh[j].remove("#{location},#{narrator_id},")
-    #                        .gsub("CR", "\r\n")
-    #                        .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
-    # next unless entry.chinese.blank?
-    #
-    # entry.update(chinese: chinese)
   end
 end

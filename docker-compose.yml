@@ -1,0 +1,59 @@
+version: "3"
+
+services:
+  postgresql:
+    container_name: "singinghill_postgresql"
+    image: postgres:alpine
+    restart: always
+    ports:
+      - 5432
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - singinghilldb:/var/lib/postgresql/data
+
+  redis:
+    container_name: "singinghill_redis"
+    image: redis:alpine
+    restart: always
+    ports:
+      - 6379
+
+  web:
+    container_name: "singinghill_web"
+    build: .
+    restart: always
+    environment:
+      - RAILS_LOG_TO_STDOUT=true
+      - RAILS_SERVE_STATIC_FILES=true
+      - DATABASE_URL=postgres://postgres:@postgresql:5432/singinghill
+      - REDIS_URL=redis://redis:6379/1
+      - workers=2
+      - min_threads=8
+      - max_threads=16
+    links:
+      - postgresql
+      - redis
+    logging:
+      options:
+        max-size: "50m"
+        max-file: "10"
+    volumes:
+      - ./storage:/home/app/storage
+      - ./log:/home/app/log
+      - ./tmp:/home/app/tmp
+      - ./data:/home/app/data
+    command:
+      - sh
+      - -c
+      - |
+        rake db:migrate 2>/dev/null || rake db:setup
+        rake import_narrator
+        rake import_nouns
+        rake import_translations
+        bundle exec puma -C config/puma.rb
+    ports:
+      - 3000:3000
+
+volumes:
+  singinghilldb:

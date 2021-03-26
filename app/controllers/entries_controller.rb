@@ -92,7 +92,7 @@ class EntriesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def entry_params
-    params["entry"]["chinese"] = params["entry"]["chinese"].gsub(/(?<!\r)\n/, "\r\n")
+    params["entry"]["chinese"] = params["entry"]["chinese"].gsub(/(?<!\r)\n/, "\r\n").strip
     params.fetch(:entry, {}).permit(:chinese)
   end
 end
