@@ -24,14 +24,14 @@ task import_translations: :environment do
 
       if entry.chinese.blank? && entry.status.to_i < 3 && !text.blank?
         entry.update(chinese: text, status: 1)
-        audit! :update_entry, entry,
-               payload: { message: "系统导入条目，状态变更为#{entry.status}，文本：#{entry.chinese}" }
+        AuditLog.audit!(:update_entry, entry,
+                        payload: { message: "系统导入条目，状态变更为#{entry.status}，文本：#{entry.chinese}" })
         next
       end
 
       if !entry.chinese.blank? && !text.blank? && text != entry.chinese
-        audit! :update_entry_failed, entry,
-               payload: { message: "系统导入条目被拒绝，当前文本#{entry.chinese}，试图导入的文本：#{text}" }
+        AuditLog.audit!(:update_entry_failed, entry,
+                        payload: { message: "系统导入条目被拒绝，当前文本#{entry.chinese}，试图导入的文本：#{text}" })
         next
       end
 
