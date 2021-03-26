@@ -1,8 +1,8 @@
 require "csv"
 
 task :import_narrator do
-  if File.exist?("#{Rails.root}/db/narrator.csv")
-    csv_text = File.read("#{Rails.root}/db/narrator.csv")
+  if File.exist?("#{Rails.root}/data/narrator.csv")
+    csv_text = File.read("#{Rails.root}/data/narrator.csv")
     csv = CSV.parse(csv_text, headers: true)
     csv.each do |row|
       narrator = Narrator.find_or_initialize_by(narrator_id: row["narrator_id"])

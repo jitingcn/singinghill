@@ -1,8 +1,8 @@
 require "csv"
 
 task :import_nouns do
-  if File.exist?("#{Rails.root}/db/nouns.csv")
-    csv_text = File.read("#{Rails.root}/db/nouns.csv")
+  if File.exist?("#{Rails.root}/data/nouns.csv")
+    csv_text = File.read("#{Rails.root}/data/nouns.csv")
     csv = CSV.parse(csv_text, headers: true)
     csv.each do |row|
       next if row["source"].nil?

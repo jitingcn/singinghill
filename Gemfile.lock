@@ -124,7 +124,6 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
-    jieba_rb (0.0.5)
     jwt (2.2.2)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -161,8 +160,6 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
-    natto (1.2.0)
-      ffi (>= 1.9.0)
     nio4r (2.5.7)
     nokogiri (1.11.2-x86_64-linux)
       racc (~> 1.4)
@@ -330,10 +327,8 @@ DEPENDENCIES
   dotenv-rails
   hotwire-rails
   jbuilder (~> 2.7)
-  jieba_rb (~> 0.0.5)
   listen (~> 3.3)
   lograge (~> 0.11.2)
-  natto (~> 1.2)
   omniauth-gitlab!
   pg (~> 1.1)
   pry

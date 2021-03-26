@@ -5,10 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-exit unless Dir.exist?("#{Rails.root}/db/Event_JP") && Dir.exist?("#{Rails.root}/db/Event_EN")
+exit unless Dir.exist?("#{Rails.root}/data/Event_JP") && Dir.exist?("#{Rails.root}/data/Event_EN")
 
-event_jp_files = Dir.glob("#{Rails.root}/db/Event_JP/*.txt").sort_by { |el| el.scan(/\d+/)[0].to_i }
-event_en_files = Dir.glob("#{Rails.root}/db/Event_EN/*.txt").sort_by { |el| el.scan(/\d+/)[0].to_i }
+event_jp_files = Dir.glob("#{Rails.root}/data/Event_JP/*.txt").sort_by { |el| el.scan(/\d+/)[0].to_i }
+event_en_files = Dir.glob("#{Rails.root}/data/Event_EN/*.txt").sort_by { |el| el.scan(/\d+/)[0].to_i }
 
 raise ParseError("File list size miss match") if event_en_files.size != event_jp_files.size
 
@@ -18,8 +18,8 @@ event_jp_files.size.times do |i|
   project_file = ProjectFile.find_by(name: filename) || ProjectFile.create(name: filename)
   content_jp = File.open(event_jp_files[i]).readlines.reject!(&:blank?).map { |el| el.remove("\r").remove("\n") }
   content_en = File.open(event_en_files[i]).readlines.reject!(&:blank?).map { |el| el.remove("\r").remove("\n") }
-  content_zh = if File.exist?("#{Rails.root}/db/Event_ZH/#{filename}")
-                 File.open("#{Rails.root}/db/Event_ZH/#{filename}")
+  content_zh = if File.exist?("#{Rails.root}/data/Event_ZH/#{filename}")
+                 File.open("#{Rails.root}/data/Event_ZH/#{filename}")
                      .readlines
                      .reject!(&:blank?)
                      .map { |el| el.remove("\r").remove("\n") }

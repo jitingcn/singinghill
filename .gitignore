@@ -37,4 +37,5 @@ yarn-debug.log*
 
 .idea
 
-db/Event_*
+/data/*
+!/data/*.csv
