@@ -1,8 +1,8 @@
 ITEMS_PER_PAGE ||= 40
 
 class ProjectFilesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_project_file, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, only: %i[download_all batch_update_entry edit update]
+  before_action :set_project_file, only: %i[show edit update destroy]
 
   # GET /project_files or /project_files.json
   def index
@@ -101,7 +101,7 @@ class ProjectFilesController < ApplicationController
       entry.user_id = current_user.id
       if entry.save
         audit! :update_entry, entry,
-               payload: { message: "从文件批量导入条目，状态变更为[#{entry.status}]，新文本：#{entry.chinese}" }
+               payload: { message: "从文件批量导入条目，状态变更为#{entry.status}，新文本：#{entry.chinese}" }
       end
     end
 

@@ -1,6 +1,6 @@
 class EntriesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_entry, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, only: %i[update destroy]
+  before_action :set_entry, only: %i[show edit update destroy]
 
   # GET /entries or /entries.json
   def index
@@ -27,9 +27,7 @@ class EntriesController < ApplicationController
                   .select(:name, :source, :chinese, "source <-> '#{@entry.source}' as distance")
                   .order("distance")
                   .limit(4)
-                  .to_a.map(&:serializable_hash)
-                  .uniq { |p| p["chinese"] }
-                  .each { |p| p.delete("id") }
+    @nouns = Noun.where("? ~ source", @entry.source).pluck(:source, :chinese)
   end
 
   # POST /entries or /entries.json
@@ -56,7 +54,8 @@ class EntriesController < ApplicationController
       if status_params && current_user.role == "admin" && status_params["status"] != @entry.status
         @entry.update(status_params)
         audit! :update_entry, @entry, payload: { message: "条目状态更改为 #{@entry.status}" }
-      elsif previous_chinese == entry_params.fetch(:chinese)
+      end
+      if previous_chinese == entry_params.fetch(:chinese)
         format.html { redirect_to @entry, notice: "" }
         format.json { render :show, status: :ok, location: @entry }
       elsif @entry.update(entry_params.merge(user_id: current_user.id))

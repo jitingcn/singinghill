@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>Singinghill</title>
+    <title>SingingHill</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -20,12 +20,9 @@
         <%= turbo_frame_tag "flash", class: "" do %>
           <%= render "shared/flash" %>
         <% end %>
-        <div class="text-red-600">
-          开发模式，重要数据请自行保存
-        </div>
         <div class="flex flex-row gap-x-3 items-center justify-center">
           <% if user_signed_in? %>
-            <div class="">Hello, <%= current_user.nickname %></div>
+            <div class=""><%= current_user.name %></div>
             <%= link_to "退出", destroy_user_session_path, class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-red-400 text-center tracking-wide", method: :delete %>
           <% else %>
             <%= link_to "登录", user_gitlab_omniauth_authorize_path, class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-gray-300 text-center tracking-wide" %>

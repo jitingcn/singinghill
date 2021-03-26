@@ -92,15 +92,18 @@ ActiveRecord::Schema.define(version: 2021_03_25_164157) do
     t.string "narrator_chinese", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["narrator_chinese"], name: "index_narrators_on_narrator_chinese"
     t.index ["narrator_id"], name: "index_narrators_on_narrator_id"
+    t.index ["narrator_source"], name: "index_narrators_on_narrator_source"
   end
 
   create_table "nouns", force: :cascade do |t|
     t.string "source", null: false
     t.string "english", default: "", null: false
     t.string "chinese", default: "", null: false
+    t.string "type", default: "", null: false
     t.text "comment", default: "", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["source"], name: "index_nouns_on_source"

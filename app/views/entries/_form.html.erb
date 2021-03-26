@@ -1,4 +1,5 @@
-<%= form_for @entry, data: { "turbo-frame": "entry-details" }, class: "flex flex-col" do |form| %>
+<%= form_for @entry, data: { "turbo-frame": "entry-details", "controller": "entry-form" },
+             class: "flex flex-col" do |form| %>
   <% if @entry.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
@@ -15,12 +16,25 @@
     <div id="hint" class="sm:w-3/5">
       提示:
       <div class="flex flex-col overflow-y-scroll hidden-scrollbar">
-        <% unless @entry.narrator.nil? %>
-          <div>
-            叙述者: <%= @entry.narrator.narrator_chinese %>
-          </div>
-        <% end %>
+        <div class="text-sm grid grid-flow-col auto-cols-max gap-x-8 gap-y-2">
+          <% unless @entry.narrator.nil? %>
+            <div class="text-sm">
+              叙述者: [<%= @entry.narrator.narrator_chinese %>]
+            </div>
+          <% end %>
+          <% cache @nouns do %>
+            <% @nouns.each do |noun| %>
+              <div class="">
+                <span class=""><%= noun[0] %></span> -> <span class=""><%= noun[1] %></span>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <% cache @hints do %>
           <% if @hints.any? %>
+            <% @hints.to_a.map(&:serializable_hash)
+                          .uniq { |p| p["chinese"] }
+                          .each { |p| p.delete("id") } %>
             <% @hints.each do |hint| %>
               <div class="flex flex-row gap-2 max-w-3xl">
                 <div class="text-sm">
@@ -37,31 +51,34 @@
               </div>
             <% end %>
           <% end %>
+        <% end %>
       </div>
     </div>
     <div class="sm:w-2/5 flex flex-col gap-1">
       <%= form.label :chinese, "中文翻译" %>
       <div class="h-32">
-        <%= form.text_area :chinese, class: "w-full h-full" %>
+        <%= form.text_area :chinese, class: "w-full h-full", disable: "#{current_user.nil? ? 'true' : 'false'}" %>
       </div>
-      <% if current_user.role == "admin" %>
+      <% if current_user&.role == "admin" %>
         <div id="admin_actions" class="">
           <%= form.label :status, "更改状态" %>
           <%= form.select :status, Entry.statuses.keys %>
         </div>
       <% end %>
-      <div class="actions">
-        <%= form.submit "更新条目", class: "rounded border-2 border-solid px-3 py-1 border-res bg-gray-100",
-                        submitId: "entry_#{ @entry.id }", data: { action: "editor#submit" } %>
-      </div>
+      <% unless current_user.nil? %>
+        <div class="actions">
+          <%= form.submit "更新条目", class: "rounded border-2 border-solid px-3 py-1 border-res bg-gray-100",
+                          submitId: "entry_#{ @entry.id }", data: { action: "editor#submit" } %>
+        </div>
+      <% end %>
     </div>
   </div>
   <% unless @entry.history_change.none? %>
-    <div class="mt-2 flex flex-col text-sm sm:text-base">
+    <div class="mt-2 flex flex-col text-sm">
       条目[<%= @entry.id %>] 最近更改
       <% @entry.history_change.each do |history| %>
-        <div class="flex flex-row gap-2">
-          <div>[<%= history[2].in_time_zone("Asia/Shanghai").strftime('%Y-%m-%d %H:%M:%S') %>]</div>
+        <div class="flex flex-row gap-x-3 gap-y-1">
+          <div><%= history[2].in_time_zone("Asia/Shanghai").strftime('%Y-%m-%d %H:%M:%S (CST)') %></div>
           <div>[<%= history[0] || "匿名" %>]</div>
           <div><%= history[1]["message"] ? history[1]["message"] : history[1]["chinese"] %></div>
         </div>
