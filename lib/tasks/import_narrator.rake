@@ -1,6 +1,6 @@
 require "csv"
 
-task :import_narrator do
+task import_narrator: :environment do
   if File.exist?("#{Rails.root}/data/narrator.csv")
     csv_text = File.read("#{Rails.root}/data/narrator.csv")
     csv = CSV.parse(csv_text, headers: true)

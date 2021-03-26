@@ -1,4 +1,4 @@
-task :import_translations do
+task import_translations: :environment do
   Dir.glob("#{Rails.root}/data/Event_ZH/*.evd.txt").each do |path|
     filename = path.split("/")[-1]
     project_file = ProjectFile.find_by(name: filename)

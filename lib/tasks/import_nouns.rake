@@ -1,6 +1,6 @@
 require "csv"
 
-task :import_nouns do
+task import_nouns: :environment do
   if File.exist?("#{Rails.root}/data/nouns.csv")
     csv_text = File.read("#{Rails.root}/data/nouns.csv")
     csv = CSV.parse(csv_text, headers: true)
