@@ -21,8 +21,9 @@ class EntriesController < ApplicationController
   def edit
     @hints = Entry.joins(:project_file)
                   .where.not(id: @entry.id)
+                  .where("(source <-> '#{@entry.source}') < 0.8")
                   .from("(SELECT DISTINCT ON (chinese) * FROM entries) entries")
-                  .select(:name, :source, :chinese, "levenshtein(source, '#{@entry.source}') as distance")
+                  .select(:name, :source, :chinese, "(source <-> '#{@entry.source}') as distance")
                   .order("distance")
                   .limit(4)
                   .to_a.map(&:serializable_hash)
@@ -95,7 +96,6 @@ class EntriesController < ApplicationController
   def entry_params
     params["entry"]["chinese"] = params["entry"]["chinese"].gsub(/(?<!\r)\n/, "\r\n")
                                                            .gsub(/\.\.\./, "…")
-                                                           .remove(".")
                                                            .strip
     params.fetch(:entry, {}).permit(:chinese)
   end

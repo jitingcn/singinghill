@@ -54,7 +54,7 @@ class Entry < ApplicationRecord
     AuditLog::Log.where(action: "update_entry", record_type: "Entry", record_id: id)
                  .order("id DESC")
                  .pluck(:user_id, :payload, :created_at)
-                 .map{ |data| [User.find_by(id: data[0])&.name, data[1], data[2]] }
+                 .map { |data| [User.find_by(id: data[0])&.name, data[1], data[2]] }
   end
 
   def prefix
@@ -69,14 +69,14 @@ class Entry < ApplicationRecord
     string = chinese.blank? ? source : chinese
     symbol = 0
     string.chars.map do |char|
-      return char if symbol == 1
+      symbol = 0 if char == "}" # match control symbol end
+      next char if symbol == 1
 
       case char
       when "{"  # match control symbol start
         symbol = 1
         ""
       when "}"  # match control symbol end
-        symbol = 0
         ""
       else
         char.to_fullwidth
