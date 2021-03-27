@@ -39,7 +39,7 @@
       </turbo-frame>
       <% unless current_user.nil? %>
         <% cache @project_file do %>
-          <%= render(EntryBatchImportComponent.new(project_file: @project_file)) %>
+          <%= render(EntryBatchImportComponent.new(project_file: @project_file, current_user: current_user)) %>
         <% end %>
       <% end %>
     </turbo-frame>

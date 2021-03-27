@@ -10,7 +10,7 @@ class ProjectFilesController < ApplicationController
     respond_to do |format|
       format.turbo_stream { redirect_to ProjectFile.first }
       format.html { redirect_to ProjectFile.first }
-      format.json { render }
+      format.json { render :index }
     end
   end
 
@@ -27,7 +27,7 @@ class ProjectFilesController < ApplicationController
     @project_files = ProjectFile.order(:id)
                                 .limit(ITEMS_PER_PAGE)
                                 .offset(@page * ITEMS_PER_PAGE)
-    @entries = @project_file.entries.order(:id)
+    @entries = @project_file.entries.order(:index)
     redirect_to @project_file if @filename
   end
 
@@ -44,7 +44,7 @@ class ProjectFilesController < ApplicationController
     dir = Dir.mktmpdir("ProjectFile_")
     begin
       ProjectFile.all.order(:id).each do |project_file|
-        next if project_file.entries.where.not(chinese: "").count.zero?
+        next if project_file.entries.order(:index).where.not(chinese: "").count.zero?
 
         File.open("#{dir}/#{project_file.name}", "w", encoding: "UTF-8") do |file|
           file.write(project_file.to_evdtxt)
@@ -63,6 +63,7 @@ class ProjectFilesController < ApplicationController
   # POST /project_files/1/batch or /project_files/1/batch.json
   def batch_update_entry
     @project_file = ProjectFile.find(params[:project_file_id])
+    @status = (params.fetch(:status)[0].to_i if current_user.admin?) || nil
     return render file: "public/404.html", status: :not_found, layout: false if @project_file.nil?
 
     uploaded_file = params[:uploaded_file]
@@ -71,7 +72,7 @@ class ProjectFilesController < ApplicationController
     if uploaded_file.content_type != "text/plain" || uploaded_file.original_filename != @project_file.name ||
        params["uploaded_file"].nil?
       respond_to do |format|
-        format.html { render :show, status: :unprocessable_entity }
+        format.html { redirect_to @project_file, status: :unprocessable_entity }
         format.json { render json: @project_file.errors, status: :unprocessable_entity }
       end
     end
@@ -80,11 +81,12 @@ class ProjectFilesController < ApplicationController
     data = data.split(/\r\n|(?<!\r)\n/).reject(&:empty?)
     if data.count != @project_file.entries.count
       respond_to do |format|
-        format.html { render :show, status: :unprocessable_entity }
+        format.html { redirect_to @project_file, status: :unprocessable_entity }
         format.json { render json: @project_file.errors, status: :unprocessable_entity }
       end
     end
-    entries = @project_file.entries.order(:id)
+
+    entries = @project_file.entries.order(:index)
     data.each_with_index do |line, index|
       entry = entries[index]
       next if entry.status.to_i >= 2
@@ -97,7 +99,7 @@ class ProjectFilesController < ApplicationController
                   text != entry.source && text.to_halfwidth != entry.english && text != entry.chinese && !text.blank?
 
       entry.chinese = text
-      entry.status = 0
+      entry.status = @status || 0
       entry.user_id = current_user.id
       if entry.save
         audit! :update_entry, entry,

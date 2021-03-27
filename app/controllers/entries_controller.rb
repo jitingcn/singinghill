@@ -20,13 +20,18 @@ class EntriesController < ApplicationController
   # GET /entries/1/edit
   def edit
     @hints = Entry.joins(:project_file)
-                  .where("source <-> '#{@entry.source}' < 0.6")
-                  .where.not(chinese: "")
                   .where.not(id: @entry.id)
-                  .from("(select distinct on (chinese) * from entries where (source <-> '#{@entry.source}' < 0.6)) entries")
+                  .from("
+                    (SELECT DISTINCT ON (chinese) *, (source <-> '#{@entry.source}') AS distance
+                    FROM entries
+                    where (source <-> '#{@entry.source}' < 0.8) AND chinese != '') entries
+                  ")
                   .select(:name, :source, :chinese, "source <-> '#{@entry.source}' as distance")
                   .order("distance")
                   .limit(4)
+                  .to_a.map(&:serializable_hash)
+                  .uniq { |p| p["chinese"] }
+                  .each { |p| p.delete("id") }
     @nouns = Noun.where("? ~ source", @entry.source).pluck(:source, :chinese)
   end
 
@@ -51,7 +56,7 @@ class EntriesController < ApplicationController
     previous_chinese = @entry.chinese
     status_params = params.fetch(:entry, {}).permit(:status)
     respond_to do |format|
-      if status_params && current_user.role == "admin" && status_params["status"] != @entry.status
+      if status_params && current_user.admin? && status_params["status"] != @entry.status
         @entry.update(status_params)
         audit! :update_entry, @entry, payload: { message: "条目状态更改为 #{@entry.status}" }
       end
@@ -92,7 +97,10 @@ class EntriesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def entry_params
-    params["entry"]["chinese"] = params["entry"]["chinese"].gsub(/(?<!\r)\n/, "\r\n").strip
+    params["entry"]["chinese"] = params["entry"]["chinese"].gsub(/(?<!\r)\n/, "\r\n")
+                                                           .gsub(/\.\.\./, "…")
+                                                           .remove(".")
+                                                           .strip
     params.fetch(:entry, {}).permit(:chinese)
   end
 end

@@ -30,10 +30,15 @@ event_jp_files.size.times do |i|
                            .gsub("CR", "\r\n")
                            .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
                            .tr("\uFF01-\uFF5E\u3000\u2019", "\u0021-\u007E\u0020\u0027")
-    entry = Entry.find_by(location: location, narrator_id: narrator_id, source: source, project_file_id: project_file.id)
+    entry = Entry.find_by(location: location, narrator_id: narrator_id,
+                          source: source, english: english, project_file_id: project_file.id)
 
-    if entry.nil?
-      Entry.create(location: location, narrator_id: narrator_id, source: source, english: english, project_file_id: project_file.id)
+    if entry&.index.nil?
+      entry.update(index: j)
+      next
     end
+
+    Entry.create(index: j, location: location, narrator_id: narrator_id,
+                 source: source, english: english, project_file_id: project_file.id)
   end
 end

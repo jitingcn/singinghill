@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_25_164157) do
+ActiveRecord::Schema.define(version: 2021_03_27_130853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2021_03_25_164157) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "narrator_id", default: "", null: false
+    t.integer "index"
     t.index ["project_file_id"], name: "index_entries_on_project_file_id"
     t.index ["source"], name: "index_entries_on_source"
     t.index ["user_id"], name: "index_entries_on_user_id"

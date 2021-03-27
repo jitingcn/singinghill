@@ -7,6 +7,7 @@ class Entry < ApplicationRecord
   after_update_commit do
     broadcast_replace_to "main-app", target: "entry_list_item_#{id}", partial: "entries/entry_list_item", locals: { entry: self }
     broadcast_replace_to "main-app", target: "entry_#{id}", partial: "entries/entry", locals: { entry: self }
+    broadcast_replace_to "main-app", target: "entry_total_progress", partial: "entries/total_progress"
     # broadcast_replace_to "project_file", target: "project_file_#{project_file.id}_entry_#{id}", partial: "entries/entry_list", locals: { entries: self }
   end
 

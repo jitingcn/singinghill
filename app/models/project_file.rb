@@ -7,7 +7,7 @@ class ProjectFile < ApplicationRecord
   end
 
   def to_evdtxt
-    entries.order("id").map do |entry|
+    entries.order(:index).map do |entry|
       entry.prefix + entry.text
     end.join("\n\n").concat("\n")
   end
