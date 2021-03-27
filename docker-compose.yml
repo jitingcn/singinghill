@@ -28,9 +28,10 @@ services:
       - RAILS_SERVE_STATIC_FILES=true
       - DATABASE_URL=postgres://postgres:@postgresql:5432/singinghill
       - REDIS_URL=redis://redis:6379/1
-      - workers=2
-      - min_threads=8
-      - max_threads=16
+      - WEB_CONCURRENCY=2
+      - RAILS_MIN_THREADS=8
+      - RAILS_MAX_THREADS=16
+      - DB_MAX_THREADS=32
     links:
       - postgresql
       - redis
