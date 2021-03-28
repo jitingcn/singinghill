@@ -26,8 +26,9 @@
        :class="{ 'overflow-hidden max-h-screen fixed': file_list === 'open' }">
     <turbo-frame id="editor" class="mt-2 flex flex-col flex-auto gap-2" data-controller="editor">
       <% if current_user.nil? %>
-        <div class="bg-red-300 rounded-md shadow-lg mx-2 px-4 py-2 ">
-          您需要登录账号才可以编辑。注册后请等待人工审核通过，如使用其他邮箱请联系群主核实。
+        <div class="bg-red-300 rounded-md shadow-lg mx-2 px-4 py-2 flex flex-col lg:flex-row justify-between items-center">
+          <span>您需要登录账号才可以编辑。注册后请等待审核，如超过24小时无回应请联系群主核实。</span>
+          <span>魔塔大陆汉化交流群 <a class="text-blue-600" href="https://jq.qq.com/?_wv=1027&k=GTa85HBS" target="_blank">【歌颂之丘】754719995</a></span>
         </div>
       <% end %>
       <div class="bg-blue-200 rounded-md shadow-lg mx-2 px-4 py-2 ">
