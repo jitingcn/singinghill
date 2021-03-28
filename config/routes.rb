@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     get "output", to: "project_files#output", as: :output
     post "batch", to: "project_files#batch_update_entry", as: :batch_update_entry
   end
-  resources :entries
+  resources :entries do
+    get "hints", to: "entries#hints"
+  end
   # get "project_files/:name", controller: "project_files",
   #                            action: :show,
   #                            format: false,

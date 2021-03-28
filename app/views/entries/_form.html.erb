@@ -30,23 +30,7 @@
             <% end %>
           <% end %>
         </div>
-        <% if @hints.any? %>
-            <% @hints.each do |hint| %>
-              <div class="flex flex-row gap-2 max-w-3xl">
-                <div class="text-sm">
-                  <%= hint["name"] %>
-                </div>
-                <div class="flex flex-col flex-no-wrap">
-                  <div class="text-xs">
-                    <span class="text-sm">原文:</span> <%= hint["source"] %>
-                  </div>
-                  <div class="text-sm">
-                    <span class="text-sm">译文:</span> <%= hint["chinese"] %>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
+        <turbo-frame id="entry_edit_hints" src="<%= entry_hints_path @entry %>"></turbo-frame>
       </div>
     </div>
     <div class="sm:w-2/5 flex flex-col gap-1">

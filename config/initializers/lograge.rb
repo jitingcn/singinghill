@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.lograge.enabled = true
+  config.lograge.enabled = ENV.fetch("RAILS_ENV", "production") == "production"
 
   config.lograge.custom_options = lambda do |event|
 

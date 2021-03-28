@@ -10,7 +10,8 @@ module Singinghill
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
-    config.hosts << "at1.jtcat.com"
+    config.hosts.append(*Settings.hosts)
+
     config.middleware.insert_after Rack::Sendfile, Rack::Brotli
     # Configuration for the application, engines, and railties goes here.
     #

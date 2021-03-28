@@ -79,3 +79,5 @@ gem "audit-log", "~> 1.1"
 gem "lograge", "~> 0.11.2"
 
 # gem "natto", "~> 1.2"
+
+gem "config", "~> 3.0"

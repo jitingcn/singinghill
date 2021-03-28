@@ -14,7 +14,7 @@ class ProjectFile < ApplicationRecord
 
   def progress
     status = entries.group(:status).count
-    empty = entries.where(chinese: "").count
+    empty = entries.where(chinese: "").where.not(status: 4).count
     draft = status.fetch("draft", 0) - entries.where(status: 0, chinese: "").count
     draft = 0 if draft.negative?
     proofreading = status.fetch("accept", 0) + status.fetch("double_check", 0) + status.fetch("final_check", 0)

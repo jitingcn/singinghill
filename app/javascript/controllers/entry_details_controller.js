@@ -1,23 +1,22 @@
 import ApplicationController from './application_controller'
+let throttle = require('lodash/throttle');
 
 export default class extends ApplicationController {
   connect() {
     document.getElementById("source").disabled = true
     document.getElementById("english").disabled = true
     document.getElementById("chinese").disabled = true
-    let max_height = this.max_height(this.element.querySelectorAll("textarea"))
-    this.resize_textarea(max_height, this.element.querySelectorAll("textarea"))
-
-    let id = this.element.id
-
-    // if (!document.getElementById("editor").hasAttribute(`${id}_submitted`)) {
-      document.getElementById("entry_edit_button").click()
-    // }
+    this.resize_textarea = throttle(this.resize_textarea, 200).bind(this)
+    this.resize_textarea()
   }
 
-  resize_textarea(height, els) {
+  resize_textarea() {
+    // let max_height = this.max_height(this.element.querySelectorAll("textarea"))
+    let els = this.element.querySelectorAll("textarea")
     for (const el of els) {
-      el.style.height = `${height}px`
+      el.style.height = "5px"
+      el.style.height = `${el.scrollHeight}px`
+      // el.style.height = `${max_height}px`
     }
   }
 

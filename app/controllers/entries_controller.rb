@@ -19,9 +19,14 @@ class EntriesController < ApplicationController
 
   # GET /entries/1/edit
   def edit
+    @nouns = Noun.where("? ~ source", @entry.source).pluck(:source, :chinese)
+  end
+
+  def hints
+    @entry = Entry.find(params[:entry_id])
     @hints = Entry.joins(:project_file)
                   .where.not(id: @entry.id)
-                  .where("(source <-> '#{@entry.source}') < 0.8")
+                  .where("(source <-> '#{@entry.source}') < 0.6")
                   .from("(SELECT DISTINCT ON (chinese) * FROM entries) entries")
                   .select(:name, :source, :chinese, "(source <-> '#{@entry.source}') as distance")
                   .order("distance")
@@ -29,7 +34,8 @@ class EntriesController < ApplicationController
                   .to_a.map(&:serializable_hash)
                   .uniq { |p| p["chinese"] }
                   .each { |p| p.delete("id") }
-    @nouns = Noun.where("? ~ source", @entry.source).pluck(:source, :chinese)
+
+    render partial: "entries/hints", locals: { hints: @hints }
   end
 
   # POST /entries or /entries.json
