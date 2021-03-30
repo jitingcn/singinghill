@@ -1,4 +1,5 @@
 import { Controller } from "stimulus"
+let throttle = require('lodash/throttle');
 
 export default class extends Controller {
   static targets = []
@@ -9,7 +10,7 @@ export default class extends Controller {
   entry;
 
   connect() {
-    console.log("1")
+    this.next = throttle(this.next, 1000).bind(this)
     this.url = new URL(window.location.href)
     this.entry = this.url.searchParams.get("entry")
 
@@ -29,7 +30,7 @@ export default class extends Controller {
     document.getElementById("entry-edit")?.setAttribute("src", `/entries/${this.entry}/edit`)
     this.activeElement = document.getElementById(id)
     this.activeElement?.classList.add(...this.activeClassList)
-    this.activeElement.scrollIntoView()
+    this.activeElement.scrollIntoView({behavior: "auto", block: "center"})
   }
 
   click(event) {
@@ -43,5 +44,18 @@ export default class extends Controller {
     }
     this.activeElement = event.currentTarget
     this.activeElement.classList.add(...this.activeClassList)
+    this.activeElement.scrollIntoView({behavior: "smooth", block: "center"})
+  }
+
+  next() {
+    const nextElement = this.activeElement.nextElementSibling
+    if (nextElement == null) {
+      const nextFile = document.querySelector("a.text-red-600[data-turbo-frame='editor']").nextElementSibling
+      if (nextFile) nextFile.click()
+    }
+
+    setTimeout(() => {
+      nextElement.click()
+    }, 500)
   }
 }
