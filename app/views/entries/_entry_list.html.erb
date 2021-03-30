@@ -4,8 +4,9 @@
     <div class="w-12 hidden md:block">编号</div>
     <div class="w-16 hidden md:block mr-3">叙述者</div>
     <div class="w-full">文本</div>
+    <div class="w-2 text-xs self-end invisible" id="entry-list-next" data-action="click->entry-list-component#next">N</div>
   </div>
-  <div id="entry_list_body" class="flex flex-col max-h-60 overflow-auto">
+  <div id="entry_list_body" class="flex flex-col h-60 overflow-auto resize-vertical">
     <% cache entries do %>
       <% entries.each do |entry| %>
         <%= render partial: 'entries/entry_list_item', locals: { entry: entry } %>
