@@ -7,7 +7,7 @@ export default class extends Controller {
   connect() {
     if (!isNaN(this.currentValue)) {
       document.getElementById(`project_file_${this.currentValue}`)?.classList.add("font-bold", "text-red-600")
-      // document.getElementById(`project_file_${this.currentValue}`).scrollIntoView()
+      document.getElementById(`project_file_${this.currentValue}`).scrollIntoView({behavior: "auto", block: "center"});
     }
   }
 
@@ -19,9 +19,7 @@ export default class extends Controller {
     this.currentValue = parseInt(event.currentTarget.id.match(/\d+/))
     event.currentTarget.classList.add("font-bold", "text-red-600")
     window.history.pushState('','', event.currentTarget.href)
-    if (this.element.hasAttribute("switch-open")) {
-      document.getElementById("nav-switch").click()
-    }
+    document.getElementById(`project_file_${this.currentValue}`).scrollIntoView({behavior: "smooth", block: "center"})
   }
 
   goto(event) {
