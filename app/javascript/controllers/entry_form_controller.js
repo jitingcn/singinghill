@@ -2,6 +2,10 @@ import ApplicationController from './application_controller'
 
 export default class extends ApplicationController {
   connect() {
+    const ua = navigator.userAgent;
+    const isMobile = /Android|webOS|iPhone|iPad/i.test(ua);
+    if (isMobile) return  // disable auto focus and hotkey feature for mobile device
+
     this.element.querySelector('textarea').focus()
     this.element.querySelector('textarea').addEventListener('keydown', function(event) {
       if ((event.ctrlKey || event.metaKey) && (event.keyCode === 13 || event.keyCode === 10)) {
