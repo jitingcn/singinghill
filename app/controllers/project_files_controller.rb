@@ -6,7 +6,7 @@ class ProjectFilesController < ApplicationController
 
   # GET /project_files or /project_files.json
   def index
-    @project_files = ProjectFile.all
+    # @project_files = ProjectFile.all
     respond_to do |format|
       format.turbo_stream { redirect_to ProjectFile.first }
       format.html { redirect_to ProjectFile.first }
@@ -22,7 +22,7 @@ class ProjectFilesController < ApplicationController
     end
 
     @file_id = @project_file.id
-    @page = params[:page] ? params[:page].to_i : @file_id / ITEMS_PER_PAGE
+    @page = params[:page] ? params[:page].to_i : (@file_id / (ITEMS_PER_PAGE + 0.1)).to_i
     @total_pages = ProjectFile.count / ITEMS_PER_PAGE
     @project_files = ProjectFile.order(:id)
                                 .limit(ITEMS_PER_PAGE)
