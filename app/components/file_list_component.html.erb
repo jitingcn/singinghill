@@ -1,4 +1,4 @@
-<turbo-frame id="file_list" class="font-sans flex flex-col bg-blue-200 px-2 py-1 lg:w-auto lg:ml-2 lg:mt-2 lg:rounded-md lg:shadow-xl" data-controller="file-list-component" data-file-list-component-current-value="<%= @file_id %>"> <!-- w-80 -->
+<turbo-frame id="file_list" @click.away="file_list = 'close'" class="font-sans flex flex-col bg-blue-200 px-2 py-1 lg:w-auto lg:ml-2 lg:mt-2 lg:rounded-md lg:shadow-xl" data-controller="file-list-component" data-file-list-component-current-value="<%= @file_id %>"> <!-- w-80 -->
   <div id="file_list_header" class="flex flex-row justify-between text-sm font-semibold mb-2">
     <div class="">
       文件

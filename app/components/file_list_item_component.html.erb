@@ -2,7 +2,7 @@
   <%= link_to @project_file, id: "project_file_#{@project_file.id}", class: "flex flex-row justify-between",
               data: { "turbo-frame": "editor", action: "file-list-component#click" },
               "@click": "file_list = 'close'" do %>
-    <div class=""><%= @project_file.name %></div>
+    <span class=""><%= @project_file.name %></span>
     <%= render(FileProgressComponent.new(project_file: @project_file)) %>
   <% end %>
 <% end %>
