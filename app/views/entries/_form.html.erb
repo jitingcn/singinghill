@@ -36,7 +36,9 @@
     <div class="sm:w-2/5 flex flex-col gap-1">
       <%= form.label :chinese, "中文翻译" %>
       <div class="h-32">
-        <%= form.text_area :chinese, class: "w-full h-full", disable: "#{current_user.nil? ? 'true' : 'false'}" %>
+        <%= form.text_area :chinese,
+                           class: "w-full h-full rounded border-2 border-blue-400 dark:bg-gray-600 p-1",
+                           disable: "#{current_user.nil? ? 'true' : 'false'}" %>
       </div>
       <% if current_user&.role == "admin" %>
         <div id="admin_actions" class="">
@@ -46,7 +48,7 @@
       <% end %>
       <% unless current_user.nil? %>
         <div class="actions">
-          <%= form.submit "更新条目", class: "rounded border-2 border-solid px-3 py-1 border-res bg-gray-100",
+          <%= form.submit "更新条目", class: "rounded px-3 py-1 border-res bg-blue-300 shadow",
                           submitId: "entry_#{ @entry.id }", data: { action: "editor#submit" } %>
         </div>
       <% end %>

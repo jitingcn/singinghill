@@ -6,7 +6,7 @@ export default class extends Controller {
   static values = {}
   activeElement;
   nextElement;
-  activeClassList = [ "border", "border-gray-600", "font-semibold", "text-red-600" ]
+  activeClassList = [ "font-semibold", "text-blue-600", "dark:text-indigo-300" ]
   url;
   entry;
 
@@ -53,7 +53,7 @@ export default class extends Controller {
 
   next() {
     if (this.nextElement == null) {
-      const nextFile = document.querySelector("a.text-red-600[data-turbo-frame='editor']").nextElementSibling
+      const nextFile = document.querySelector("a.text-blue-600[data-turbo-frame='editor']").nextElementSibling
       if (nextFile) nextFile.click()
     }
 

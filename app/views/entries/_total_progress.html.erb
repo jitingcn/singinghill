@@ -1,2 +1,2 @@
 <% total_progress = (Entry.where.not(chinese: "").or(Entry.where(status: 4)).count.to_f / Entry.count * 100).round(2) %>
-<turbo-frame id="entry_total_progress">总进度(有文本) <%= total_progress %>%</turbo-frame>
+<turbo-frame id="entry_total_progress" class="dark:text-gray-200">总进度(有文本) <%= total_progress %>%</turbo-frame>

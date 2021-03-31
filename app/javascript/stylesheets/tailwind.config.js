@@ -11,12 +11,12 @@ module.exports = {
       whitelist: [],
     },
   },
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'media', // or 'media' or 'class'
   theme: {
     extend: {
       height: {
         '60vh': '60vh',
-        '75vh': '75vh',
+        '83vh': '83vh',
       },
       maxHeight: {
         '0': '0',
@@ -33,7 +33,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ['odd', 'even'],
+      margin: ['dark'],
+    }
   },
   plugins: [],
 }

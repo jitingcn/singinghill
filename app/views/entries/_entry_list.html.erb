@@ -1,25 +1,26 @@
 <turbo-frame id="entry_list" class="flex flex-col font-sans" data-controller="entry-list-component">
   <div id="entry_list_header" class="flex flex-row justify-start font-semibold gap-x-2">
     <div class="w-12">状态</div>
-    <div class="w-12 hidden md:block">编号</div>
     <div class="w-16 hidden md:block mr-3">叙述者</div>
     <div class="w-full">文本</div>
     <div class="w-2 text-xs self-end invisible" id="entry-list-next" data-action="click->entry-list-component#next">N</div>
   </div>
-  <div id="entry_list_body" class="flex flex-col h-60 overflow-auto resize-vertical">
+  <div id="entry_list_body" class="flex flex-col h-60 overflow-auto resize-vertical gap-y-1">
     <% cache entries do %>
       <% entries.each do |entry| %>
         <%= render partial: 'entries/entry_list_item', locals: { entry: entry } %>
       <% end %>
     <% end %>
   </div>
-  <div class="flex flex-row items-center justify-between text-sm">
+  <div class="flex flex-row items-center justify-between text-sm mt-2">
     <div class="">文件名: <%= entries.first.project_file.name %>
       <a href="<%= project_file_output_path @project_file.id %>"
-         class="ml-4 text-red-600"
+         class="ml-4 text-blue-600 dark:text-blue-300 border border-black dark:border-gray-100 rounded px-1"
          target="_blank"
-      >
-        下载
+      > 下载
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
       </a>
     </div>
 
