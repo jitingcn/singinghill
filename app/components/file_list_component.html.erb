@@ -14,7 +14,7 @@
   </div>
 
   <% cache @project_files do %>
-    <div id="file_list_body" class="overflow-y-scroll hidden-scrollbar mb-2 rounded h-83vh sticky?lg:h-(screen-10dot3)">
+    <div id="file_list_body" class="overflow-y-scroll hidden-scrollbar mb-2 rounded h-75vh sticky?lg:h-(screen-10dot3)">
       <% @project_files.each do |project_file| %>
         <%= render(FileListItemComponent.new(project_file: project_file)) %>
       <% end %>

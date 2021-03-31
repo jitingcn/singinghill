@@ -16,7 +16,7 @@ module.exports = {
     extend: {
       height: {
         '60vh': '60vh',
-        '83vh': '83vh',
+        '75vh': '75vh',
       },
       maxHeight: {
         '0': '0',
