@@ -5,6 +5,7 @@ export default class extends Controller {
   static targets = []
   static values = {}
   activeElement;
+  nextElement;
   activeClassList = [ "border", "border-gray-600", "font-semibold", "text-red-600" ]
   url;
   entry;
@@ -20,6 +21,7 @@ export default class extends Controller {
       document.getElementById("entry-edit")?.setAttribute("src", `/entries/${id}/edit`)
       this.activeElement = this.element.querySelectorAll('[id^=entry_list_item]')?.[0]
       this.activeElement?.classList.add(...this.activeClassList)
+      this.nextElement = this.activeElement.nextElementSibling
       this.url.searchParams.set("entry", id)
       window.history.pushState('','', this.url)
       return
@@ -31,6 +33,7 @@ export default class extends Controller {
     this.activeElement = document.getElementById(id)
     this.activeElement?.classList.add(...this.activeClassList)
     this.activeElement.scrollIntoView({behavior: "auto", block: "center"})
+    this.nextElement = this.activeElement.nextElementSibling
   }
 
   click(event) {
@@ -45,17 +48,17 @@ export default class extends Controller {
     this.activeElement = event.currentTarget
     this.activeElement.classList.add(...this.activeClassList)
     this.activeElement.scrollIntoView({behavior: "smooth", block: "center"})
+    this.nextElement = this.activeElement.nextElementSibling
   }
 
   next() {
-    const nextElement = this.activeElement.nextElementSibling
-    if (nextElement == null) {
+    if (this.nextElement == null) {
       const nextFile = document.querySelector("a.text-red-600[data-turbo-frame='editor']").nextElementSibling
       if (nextFile) nextFile.click()
     }
 
     setTimeout(() => {
-      nextElement.click()
-    }, 500)
+      this.nextElement.click()
+    }, 200)
   }
 }
