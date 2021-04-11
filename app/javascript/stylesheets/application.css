@@ -2,7 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import "./actiontext.scss";
+@import "./actiontext.css";
 
 @supports ((position: -webkit-sticky) or (position:sticky)) {
   .sticky\?\:h-screen {

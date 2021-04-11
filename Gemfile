@@ -1,8 +1,6 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.0.0"
-
 gem "rexml"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem "rails", "~> 6.1.2", ">= 6.1.2.1"
@@ -13,7 +11,7 @@ gem "puma", "~> 5.0"
 # Use SCSS for stylesheets
 gem "sass-rails", ">= 6"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem "webpacker", "~> 5.0"
+# gem "webpacker", "~> 6.0.0.pre.2"
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -81,3 +79,5 @@ gem "lograge", "~> 0.11.2"
 # gem "natto", "~> 1.2"
 
 gem "config", "~> 3.0"
+
+gem "vite_rails", "~> 2.0"

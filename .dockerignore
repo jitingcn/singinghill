@@ -1,0 +1,4 @@
+/database
+/data
+!/data/*.csv
+!/data/Event_*

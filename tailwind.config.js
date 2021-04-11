@@ -1,4 +1,5 @@
 module.exports = {
+  mode: 'jit',
   purge: {
     content: [
       "./app/javascript/stylesheets/**/*.*css",
@@ -38,5 +39,7 @@ module.exports = {
       margin: ['dark'],
     }
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }
