@@ -8,7 +8,7 @@ export default class extends Controller {
   connect() {
     if (!isNaN(this.currentValue)) {
       document.getElementById(`project_file_${this.currentValue}`)?.classList.add(...this.activeClassList)
-      document.getElementById(`project_file_${this.currentValue}`).scrollIntoView({behavior: "auto", block: "center"});
+      document.getElementById(`project_file_${this.currentValue}`).scrollIntoView({behavior: "auto", block: "center"})
     }
   }
 

@@ -38,9 +38,7 @@
       <turbo-frame id="entry-edit" class="flex flex-col rounded-md shadow p-2 mx-2 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 ">
       </turbo-frame>
       <% unless current_user.nil? %>
-        <% cache @project_file do %>
-          <%= render(EntryBatchImportComponent.new(project_file: @project_file, current_user: current_user)) %>
-        <% end %>
+        <%= render(EntryBatchImportComponent.new(project_file: @project_file, current_user: current_user)) %>
       <% end %>
     </turbo-frame>
   </div>

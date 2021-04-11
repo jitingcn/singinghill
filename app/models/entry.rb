@@ -5,7 +5,9 @@ class Entry < ApplicationRecord
   after_save :update_associates
 
   after_update_commit do
-    broadcast_replace_to "main-app", target: "entry_list_item_#{id}", partial: "entries/entry_list_item", locals: { entry: self }
+    broadcast_replace_to "main-app", target: "entry_list_item_#{id}",
+                                     partial: "entries/entry_list_item",
+                                     locals: { entry: self, active: true }
     broadcast_replace_to "main-app", target: "entry_#{id}", partial: "entries/entry", locals: { entry: self }
     broadcast_replace_to "main-app", target: "entry_total_progress", partial: "entries/total_progress"
     # broadcast_replace_to "project_file", target: "project_file_#{project_file.id}_entry_#{id}", partial: "entries/entry_list", locals: { entries: self }
@@ -50,11 +52,13 @@ class Entry < ApplicationRecord
     end
   end
 
-  def history_change
+  def history_change(limit: 10)
     AuditLog::Log.where(action: "update_entry", record_type: "Entry", record_id: id)
                  .order("id DESC")
+                 .limit(limit)
                  .pluck(:user_id, :payload, :created_at)
                  .map { |data| [User.find_by(id: data[0])&.name, data[1], data[2]] }
+
   end
 
   def prefix
