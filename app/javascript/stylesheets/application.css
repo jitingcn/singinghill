@@ -18,8 +18,8 @@
       height:100vh!important
     }
 
-    .sticky\?lg\:h-\(screen-10dot3\) {
-      height: calc(100vh - 10.3rem);
+    .sticky\?lg\:h-\(screen-11\) {
+      height: calc(100vh - 11rem);
     }
   }
 }

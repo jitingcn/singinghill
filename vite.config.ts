@@ -6,7 +6,7 @@ import StimulusHMR from 'vite-plugin-stimulus-hmr'
 export default defineConfig({
   plugins: [
     RubyPlugin(),
-    FullReload(['config/routes.rb', 'app/views/**/*']),
+    FullReload(['config/routes.rb', 'app/views/**/*', 'app/components/**/*']),
     StimulusHMR(),
   ],
 })

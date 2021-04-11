@@ -14,7 +14,7 @@
   </div>
 
   <% cache @project_files do %>
-    <div id="file_list_body" class="overflow-y-scroll hidden-scrollbar mb-2 rounded h-75vh sticky?lg:h-(screen-10dot3)">
+    <div id="file_list_body" class="overflow-y-scroll hidden-scrollbar mb-2 rounded h-[60vh] sticky?lg:h-(screen-11)">
       <% @project_files.each do |project_file| %>
         <%= render(FileListItemComponent.new(project_file: project_file)) %>
       <% end %>
@@ -23,8 +23,10 @@
 
   <div class="flex flex-row justify-between gap-2 text-sm mx-4 md:mx-2 dark:text-gray-200">
     <label class="">文件直达</label>
-    <div><input type="number" maxlength=3 class="w-12 hidden-arrows rounded dark:bg-gray-500" data-file-list-component-target="gotoFile">.evd.txt</div>
-    <button class="rounded-md px-2 border-2 border-blue-300 dark:border-blue-500 bg-indigo-300 dark:bg-indigo-600 font-semibold" data-action="file-list-component#goto">GO</button>
+    <div><input type="number" maxlength=3 class="w-12 h-5 hidden-arrows rounded dark:bg-gray-500"
+                data-file-list-component-target="gotoFile" data-action="keydown->file-list-component#gotoKeyboard">.evd.txt</div>
+    <button class="rounded-md px-2 border-2 border-blue-300 hover:appearance-none dark:border-blue-500 bg-indigo-300 dark:bg-indigo-600 font-semibold"
+            data-action="file-list-component#goto">GO</button>
   </div>
 
   <div id="file_list_nav" class="ml-4 w-80 flex text-sm my-2 items-center justify-between rounded-md lg:w-auto lg:ml-0 dark:text-gray-200" total_pages="<%= @total_pages + 1 %>">

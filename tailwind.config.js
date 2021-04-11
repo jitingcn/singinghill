@@ -15,10 +15,7 @@ module.exports = {
   darkMode: 'media', // or 'media' or 'class'
   theme: {
     extend: {
-      height: {
-        '60vh': '60vh',
-        '75vh': '75vh',
-      },
+      height: {},
       maxHeight: {
         '0': '0',
         '1/4': '25%',

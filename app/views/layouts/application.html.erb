@@ -27,8 +27,8 @@
         <%#= render "shared/flash" %>
       <%# end %>
       <header class="sticky top-0 z-40 lg:z-50 w-full max-w-8xl h-12 mx-auto bg-gray-100 dark:bg-gray-700 flex-none flex flex-row px-4 py-2 items-center justify-between">
-        <div id="logo" class="w-6 h-6 rounded-full text-gray-700 dark:text-gray-200 font-bold">SingingHill</div>
-        <%= turbo_frame_tag "flash", class: "dark:text-gray-200" do %>
+        <div id="logo" class="w-[22] h-6 rounded-full text-gray-700 dark:text-gray-200 font-bold">SingingHill</div>
+        <%= turbo_frame_tag "flash", class: "dark:text-gray-200 min-w-8 hidden sm:block" do %>
           <%= render "shared/flash" %>
         <% end %>
         <%= render "entries/total_progress" %>
@@ -36,9 +36,10 @@
           <% if user_signed_in? %>
             <div class="dark:text-gray-200"><%= current_user.name %></div>
             <%= link_to "退出", destroy_user_session_path,
-                        class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-red-400 dark:bg-gray-600 text-center tracking-wide", method: :delete %>
+                        class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-red-400 dark:bg-gray-600 dark:text-gray-200 text-center tracking-wide", method: :delete %>
           <% else %>
-            <%= link_to "登录", user_gitlab_omniauth_authorize_path, class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-gray-300 text-center tracking-wide" %>
+            <%= link_to "登录", user_gitlab_omniauth_authorize_path,
+                        class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-gray-300 dark:bg-indigo-600 dark:text-gray-200 text-center tracking-wide" %>
           <% end %>
         </div>
       </header>

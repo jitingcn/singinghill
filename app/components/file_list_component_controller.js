@@ -24,10 +24,18 @@ export default class extends Controller {
   }
 
   goto(event) {
+    event?.preventDefault()
     const file_id = this.gotoFileTarget.value
+    if (file_id === '') return
     const url = new URL(window.location.href)
     url.search = ""
     url.searchParams.set("filename", `${file_id}.evd.txt`)
     window.location.href = url
+  }
+
+  gotoKeyboard(event) {
+    if (event.keyCode === 13) {
+      this.goto()
+    }
   }
 }

@@ -11,12 +11,17 @@ export default class extends ApplicationController {
   }
 
   resize_textarea() {
-    // let max_height = this.max_height(this.element.querySelectorAll("textarea"))
+    const ua = navigator.userAgent;
+    const isMobile = /Android|webOS|iPhone|iPad/i.test(ua);
+    let max_height = this.max_height(this.element.querySelectorAll("textarea"))
     let els = this.element.querySelectorAll("textarea")
     for (const el of els) {
       el.style.height = "5px"
-      el.style.height = `${el.scrollHeight}px`
-      // el.style.height = `${max_height}px`
+      if (isMobile) {
+        el.style.height = `${el.scrollHeight}px`
+      } else {
+        el.style.height = `${max_height}px`
+      }
     }
   }
 

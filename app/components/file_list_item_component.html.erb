@@ -1,6 +1,6 @@
 <% cache @project_file do %>
   <%= link_to @project_file, id: "project_file_#{@project_file.id}",
-              class: "flex flex-row justify-between px-1 odd:bg-gray-100 even:bg-gray-300 dark:odd:bg-gray-700 dark:even:bg-gray-500 dark:text-gray-200",
+              class: "flex flex-row justify-between px-1 even:bg-gray-200 odd:bg-gray-100 dark:odd:bg-gray-700 dark:even:bg-gray-500 dark:text-gray-200",
               data: { "turbo-frame": "editor", action: "file-list-component#click" },
               "@click": "file_list = 'close'" do %>
     <span class=""><%= @project_file.name %></span>
