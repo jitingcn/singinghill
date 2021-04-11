@@ -1,14 +1,14 @@
 import { Controller } from "stimulus"
-let throttle = require('lodash/throttle');
+import { throttle } from "lodash"
 
 export default class extends Controller {
   static targets = []
   static values = {}
-  activeElement;
-  nextElement;
+  activeElement
+  nextElement
   activeClassList = [ "font-semibold", "text-blue-600", "dark:text-indigo-300" ]
-  url;
-  entry;
+  url
+  entry
 
   connect() {
     this.next = throttle(this.next, 1000).bind(this)
@@ -55,6 +55,7 @@ export default class extends Controller {
     if (this.nextElement == null) {
       const nextFile = document.querySelector("a.text-blue-600[data-turbo-frame='editor']").nextElementSibling
       if (nextFile) nextFile.click()
+      return
     }
 
     setTimeout(() => {
