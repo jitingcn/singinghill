@@ -328,8 +328,6 @@ GEM
     unicode-display_width (2.0.0)
     view_component (2.30.0)
       activesupport (>= 5.0.0, < 7.0)
-    vite_plugin_legacy (0.5.5)
-      vite_ruby (~> 1.0)
     vite_rails (2.0.8)
       railties (>= 5.1, < 8)
       vite_ruby (~> 1.0)
@@ -388,7 +386,6 @@ DEPENDENCIES
   tailwindcss-rails (~> 0.3.3)
   tzinfo-data
   view_component
-  vite_plugin_legacy (~> 0.5.5)
   vite_rails (~> 2.0)
   web-console (>= 4.1.0)
   webdrivers
