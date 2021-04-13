@@ -63,7 +63,7 @@ class ProjectFilesController < ApplicationController
   # POST /project_files/1/batch or /project_files/1/batch.json
   def batch_update_entry
     @project_file = ProjectFile.find(params[:project_file_id])
-    @status = (params.fetch(:status)[0].to_i if current_user.admin?) || nil
+    @status = (params.fetch(:status)[0] if current_user.admin?) || nil
     return render file: "public/404.html", status: :not_found, layout: false if @project_file.nil?
 
     uploaded_file = params[:uploaded_file]

@@ -7,7 +7,7 @@
     <div class="text-red-700 dark:text-red-400">请确保文件名一致，二校后文本无法变更</div>
     <%= file_field_tag "uploaded_file", required: true, class: "w-56", id: "file" %>
     <% if @current_user.admin? %>
-     <%= select "status", "", Entry.statuses, {}, { class: "w-24 h-8 px-2 py-1 rounded-sm dark:bg-gray-500 text-sm" } %>
+     <%= select "status", "", Entry.statuses.keys.collect { |status| [Entry.human_enum_name(:status, status), status] }, {}, { class: "w-24 h-8 px-2 py-1 rounded-sm dark:bg-gray-500 text-sm" } %>
     <% end %>
     <button class="w-14 h-8 px-2 py-1 bg-red-400 hover:bg-red-500 border border-gray-800 dark:bg-red-700 dark:text-gray-200 rounded shadow text-sm"
             data-action="entry-batch-import-component#click"

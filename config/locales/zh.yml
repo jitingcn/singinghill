@@ -1,0 +1,10 @@
+zh:
+  activerecord:
+    attributes:
+      entry:
+        statuses:
+          draft: "草稿"
+          accept: "一校"
+          double_check: "二校"
+          final_check: "三校"
+          finished: "完成"
