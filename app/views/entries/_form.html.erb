@@ -40,13 +40,12 @@
                            class: "w-full h-full rounded border-1 border-blue-400 hover:border-blue-400 dark:bg-gray-600 p-1",
                            disable: "#{current_user.nil? ? 'true' : 'false'}" %>
       </div>
-      <% if current_user&.role == "admin" %>
-        <div id="admin_actions" class="">
-          <%= form.label :status, "更改状态" %>
-          <%= form.select :status, Entry.statuses.keys, {}, { class: "ml-4 w-24 h-8 px-2 py-1 rounded-sm dark:bg-gray-500 text-sm" } %>
-        </div>
-      <% end %>
       <% unless current_user.nil? %>
+        <div id="entry_form_actions" class="">
+          <%= form.label :status, "更改状态" %>
+          <% status_list = current_user.admin? ? Entry.statuses.keys : Entry.statuses.keys[0...-1] %>
+          <%= form.select :status, status_list, {}, { class: "ml-4 w-24 h-8 px-2 py-1 rounded-sm dark:bg-gray-500 text-sm" } %>
+        </div>
         <div class="actions">
           <%= form.submit "更新条目", class: "rounded px-3 py-1 border-res bg-blue-300 shadow dark:bg-indigo-600",
                           submitId: "entry_#{ @entry.id }", data: { action: "editor#submit" } %>

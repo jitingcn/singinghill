@@ -8,6 +8,8 @@ export default class extends ApplicationController {
     document.getElementById("chinese").disabled = true
     this.resize_textarea = throttle(this.resize_textarea, 100).bind(this)
     this.resize_textarea()
+    const src = this.element.parentNode.getAttribute("src")
+    document.getElementById("entry-edit")?.setAttribute("src", `${src}/edit`)
   }
 
   resize_textarea() {

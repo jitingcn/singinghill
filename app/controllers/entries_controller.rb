@@ -57,18 +57,25 @@ class EntriesController < ApplicationController
   def update
     # authorize! @entry
     previous_chinese = @entry.chinese
-    status_params = params.fetch(:entry, {}).permit(:status)
+    status_params = params.fetch(:entry).permit(:status)
+    status_update = false
     respond_to do |format|
-      if status_params && current_user.admin? && status_params["status"] != @entry.status
-        @entry.update(status_params)
-        audit! :update_entry, @entry, payload: { message: "条目状态更改为 #{@entry.status}" }
+      if status_params && status_params["status"] != @entry.status
+        if status_params["status"] == Entry.statuses.keys[-1] && !current_user.admin?
+          status_params = {}
+        else
+          status_update = true
+        end
       end
-      if previous_chinese == entry_params.fetch(:chinese)
+      if previous_chinese == entry_params.fetch(:chinese) && !status_update
         format.html { redirect_to @entry, notice: "" }
         format.json { render :show, status: :ok, location: @entry }
-      elsif @entry.update(entry_params.merge(user_id: current_user.id))
+      elsif @entry.update(entry_params.merge(status_params))
         if previous_chinese != @entry.chinese
-          audit! :update_entry, @entry, payload: entry_params.merge(previous_chinese: previous_chinese)
+          audit! :update_entry, @entry, payload: entry_params.permit(:chinese).merge(previous_chinese: previous_chinese)
+        end
+        if status_update
+          audit! :update_entry, @entry, payload: { message: "条目状态更改为 #{@entry.status}" }
         end
         format.html { redirect_to @entry, notice: "Entry was successfully updated." }
         format.json { render :show, status: :ok, location: @entry }
@@ -103,6 +110,6 @@ class EntriesController < ApplicationController
     params["entry"]["chinese"] = params["entry"]["chinese"].gsub(/(?<!\r)\n/, "\r\n")
                                                            .gsub(/\.\.\./, "…")
                                                            .strip
-    params.fetch(:entry, {}).permit(:chinese)
+    params.fetch(:entry, {}).merge(user_id: current_user.id).permit(:chinese, :user_id)
   end
 end
