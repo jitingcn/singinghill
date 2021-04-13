@@ -7,9 +7,11 @@ console.log('Vite ⚡️ Rails')
 import '~/stylesheets/application.css'
 
 import Rails from "@rails/ujs"
+try { Rails.start() } catch { }
 
 import "@hotwired/turbo-rails"
 import * as ActiveStorage from "@rails/activestorage"
+import LocalTime from 'local-time'
 import.meta.globEager('../channels/**/*_channel.js')
 // import 'trix'
 // import '@rails/actiontext'
@@ -20,6 +22,9 @@ import { Turbo, cable } from "@hotwired/turbo-rails"
 window.Turbo = Turbo
 import 'vite/dynamic-import-polyfill'
 
+ActiveStorage.start()
+LocalTime.start()
+
 import { Application } from 'stimulus'
 import { registerControllers } from 'stimulus-vite-helpers'
 
@@ -29,5 +34,9 @@ const componentsControllers = import.meta.globEager('../../components/**/*_contr
 registerControllers(application, controllers)
 registerControllers(application, componentsControllers)
 
-Rails.start()
-ActiveStorage.start()
+import StimulusReflex from 'stimulus_reflex'
+import consumer from '../channels/consumer'
+application.consumer = consumer
+import StimulusController from '../controllers/application_controller'
+StimulusReflex.initialize(application, { consumer, StimulusController, isolate: true })
+StimulusReflex.debug = import.meta.env.MODE === 'development'

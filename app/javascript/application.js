@@ -11,7 +11,8 @@ application.load(
     )
 )
 
-// async function loadBridgeControllers() {
-//   const { definitions } = await import(/* webpackChunkName: "bridge" */ "bridge")
-//   application.load(definitions)
-// }
+import StimulusReflex from 'stimulus_reflex'
+import consumer from 'channels/consumer'
+import controller from 'controllers/application_controller'
+StimulusReflex.initialize(application, { consumer, controller, isolate: true })
+StimulusReflex.debug = import.meta.env.MODE === 'development'

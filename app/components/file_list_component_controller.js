@@ -1,6 +1,6 @@
-import { Controller } from "stimulus"
+import ApplicationController from '~/controllers/application_controller'
 
-export default class extends Controller {
+export default class extends ApplicationController {
   static targets = [ "gotoFile" ]
   static values = { current: Number }
   activeClassList = [ "font-semibold", "text-blue-600", "dark:text-indigo-300" ]
