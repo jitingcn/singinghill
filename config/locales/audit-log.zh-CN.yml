@@ -1,0 +1,8 @@
+zh-CN:
+  audit_log:
+    action:
+      list_audit_log: "审计日志列表"
+      create_audit_log: "创建审计日志"
+      update_audit_log: "更新审计日志"
+      update_password: "更新密码"
+      update_entry: "更新条目"

@@ -81,3 +81,5 @@ gem "lograge", "~> 0.11.2"
 gem "config", "~> 3.0"
 
 gem "vite_rails", "~> 2.0"
+
+gem "rails-i18n", "~> 6.0.0"

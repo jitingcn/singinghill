@@ -11,7 +11,8 @@ module Singinghill
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
     config.hosts.append(*Settings.hosts)
-    config.i18n.default_locale = :zh
+    config.i18n.available_locales = [:en, "zh-CN"]
+    config.i18n.default_locale = "zh-CN"
 
     config.middleware.insert_after Rack::Sendfile, Rack::Brotli
     # Configuration for the application, engines, and railties goes here.
