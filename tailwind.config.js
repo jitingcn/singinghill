@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   mode: 'jit',
   purge: {
@@ -14,6 +16,9 @@ module.exports = {
   },
   darkMode: 'media', // or 'media' or 'class'
   theme: {
+    colors: {
+      ...colors,
+    },
     extend: {
       height: {},
       maxHeight: {

@@ -22,9 +22,12 @@
   <% end %>
 
   <div class="flex flex-row justify-between gap-2 text-sm mx-4 md:mx-2 dark:text-gray-200">
-    <label class="">文件直达</label>
-    <div><input type="number" maxlength=3 class="w-12 h-5 hidden-arrows rounded dark:bg-gray-500"
-                data-file-list-component-target="gotoFile" data-action="keydown->file-list-component#gotoKeyboard">.evd.txt</div>
+    <div class="">文件直达</div>
+    <label>
+      <input type="number" maxlength=3 class="w-12 h-5 p-0 hidden-arrows rounded dark:bg-gray-500"
+             data-file-list-component-target="gotoFile" data-action="keydown->file-list-component#gotoKeyboard">
+      .evd.txt
+    </label>
     <button class="rounded-md px-2 border-2 border-blue-300 hover:appearance-none dark:border-blue-500 bg-indigo-300 dark:bg-indigo-600 font-semibold"
             data-action="file-list-component#goto">GO</button>
   </div>

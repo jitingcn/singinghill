@@ -6,7 +6,7 @@ export default class extends ApplicationController {
   static values = {}
   activeElement
   nextElement
-  activeClassList = [ "font-semibold", "text-blue-600", "dark:text-indigo-300" ]
+  activeClassList = [ "font-semibold", "text-blue-700", "dark:text-indigo-300" ]
   url
   entry
 
@@ -53,7 +53,7 @@ export default class extends ApplicationController {
 
   next() {
     if (this.nextElement == null) {
-      const nextFile = document.querySelector("a.text-blue-600[data-turbo-frame='editor']").nextElementSibling
+      const nextFile = document.querySelector("a.text-blue-700[data-turbo-frame='editor']").nextElementSibling
       if (nextFile) nextFile.click()
       return
     }
