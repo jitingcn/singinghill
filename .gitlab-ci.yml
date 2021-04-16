@@ -15,4 +15,4 @@ production:
     - docker-compose up -d
     - docker exec singinghill_web rake clear_cache
   only:
-    - master
+    - production
