@@ -1,0 +1,30 @@
+stages:
+  - deploy
+.base:
+  before_script:
+    - docker-compose build
+    - docker-compose run --rm app bundle install
+testing:
+  extends: .base
+  stage: test
+  variables:
+    RAILS_ENV: test
+  script:
+    - docker-compose run --rm app rails db:reset
+    - docker-compose run --rm app rspec
+production:
+  stage: deploy
+  variables:
+    RAILS_ENV: production
+  before_script:
+    - cd /opt/singinghill
+    - git pull
+    - docker pull jiting/rails-base:builder-latest
+    - docker pull jiting/rails-base:production-latest
+  script:
+    - cd /opt/singinghill
+    - docker-compose build
+    - docker-compose up -d
+    - docker exec singinghill_web rake clear_cache
+  only:
+    - master
