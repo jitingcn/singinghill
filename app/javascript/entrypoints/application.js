@@ -40,3 +40,15 @@ application.consumer = consumer
 import StimulusController from '../controllers/application_controller'
 StimulusReflex.initialize(application, { consumer, StimulusController, isolate: true })
 StimulusReflex.debug = import.meta.env.MODE === 'development'
+
+window.addEventListener('load', () => {
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker.register('/service-worker.js', { scope: './' })
+      .then(function(reg) {
+        console.log('[Companion]', 'Service worker registered!');
+        console.log(reg);
+      }).catch(registrationError => {
+        console.log('Service worker registration failed: ', registrationError);
+      });
+  }
+})

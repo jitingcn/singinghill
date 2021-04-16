@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  # Service Worker Routes
+  get "/service-worker.js" => "service_worker#service_worker"
+  get "/manifest.json" => "service_worker#manifest"
+
   root "project_files#index"
   get "project_files/download", to: "project_files#download_all", as: :download_all_file
   resources :project_files do
@@ -26,5 +30,4 @@ Rails.application.routes.draw do
   authenticate :user, -> (u) { u.role == "admin" } do
     mount AuditLog::Engine => "/audit-log"
   end
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
