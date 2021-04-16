@@ -15,11 +15,20 @@ module.exports = {
     },
   },
   darkMode: 'media', // or 'media' or 'class'
+  variants: {
+    extend: {
+      backgroundColor: ['odd', 'even'],
+      margin: ['dark'],
+    }
+  },
   theme: {
     colors: {
       ...colors,
     },
     extend: {
+      fontFamily: {
+        'mono-cn': `'Sarasa Gothic SC', 'Source Code Pro','DejaVu Sans Mono','Ubuntu Mono','Anonymous Pro','Droid Sans Mono',Menlo,Monaco,Consolas,Inconsolata,Courier,monospace,'PingFang SC','Microsoft YaHei',sans-serif`,
+      },
       height: {},
       maxHeight: {
         '0': '0',
@@ -34,12 +43,6 @@ module.exports = {
         '-10': '-10',
       }
     },
-  },
-  variants: {
-    extend: {
-      backgroundColor: ['odd', 'even'],
-      margin: ['dark'],
-    }
   },
   plugins: [
     require('@tailwindcss/forms'),

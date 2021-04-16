@@ -4,6 +4,18 @@
 
 @import "./actiontext.css";
 
+@layer base {
+  :root {
+    @apply font-sans;
+  }
+}
+
+@layer components {
+  .font-cn {
+    @apply font-mono-cn subpixel-antialiased;
+  }
+}
+
 @supports ((position: -webkit-sticky) or (position:sticky)) {
   .sticky\?\:h-screen {
     height:100vh!important

@@ -8,7 +8,7 @@
   <div id="entry_list_body" class="flex flex-col h-60 overflow-auto resize-vertical gap-y-1">
     <% cache entries do %>
       <% entries.each do |entry| %>
-        <%= render partial: 'entries/entry_list_item', locals: { entry: entry } %>
+        <%= render EntryListItemComponent.new(entry) %>
       <% end %>
     <% end %>
   </div>

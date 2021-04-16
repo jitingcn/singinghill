@@ -1,5 +1,5 @@
 <%= form_for @entry, data: { "turbo-frame": "entry-details", "controller": "entry-form" },
-             class: "flex flex-col" do |form| %>
+             html: { class: "flex flex-col" } do |form| %>
   <% if @entry.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
@@ -24,7 +24,7 @@
           <% end %>
           <% cache @nouns do %>
             <% @nouns.each do |noun| %>
-              <div class="">
+              <div class="font-cn">
                 <span class=""><%= noun[0] %></span> -> <span class=""><%= noun[1] %></span>
               </div>
             <% end %>
@@ -37,7 +37,7 @@
       <%= form.label :chinese, "中文翻译" %>
       <div class="h-32">
         <%= form.text_area :chinese,
-                           class: "w-full h-full rounded border-1 border-blue-400 hover:border-blue-400 dark:bg-gray-600 p-1",
+                           class: "w-full h-full rounded border-1 border-blue-400 hover:border-blue-400 dark:bg-gray-600 p-1 font-cn",
                            disable: "#{current_user.nil? ? 'true' : 'false'}" %>
       </div>
       <% unless current_user.nil? %>
