@@ -1,17 +1,5 @@
 stages:
   - deploy
-.base:
-  before_script:
-    - docker-compose build
-    - docker-compose run --rm app bundle install
-testing:
-  extends: .base
-  stage: test
-  variables:
-    RAILS_ENV: test
-  script:
-    - docker-compose run --rm app rails db:reset
-    - docker-compose run --rm app rspec
 production:
   stage: deploy
   variables:
