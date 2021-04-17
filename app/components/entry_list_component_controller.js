@@ -17,20 +17,28 @@ export default class extends ApplicationController {
 
     if (this.entry == null) {
       let id = this.element.querySelectorAll('[id^=entry_list_item]')?.[0]?.id.match(/(\d+)/)?.[0]
-      document.getElementById("entry-details")?.setAttribute("src", `/entries/${id}`)
-      document.getElementById("entry-edit")?.setAttribute("src", `/entries/${id}/edit`)
       this.activeElement = this.element.querySelectorAll('[id^=entry_list_item]')?.[0]
       this.activeElement?.classList.add(...this.activeClassList)
       this.nextElement = this.activeElement.nextElementSibling
+      if (this.entry != null) return
+
       this.url.searchParams.set("entry", id)
       window.history.pushState('','', this.url)
       return
     }
 
     const id = `entry_list_item_${this.entry}`
-    document.getElementById("entry-details")?.setAttribute("src", `/entries/${this.entry}`)
-    document.getElementById("entry-edit")?.setAttribute("src", `/entries/${this.entry}/edit`)
     this.activeElement = document.getElementById(id)
+    if (this.activeElement == null) {
+      let id = this.element.querySelectorAll('[id^=entry_list_item]')?.[0]?.id.match(/(\d+)/)?.[0]
+      this.activeElement = this.element.querySelectorAll('[id^=entry_list_item]')?.[0]
+      this.activeElement?.classList.add(...this.activeClassList)
+      this.nextElement = this.activeElement.nextElementSibling
+
+      this.url.searchParams.set("entry", id)
+      window.history.pushState('','', this.url)
+      return
+    }
     this.activeElement?.classList.add(...this.activeClassList)
     this.activeElement.scrollIntoView({behavior: "auto", block: "center"})
     this.nextElement = this.activeElement.nextElementSibling

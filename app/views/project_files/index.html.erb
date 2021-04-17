@@ -1,8 +1,2 @@
-<%= render(FileListComponent.new(@project_files, @progress)) %>
-
-<div class="bg-gray-200 flex flex-auto">
-  <turbo-frame id="editor" class="bg-green-200 flex flex-col">
-  </turbo-frame>
-  <div id="hint" class="flex-grow bg-gray-200"></div>
-</div>
-
+<%= render(FileListComponent.new(@project_files, @progress, file_id: @file_id,
+                                 page: @page, total_pages: @total_pages)) %>

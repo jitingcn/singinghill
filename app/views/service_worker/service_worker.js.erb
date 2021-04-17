@@ -6,7 +6,9 @@ function onInstall(event) {
   event.waitUntil(
       caches.open(CACHE_NAME).then(function prefill(cache) {
         return cache.addAll([
-          '<%= vite_asset_path 'application.js' %>',
+          '<%= vite_asset_path "application.js" %>',
+          '<%= vite_asset_path "application.css" %>',
+          '/offline.html',
         ]);
       })
   );

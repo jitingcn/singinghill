@@ -6,28 +6,39 @@ class ProjectFilesController < ApplicationController
 
   # GET /project_files or /project_files.json
   def index
-    # @project_files = ProjectFile.all
-    respond_to do |format|
-      format.turbo_stream { redirect_to ProjectFile.first }
-      format.html { redirect_to ProjectFile.first }
-      format.json { render :index }
-    end
+    @file_id = params[:file_id] ? params[:file_id].to_i : ProjectFile.first&.id
+    @page = if @file_id
+              params[:page] ? params[:page].to_i : (@file_id / (ITEMS_PER_PAGE + 0.1)).to_i
+            else
+              params[:page] ? params[:page].to_i : 0
+            end
+    @total_pages = ProjectFile.count / ITEMS_PER_PAGE
+    @project_files = ProjectFile.order(:id)
+                                .limit(ITEMS_PER_PAGE)
+                                .offset(@page * ITEMS_PER_PAGE)
   end
 
   # GET /project_files/1 or /project_files/1.json
   def show
+    @file_id = @project_file.id
+    @entries = @project_file.entries.order(:index)
+
+    if params[:entry] && @file_id == (entry = Entry.find_by(id: params.fetch(:entry)))&.project_file_id
+      @entry = entry
+    end
+
     if @project_file.nil?
       render file: "public/404.html", status: :not_found, layout: false
       return
     end
 
-    @file_id = @project_file.id
+    @entry ||= @entries.first
+
     @page = params[:page] ? params[:page].to_i : (@file_id / (ITEMS_PER_PAGE + 0.1)).to_i
     @total_pages = ProjectFile.count / ITEMS_PER_PAGE
     @project_files = ProjectFile.order(:id)
                                 .limit(ITEMS_PER_PAGE)
                                 .offset(@page * ITEMS_PER_PAGE)
-    @entries = @project_file.entries.order(:index)
     redirect_to @project_file if @filename
   end
 

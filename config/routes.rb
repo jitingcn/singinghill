@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  root to: "home#index"
+
   # Service Worker Routes
   get "/service-worker.js" => "service_worker#service_worker"
   get "/manifest.json" => "service_worker#manifest"
+  get "/offline.html" => "service_worker#offline"
 
-  root "project_files#index"
   get "project_files/download", to: "project_files#download_all", as: :download_all_file
   resources :project_files do
     get "output", to: "project_files#output", as: :output
