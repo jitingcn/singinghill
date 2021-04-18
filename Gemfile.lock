@@ -1,6 +1,17 @@
 GIT
+  remote: https://github.com/heartcombo/devise.git
+  revision: 5d5636f03ac19e8188d99c044d4b5e90124313af
+  specs:
+    devise (4.7.3)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
+
+GIT
   remote: https://github.com/hopsoft/stimulus_reflex.git
-  revision: 48fb00c991681d355c347d13cac8573b69fce27b
+  revision: f13a9a88b105296b56d2c0b464c5a1f241b2fa02
   branch: master
   specs:
     stimulus_reflex (3.4.1)
@@ -11,12 +22,12 @@ GIT
       redis
 
 GIT
-  remote: https://github.com/kwent/omniauth-gitlab.git
-  revision: bee5f3e398bc51981ea10ee44127f653687e8d50
+  remote: https://github.com/jitingcn/madmin.git
+  revision: 674ac81ff649643a8e3d381d60e23162fa60c221
   specs:
-    omniauth-gitlab (2.0.0)
-      omniauth (~> 1.0)
-      omniauth-oauth2 (~> 1.0)
+    madmin (1.0.2)
+      pagy (>= 4.0)
+      rails (>= 6.0.3)
 
 GEM
   remote: https://rubygems.org/
@@ -109,17 +120,12 @@ GEM
     childprocess (3.0.0)
     coderay (1.1.3)
     concurrent-ruby (1.1.8)
-    config (3.0.0)
+    config (3.1.0)
       deep_merge (~> 1.2, >= 1.2.1)
       dry-validation (~> 1.0, >= 1.0.0)
+    connection_pool (2.2.5)
     crass (1.0.6)
     deep_merge (1.2.1)
-    devise (4.7.3)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
-      responders
-      warden (~> 1.2.3)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
@@ -137,10 +143,10 @@ GEM
     dry-equalizer (0.3.0)
     dry-inflector (0.2.0)
     dry-initializer (3.0.4)
-    dry-logic (1.1.0)
+    dry-logic (1.1.1)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.5, >= 0.5)
-    dry-schema (1.6.1)
+    dry-schema (1.6.2)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.8, >= 0.8.3)
       dry-core (~> 0.5, >= 0.5)
@@ -161,13 +167,19 @@ GEM
       dry-initializer (~> 3.0)
       dry-schema (~> 1.5, >= 1.5.2)
     erubi (1.10.0)
-    faraday (1.3.0)
+    excon (0.80.1)
+    faraday (1.4.0)
+      faraday-excon (~> 1.0)
       faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.0)
       multipart-post (>= 1.2, < 3)
-      ruby2_keywords
+      ruby2_keywords (>= 0.0.4)
+    faraday-excon (1.0.0)
+      excon (>= 0.27.4)
     faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.0.3)
+      net-http-persistent (>= 3.1)
     ffi (1.15.0)
-    git-version-bump (0.17.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashie (4.1.0)
@@ -203,9 +215,6 @@ GEM
     loofah (2.9.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    madmin (1.0.2)
-      pagy (>= 3.5, < 4.0)
-      rails (>= 6.0.3)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (1.0.1)
@@ -216,6 +225,8 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
+    net-http-persistent (4.0.1)
+      connection_pool (~> 2.2)
     nio4r (2.5.7)
     nokogiri (1.11.3-x86_64-linux)
       racc (~> 1.4)
@@ -225,19 +236,26 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    omniauth (1.9.1)
+    omniauth (2.0.4)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
+      rack-protection
+    omniauth-gitlab (3.0.0)
+      omniauth (~> 2.0)
+      omniauth-oauth2 (~> 1.7.1)
     omniauth-oauth2 (1.7.1)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
+    omniauth-rails_csrf_protection (1.0.0)
+      actionpack (>= 4.2)
+      omniauth (~> 2.0)
     orm_adapter (0.5.0)
-    pagy (3.12.0)
+    pagy (4.2.0)
     parallel (1.20.1)
     parser (3.0.1.0)
       ast (~> 2.4.1)
     pg (1.2.3)
-    pry (0.14.0)
+    pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.6)
@@ -245,12 +263,13 @@ GEM
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
-    rack-brotli (1.0.0)
+    rack-brotli (1.1.0)
       brotli (>= 0.1.7)
-      git-version-bump (>= 0.15)
       rack (>= 1.4)
     rack-mini-profiler (2.3.1)
       rack (>= 1.2.0)
+    rack-protection (2.1.0)
+      rack
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -351,10 +370,10 @@ GEM
     unicode-display_width (2.0.0)
     view_component (2.30.0)
       activesupport (>= 5.0.0, < 7.0)
-    vite_rails (2.0.8)
+    vite_rails (2.0.9)
       railties (>= 5.1, < 8)
       vite_ruby (~> 1.0)
-    vite_ruby (1.2.2)
+    vite_ruby (1.2.3)
       dry-cli (~> 0.6)
       rack-proxy (~> 0.6, >= 0.6.1)
       zeitwerk (~> 2.2)
@@ -386,14 +405,15 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   config (~> 3.0)
-  devise (~> 4.7)
+  devise!
   dotenv-rails
   hotwire-rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
   lograge (~> 0.11.2)
-  madmin (~> 1.0)
-  omniauth-gitlab!
+  madmin (~> 1.0)!
+  omniauth-gitlab
+  omniauth-rails_csrf_protection
   pg (~> 1.1)
   pry
   puma (~> 5.0)

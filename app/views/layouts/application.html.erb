@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>SingingHill</title>
+    <title><%= full_title(yield(:title)) %></title>
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#66ccff"/>
+    <link rel="icon" sizes="512x512" href="/icon-512x512.png">
+    <link rel="apple-touch-icon" href="/icon-192x192.png">
+    <meta name="theme-color" content="#57507D"/>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="歌颂之丘 - 魔塔大陆汉化协作站 | By寂听 使用Rails构建">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
@@ -12,32 +15,40 @@
     <%#= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %>
     <%#= stylesheet_pack_tag "application", "data-turbo-track": "reload" %>
     <%= vite_client_tag %>
-    <%= vite_javascript_tag 'application' %>
+    <%= vite_javascript_tag 'application', "data-turbo-track": "reload", media: "all" %>
   </head>
-  <body>
-    <div class="">
+  <body class="">
+    <div class="h-full w-full">
       <%#= turbo_frame_tag "flash", class: "z-60 absolute top-8 right-4" do %>
         <%#= render "shared/flash" %>
       <%# end %>
-      <header class="sticky top-0 z-40 lg:z-50 w-full max-w-8xl h-12 mx-auto bg-gray-100 dark:bg-gray-700 flex-none flex flex-row px-4 py-2 items-center justify-between">
-        <div id="logo" class="w-[22] h-6 rounded-full text-gray-700 dark:text-gray-200 font-bold">SingingHill</div>
+      <nav class="sticky top-0 z-40 lg:z-50 w-full max-w-8xl h-12 mx-auto bg-gray-100 dark:bg-gray-700 flex-none flex flex-row px-4 py-2 items-center justify-between">
+        <a href="<%= root_path %>" id="logo" class="w-[22] h-6 rounded-full text-gray-700 dark:text-gray-200 font-bold"><%= t("SingingHill") %></a>
+        <div class="navbar-item" data-controller="service-worker">
+          <%= image_tag "cloud-check.svg", width: "23px", height: "23px", alt: "Webpage saved for offline use", data: { 'service-worker-target':"pageSavedNotice" }, class: "hidden" %>
+          <%= image_tag "cloud-download.svg", width: "23px", height: "23px", alt: "Saving webpage for offline use", data: { 'service-worker-target':"savingPageNotice" }, class: "" %>
+        </div>
         <%= turbo_frame_tag "flash", class: "dark:text-gray-200 min-w-8 hidden sm:block" do %>
           <%= render "shared/flash" %>
         <% end %>
-        <%= render "entries/total_progress" %>
+        <% if controller.controller_name == "project_files" %>
+          <%= render "entries/total_progress" %>
+        <% end %>
         <div class="flex flex-row gap-x-3 items-center justify-center">
           <% if user_signed_in? %>
             <div class="dark:text-gray-200"><%= current_user.name %></div>
             <%= link_to "退出", destroy_user_session_path,
-                        class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-red-400 dark:bg-gray-600 dark:text-gray-200 text-center tracking-wide", method: :delete %>
+                        class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-red-400 appearance-none focus:outline-none focus:ring-2 focus:ring-red-600 dark:bg-gray-600 dark:text-gray-200 focus:dark:ring-gray-400 text-center tracking-wide",
+                        method: :delete %>
           <% else %>
-            <%= link_to "登录", user_gitlab_omniauth_authorize_path,
-                        class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-gray-300 dark:bg-indigo-600 dark:text-gray-200 text-center tracking-wide" %>
+            <%= button_to "登录", user_gitlab_omniauth_authorize_path,
+                        class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-gray-300 appearance-none focus:outline-none focus:ring-2 focus:ring-gray-600 dark:bg-indigo-600 dark:text-gray-200 focus:dark:ring-indigo-400 text-center tracking-wide",
+                        "data-turbo": "false" %>
           <% end %>
         </div>
-      </header>
+      </nav>
 <!--      <main class="w-full h-5/6 flex flex-row flex-auto">-->
-      <main class="w-full max-w-8xl mx-auto dark:bg-gray-800">
+      <main class="w-full min-h-screen-12 max-w-8xl mx-auto dark:bg-gray-800">
           <%= yield %>
       </main>
     </div>

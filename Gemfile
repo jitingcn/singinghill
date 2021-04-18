@@ -58,7 +58,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "devise", "~> 4.7"
+gem "devise", github: "heartcombo/devise"
 
 gem "hotwire-rails"
 
@@ -66,7 +66,7 @@ gem "tailwindcss-rails", "~> 0.3.3"
 
 gem "view_component", require: "view_component/engine"
 
-gem "omniauth-gitlab", github: "kwent/omniauth-gitlab"
+gem "omniauth-gitlab"
 
 gem "rack-brotli"
 
@@ -86,4 +86,6 @@ gem "rails-i18n", "~> 6.0.0"
 
 gem "stimulus_reflex", github: "hopsoft/stimulus_reflex", branch: "master"
 
-gem "madmin", "~> 1.0"
+gem "madmin", "~> 1.0", github: "jitingcn/madmin"
+
+gem "omniauth-rails_csrf_protection"

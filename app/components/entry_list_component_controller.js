@@ -48,7 +48,7 @@ export default class extends ApplicationController {
     const id = event.currentTarget.id.match(/(\d+)/)?.[0]
     this.url.searchParams.set("entry", id)
     window.history.pushState('','', this.url)
-    document.getElementById("entry-edit")?.setAttribute("src", `/entries/${id}/edit`)
+    // document.getElementById("entry-edit")?.setAttribute("src", `/entries/${id}/edit`)
 
     if (this.activeElement != null) {
       this.activeElement.classList.remove(...this.activeClassList)

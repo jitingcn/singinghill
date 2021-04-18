@@ -8,12 +8,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :omniauthable, omniauth_providers: %i[gitlab]
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth["extra"]["raw_info"]["user"]["id"]).first_or_create do |user|
+    where(provider: auth.provider, uid: auth["uid"]).first_or_create do |user|
       user.provider = auth.provider
-      user.nickname = auth["extra"]["raw_info"]["user"]["username"]
-      user.uid = auth["extra"]["raw_info"]["user"]["id"]
-      user.email = auth["extra"]["raw_info"]["user"]["email"]
+      user.nickname = auth["info"]["username"]
+      user.uid = auth["uid"]
+      user.email = auth["info"]["email"]
       user.password = Devise.friendly_token[0, 20]
+      user.role = "admin" if auth["extra"]["raw_info"]["is_admin"] == true
     end
   end
 

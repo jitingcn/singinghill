@@ -9,8 +9,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.from_omniauth(request.env["omniauth.auth"])
     audit! :oauth_gitlab, @user, payload: request.env["omniauth.auth"]
     if @user.persisted?
-      sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: "GitLab") if is_navigational_format?
+      sign_in_and_redirect @user, event: :authentication
     else
       session["devise.gitlab_data"] = request.env["omniauth.auth"].except(:extra) # Removing extra as it can overflow some session stores
     end

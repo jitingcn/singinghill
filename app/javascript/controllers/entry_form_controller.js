@@ -1,4 +1,5 @@
 import ApplicationController from './application_controller'
+import { throttle } from "lodash"
 
 export default class extends ApplicationController {
   connect() {
@@ -7,14 +8,20 @@ export default class extends ApplicationController {
     if (isMobile) return  // disable auto focus and hotkey feature for mobile device
 
     this.element.querySelector('textarea').focus()
-    this.element.querySelector('textarea').addEventListener('keydown', function(event) {
-      if ((event.ctrlKey || event.metaKey) && (event.keyCode === 13 || event.keyCode === 10)) {
-        document.querySelector("[submitID]").click()
-        new MutationObserver((mutations, observer) => {
-          document.getElementById("entry-list-next").click()
-          observer.disconnect()
-        }).observe(document.getElementById("entry-details"), {subtree: true, childList: true});
-      }
-    })
+    this.keydown = throttle(this.keydown, 500, { 'leading': false }).bind(this)
+  }
+
+  keydown(event) {
+    console.log(event)
+    if (event.target.hasAttribute("loading")) return
+
+    if ((event.ctrlKey || event.metaKey) && (event.keyCode === 13 || event.keyCode === 10)) {
+      event.target.setAttribute("loading", '')
+      document.querySelector("[submitID]").click()
+      new MutationObserver((mutations, observer) => {
+        document.getElementById("entry-list-next").click()
+        observer.disconnect()
+      }).observe(document.getElementById("entry-details"), {subtree: true, childList: true});
+    }
   }
 }

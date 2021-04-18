@@ -1,3 +1,5 @@
+<% content_for :title, @project_file.name %>
+
 <div class="lg:flex" x-data="{ file_list: 'close' }">
   <%= turbo_stream_from "main-app" %>
 
