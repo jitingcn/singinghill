@@ -29,7 +29,30 @@ Rails.application.routes.draw do
       get "sign_out", to: "users/sessions#destroy", as: :destroy_user_session
     end
   end
-  authenticate :user, -> (u) { u.role == "admin" } do
+  authenticate :user, ->(u) { u.role == "admin" } do
     mount AuditLog::Engine => "/audit-log"
+    namespace :madmin do
+      resources :nouns
+      resources :users
+      resources :entries
+      resources :narrators
+      resources :project_files
+      namespace :active_storage do
+        resources :variant_records
+      end
+      namespace :active_storage do
+        resources :blobs
+      end
+      namespace :audit_log do
+        resources :logs
+      end
+      namespace :action_text do
+        resources :rich_texts
+      end
+      namespace :active_storage do
+        resources :attachments
+      end
+      root to: "dashboard#show"
+    end
   end
 end

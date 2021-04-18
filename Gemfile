@@ -85,3 +85,5 @@ gem "vite_rails", "~> 2.0"
 gem "rails-i18n", "~> 6.0.0"
 
 gem "stimulus_reflex", github: "hopsoft/stimulus_reflex", branch: "master"
+
+gem "madmin", "~> 1.0"
