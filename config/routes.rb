@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "/offline.html" => "service_worker#offline"
 
   get "project_files/download", to: "project_files#download_all", as: :download_all_file
+  get "project_files/goto/:name", to: "project_files#goto", constraints: { name: /.+?(?:json)?/ }
   resources :project_files do
     get "output", to: "project_files#output", as: :output
     post "batch", to: "project_files#batch_update_entry", as: :batch_update_entry

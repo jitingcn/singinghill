@@ -42,6 +42,23 @@ class ProjectFilesController < ApplicationController
     redirect_to @project_file if @filename
   end
 
+  # goto file with name
+  # # GET /projects_files/goto/{file_name}
+  def goto
+    name = params.permit(:name).fetch(:name)
+    @project_files = ProjectFile.where("name LIKE ?", "%#{name}%").limit(10)
+    respond_to do |format|
+      @project_file = @project_files.find_by_name(name)
+      if @project_file
+        format.html { redirect_to @project_file }
+        format.json { render :show, status: :ok, location: @project_file }
+      else
+        format.html { render :index, status: :unprocessable_entity }
+        format.json { render json: @project_files.pluck(:id, :name).as_json }
+      end
+    end
+  end
+
   # download single file
   # GET /projects_files/1/output
   def output

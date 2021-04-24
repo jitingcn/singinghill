@@ -23,19 +23,26 @@ export default class extends ApplicationController {
     document.getElementById(`project_file_${this.currentValue}`)?.scrollIntoView({behavior: "smooth", block: "center"})
   }
 
-  goto(event) {
+  async goto(event) {
     event?.preventDefault()
     const file_id = this.gotoFileTarget.value
     if (file_id === '') return
-    const url = new URL(window.location.href)
-    url.search = ""
-    url.searchParams.set("filename", `${file_id}.evd.txt`)
-    window.location.href = url
+
+    let response = await fetch(`/project_files/goto/${file_id}.evd.txt.json`)
+    if (response.status === 200) {
+      let data = await response.json()
+      if (data.url === undefined) return -1
+
+      window.location.href = data.url.replace(/\.json$/, '')
+    }
   }
 
-  gotoKeyboard(event) {
+  async gotoKeyboard(event) {
     if (event.keyCode === 13) {
-      this.goto()
+      let ret = await this.goto()
+      if (ret === -1) {
+        event.target.value = ""
+      }
     }
   }
 }
