@@ -62,9 +62,9 @@ class ProjectFilesController < ApplicationController
         end
       end
       file_list = `ls -1d #{dir}/*`.split.join(" ")
-      file = "#{Rails.root}/storage/ProjectFile_#{Time.now.to_i}.zip"
+      file = "#{Rails.root}/public/tmp/ProjectFile_#{Time.now.to_i}.zip"
       `zip -9 -j #{file} #{file_list}`
-      send_file(file)
+      redirect_to file.remove("#{Rails.root}/public"), layout: false
     ensure
       RemoveTmpDirJob.perform_later(dir)
       RemoveTmpDirJob.set(wait: 10.minutes).perform_later(file)
