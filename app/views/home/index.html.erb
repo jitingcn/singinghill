@@ -1,4 +1,7 @@
 <div class="flex flex-col w-full h-screen-12 justify-center items-center dark:text-gray-50">
   <div class="mx-auto my-4 text-2xl">首页施工中</div>
-  <a class="text-blue-800 dark:text-blue-300" href="<%= project_files_path %>">EVD文件列表</a>
+  <%= link_to "EVD文件列表", project_files_path, class: "text-blue-800 dark:text-blue-300" %>
+  <% if current_user&.admin? %>
+    <%= link_to "admin panel", madmin_root_path, class: "text-blue-800 dark:text-blue-300" %>
+  <% end %>
 </div>
