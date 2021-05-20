@@ -1,6 +1,7 @@
 <span id="project_file_<%= @project_file.id %>_progress" class="inline-flex flex-row justify-between gap-1 text-center">
-  <div class="w-8"><%= @project_file.progress[:empty] %></div>
-  <div class="w-8"><%= @project_file.progress[:draft] %></div>
-  <div class="w-8"><%= @project_file.progress[:proofreading] %></div>
-  <div class="w-8"><%= @project_file.progress[:finished] %></div>
+  <% progress = @project_file.progress %>
+  <div class="w-8"><%= progress[:empty] %></div>
+  <div class="w-8"><%= progress[:draft] %></div>
+  <div class="w-8"><%= progress[:proofreading] %></div>
+  <div class="w-8"><%= progress[:finished] %></div>
 </span>

@@ -26,7 +26,7 @@
 
   <div id="content-wrapper" class="min-w-0 w-full flex-auto lg:static lg:max-h-full lg:overflow-visible"
        :class="{ 'overflow-hidden max-h-screen fixed': file_list === 'open' }">
-    <turbo-frame id="editor" class="pt-2 flex flex-col flex-auto gap-2" data-controller="editor">
+    <turbo-frame id="editor" class="pt-2 flex flex-col flex-auto space-y-2" data-controller="editor">
       <% if current_user.nil? %>
         <%= render(LoginPromptComponent.new) %>
       <% end %>
