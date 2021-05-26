@@ -1,0 +1,2 @@
+class NightConversation < ProjectFile
+end

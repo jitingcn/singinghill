@@ -6,14 +6,14 @@ class ProjectFilesController < ApplicationController
 
   # GET /project_files or /project_files.json
   def index
-    @file_id = params[:file_id] ? params[:file_id].to_i : ProjectFile.first&.id
+    @file_id = params[:file_id] ? params[:file_id].to_i : project_file_type.first&.id
     @page = if @file_id
               params[:page] ? params[:page].to_i : (@file_id / (ITEMS_PER_PAGE + 0.1)).to_i
             else
               params[:page] ? params[:page].to_i : 0
             end
-    @total_pages = ProjectFile.count / ITEMS_PER_PAGE
-    @project_files = ProjectFile.order(:id)
+    @total_pages = project_file_type.count / ITEMS_PER_PAGE
+    @project_files = project_file_type.order(:id)
                                 .limit(ITEMS_PER_PAGE)
                                 .offset(@page * ITEMS_PER_PAGE)
   end
@@ -35,10 +35,10 @@ class ProjectFilesController < ApplicationController
     @entry ||= @entries.first
 
     @page = params[:page] ? params[:page].to_i : (@file_id / (ITEMS_PER_PAGE + 0.1)).to_i
-    @total_pages = ProjectFile.count / ITEMS_PER_PAGE
-    @project_files = ProjectFile.order(:id)
-                                .limit(ITEMS_PER_PAGE)
-                                .offset(@page * ITEMS_PER_PAGE)
+    @total_pages = project_file_type.count / ITEMS_PER_PAGE
+    @project_files = project_file_type.order(:id)
+                                      .limit(ITEMS_PER_PAGE)
+                                      .offset(@page * ITEMS_PER_PAGE)
     redirect_to @project_file if @filename
   end
 
@@ -46,7 +46,7 @@ class ProjectFilesController < ApplicationController
   # # GET /projects_files/goto/{file_name}
   def goto
     name = params.permit(:name).fetch(:name)
-    @project_files = ProjectFile.where("name LIKE ?", "%#{name}%").limit(10)
+    @project_files = project_file_type.where("name LIKE ?", "%#{name}%").limit(10)
     respond_to do |format|
       @project_file = @project_files.find_by_name(name)
       if @project_file
@@ -62,8 +62,8 @@ class ProjectFilesController < ApplicationController
   # download single file
   # GET /projects_files/1/output
   def output
-    @project_file = ProjectFile.find(params[:project_file_id])
-    send_data(@project_file.to_evdtxt, filename: @project_file.name)
+    @project_file = project_file_type.find(params[:project_file_id])
+    send_data(@project_file.to_txt, filename: @project_file.name)
   end
 
   # download all project file
@@ -71,11 +71,11 @@ class ProjectFilesController < ApplicationController
   def download_all
     dir = Dir.mktmpdir("ProjectFile_")
     begin
-      ProjectFile.all.order(:id).each do |project_file|
+      project_file_type.all.order(:id).each do |project_file|
         next if project_file.entries.order(:index).where.not(chinese: "").count.zero?
 
         File.open("#{dir}/#{project_file.name}", "w", encoding: "UTF-8") do |file|
-          file.write(project_file.to_evdtxt)
+          file.write(project_file.to_txt)
         end
       end
       file_list = `ls -1d #{dir}/*`.split.join(" ")
@@ -90,7 +90,7 @@ class ProjectFilesController < ApplicationController
 
   # POST /project_files/1/batch or /project_files/1/batch.json
   def batch_update_entry
-    @project_file = ProjectFile.find(params[:project_file_id])
+    @project_file = project_file_type.find(params[:project_file_id])
     @status = (params.fetch(:status)[0] if current_user.admin?) || nil
     return render file: "public/404.html", status: :not_found, layout: false if @project_file.nil?
 
@@ -194,14 +194,22 @@ class ProjectFilesController < ApplicationController
   def set_project_file
     if params[:filename]&.match(/\d+.evd.txt/)
       @filename = params[:filename].match(/\d+.evd.txt/)[0]
-      return @project_file = ProjectFile.find_by(name: @filename)
+      return @project_file = project_file_type.find_by(name: @filename)
     end
 
-    @project_file = ProjectFile.find(params[:id])
+    @project_file = project_file_type.find(params[:id])
   end
 
     # Only allow a list of trusted parameters through.
   def project_file_params
     params.fetch(:project_file, {})
+  end
+
+  def project_file_types
+    %w[ProjectFile NightConversation GrathmeldConversation]
+  end
+
+  def project_file_type
+    params[:type].constantize if params[:type].in? project_file_types
   end
 end

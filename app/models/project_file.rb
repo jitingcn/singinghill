@@ -3,10 +3,13 @@ class ProjectFile < ApplicationRecord
   has_many :entries
 
   after_update_commit do
-    broadcast_replace_to "main-app", target: "project_file_#{id}_progress", partial: "project_files/progress", local: { project_file: self }
+    broadcast_replace_to "main-app",
+                         target: "project_file_#{id}_progress",
+                         partial: "project_files/progress",
+                         locals: { project_file: self.class != ProjectFile ? self.becomes(ProjectFile) : self }
   end
 
-  def to_evdtxt
+  def to_txt
     entries.order(:index).map do |entry|
       entry.prefix + entry.text
     end.join("\n\n").concat("\n")

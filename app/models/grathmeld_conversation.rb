@@ -1,0 +1,3 @@
+class GrathmeldConversation < ProjectFile
+end
+
