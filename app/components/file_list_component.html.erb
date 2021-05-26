@@ -34,7 +34,7 @@
   <div id="file_list_nav" class="ml-4 w-80 flex text-sm my-2 items-center justify-between rounded-md lg:w-auto lg:ml-0 dark:text-gray-200" total_pages="<%= @total_pages + 1 %>">
     <div class="w-32 h-8 flex">
       <% unless @page <= 0 %>
-        <%= link_to "上一页", "/#{params["type"].underscore || "project_files" }?page=#{@page-1}",
+        <%= link_to "上一页", "/#{params["type"].underscore == "project_file" ? params["type"].underscore : "project_files"}?page=#{@page-1}",
                     class: "border-2 border-blue-300 hover:bg-blue-500 hover:text-white rounded-md py-1 px-2",
                     data: { "turbo-frame": "file_list" } %>
       <% end %>
@@ -46,7 +46,7 @@
     </div>
     <div class="w-32 h-8 flex">
       <% unless @page + 1 > @total_pages %>
-        <%= link_to "下一页", "/#{params["type"].underscore || "project_files" }?page=#{@page+1}",
+        <%= link_to "下一页", "/#{params["type"].underscore == "project_file" ? params["type"].underscore : "project_files"}?page=#{@page+1}",
                     class: "border-2 border-blue-300 hover:bg-blue-500 hover:text-white rounded-md py-1 px-2",
                     data: { "turbo-frame": "file_list" } %>
       <% end %>
