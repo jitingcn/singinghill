@@ -1,4 +1,5 @@
 class ProjectFile < ApplicationRecord
+  default_scope -> { order("id") }
   enum status: { working: 0, done: 1 }
   has_many :entries
 
@@ -23,5 +24,16 @@ class ProjectFile < ApplicationRecord
     proofreading = status.fetch("accept", 0) + status.fetch("double_check", 0) + status.fetch("final_check", 0)
     finished = status.fetch("finished", 0)
     { filename: name, empty: empty, draft: draft, proofreading: proofreading, finished: finished }
+  end
+
+  def page_num(options = {})
+    column = options[:by] || :id
+    order  = options[:order] || :asc
+    per    = options[:per] || self.class.default_per_page
+
+    operator = (order == :asc ? "<=" : ">=")
+    (self.class
+         .where("#{column} #{operator} ?", read_attribute(column))
+         .order("#{column} #{order}").count.to_f / per).ceil
   end
 end

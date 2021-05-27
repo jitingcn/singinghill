@@ -402,6 +402,7 @@ DEPENDENCIES
   dotenv-rails
   hotwire-rails
   jbuilder (~> 2.7)
+  kaminari
   listen (~> 3.3)
   lograge (~> 0.11.2)
   madmin (~> 1.0)!

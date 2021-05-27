@@ -89,3 +89,5 @@ gem "stimulus_reflex", github: "hopsoft/stimulus_reflex", branch: "master"
 gem "madmin", "~> 1.0", github: "jitingcn/madmin"
 
 gem "omniauth-rails_csrf_protection"
+
+gem "kaminari"

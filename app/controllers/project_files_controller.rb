@@ -1,5 +1,3 @@
-ITEMS_PER_PAGE ||= 40
-
 class ProjectFilesController < ApplicationController
   before_action :authenticate_user!, only: %i[download_all batch_update_entry edit update]
   before_action :set_project_file, only: %i[show edit update destroy]
@@ -7,15 +5,9 @@ class ProjectFilesController < ApplicationController
   # GET /project_files or /project_files.json
   def index
     @file_id = params[:file_id] ? params[:file_id].to_i : project_file_type.first&.id
-    @page = if @file_id
-              params[:page] ? params[:page].to_i : (@file_id / (ITEMS_PER_PAGE + 0.1)).to_i
-            else
-              params[:page] ? params[:page].to_i : 0
-            end
-    @total_pages = project_file_type.count / ITEMS_PER_PAGE
-    @project_files = project_file_type.order(:id)
-                                .limit(ITEMS_PER_PAGE)
-                                .offset(@page * ITEMS_PER_PAGE)
+    @page = params[:page]&.to_i || project_file_type.find(@file_id).page_num
+    @total_pages = project_file_type.page(1).total_pages
+    @project_files = project_file_type.page(@page)
   end
 
   # GET /project_files/1 or /project_files/1.json
@@ -34,11 +26,9 @@ class ProjectFilesController < ApplicationController
 
     @entry ||= @entries.first
 
-    @page = params[:page] ? params[:page].to_i : (@file_id / (ITEMS_PER_PAGE + 0.1)).to_i
-    @total_pages = project_file_type.count / ITEMS_PER_PAGE
-    @project_files = project_file_type.order(:id)
-                                      .limit(ITEMS_PER_PAGE)
-                                      .offset(@page * ITEMS_PER_PAGE)
+    @page = params[:page] || project_file_type.find(@file_id).page_num
+    @total_pages = project_file_type.page(1).total_pages
+    @project_files = project_file_type.page(@page)
     redirect_to @project_file if @filename
   end
 
