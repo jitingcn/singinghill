@@ -5,9 +5,16 @@ class ProjectFilesController < ApplicationController
   # GET /project_files or /project_files.json
   def index
     @file_id = params[:file_id] ? params[:file_id].to_i : project_file_type.first&.id
-    @page = params[:page]&.to_i || project_file_type.find(@file_id).page_num
+    @page = if params[:page]
+              params[:page]&.to_i
+            elsif params[:file_id] && params[:page].nil?
+              1
+            else
+              project_file_type.find(params[:file_id]).page_num
+            end
     @total_pages = project_file_type.page(1).total_pages
     @project_files = project_file_type.page(@page)
+    @frame = params[:frame] || "_top"
   end
 
   # GET /project_files/1 or /project_files/1.json
@@ -25,11 +32,6 @@ class ProjectFilesController < ApplicationController
     end
 
     @entry ||= @entries.first
-
-    @page = params[:page] || project_file_type.find(@file_id).page_num
-    @total_pages = project_file_type.page(1).total_pages
-    @project_files = project_file_type.page(@page)
-    redirect_to @project_file if @filename
   end
 
   # goto file with name

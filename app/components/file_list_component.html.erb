@@ -1,6 +1,6 @@
 <turbo-frame id="file_list" @click.away="file_list = 'close'"
              class="font-sans flex flex-col bg-gray-100 px-2 py-1 lg:w-auto lg:shadow-md lg:mt-2 lg:ml-2 dark:bg-gray-800 lg:dark:mt-0 lg:dark:ml-0"
-             data-controller="file-list-component" data-file-list-component-current-value="<%= @file_id %>"> <!-- w-80 -->
+             > <!-- w-80 -->
   <div id="file_list_header" class="flex flex-row justify-between text-sm font-semibold mb-2 dark:text-gray-200">
     <div class="">
       文件
@@ -14,7 +14,10 @@
   </div>
 
   <% cache [@project_files, @frame] do %>
-    <div id="file_list_body" class="overflow-y-scroll hidden-scrollbar mb-2 rounded <%= @frame=="_top" ? 'h-[70vh]' : 'h-[60vh] sticky?lg:h-(screen-11)' %>">
+    <div id="file_list_body"
+         class="overflow-y-scroll hidden-scrollbar mb-2 rounded <%= @frame=="_top" ? 'h-[70vh]' : 'h-[60vh] sticky?lg:h-(screen-11)' %>"
+         data-controller="file-list-component"
+         data-file-list-component-current-value="<%= @file_id %>">
       <% @project_files.each do |project_file| %>
         <%= render(FileListItemComponent.new(project_file: project_file, frame: @frame)) %>
       <% end %>
@@ -32,7 +35,7 @@
   </div>
 
   <div id="file_list_nav" class="ml-4 w-80 flex text-sm my-2 items-center justify-between rounded-md lg:w-auto lg:ml-0 dark:text-gray-200" data-turbo-frame="file-list">
-    <%= paginate @project_files, window: 2 %>
+    <%= paginate @project_files %>
   </div>
 </turbo-frame>
 
