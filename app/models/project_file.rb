@@ -36,4 +36,10 @@ class ProjectFile < ApplicationRecord
          .where("#{column} #{operator} ?", read_attribute(column))
          .order("#{column} #{order}").count.to_f / per).ceil
   end
+
+  def display_name
+    return name if title.nil?
+
+    "#{name} - #{title}"
+  end
 end

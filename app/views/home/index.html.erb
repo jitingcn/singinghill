@@ -6,6 +6,7 @@
     <%= link_to "调和会话列表", grathmeld_conversation_index_path(page: 1), class: "text-blue-800 dark:text-blue-300" %>
     <% if current_user&.admin? %>
       <%= link_to "管理面板", madmin_root_path, class: "text-blue-800 dark:text-blue-300" %>
+      <%= link_to "Audit Log", audit_log_path, class: "text-blue-800 dark:text-blue-300" %>
     <% end %>
   </div>
 </div>

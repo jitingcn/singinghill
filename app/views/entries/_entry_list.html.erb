@@ -12,18 +12,16 @@
       <% end %>
     <% end %>
   </div>
-  <div class="flex flex-row items-center justify-between text-sm mt-2">
-    <div class="">文件名: <%= entries.first.project_file.name %>
-      <a href="<%= project_file_output_path @project_file.id %>"
-         class="ml-4 text-blue-700 dark:text-blue-300 border border-black dark:border-gray-100 rounded px-1"
-         target="_blank"
-      > 下载
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-        </svg>
-      </a>
-    </div>
-
-<!--    <div class="">最后修改于: <%#= entries.first.project_file.updated_at %></div>-->
+  <div class="flex flex-row items-center text-sm mt-2 space-x-5">
+    <div class="">标题: <%= @project_file.display_name %></div>
+    <div class="">文件名: <%= @project_file.name %></div>
+    <a href="<%= project_file_output_path @project_file.id %>"
+       class="ml-4 text-blue-700 dark:text-blue-300 border border-black dark:border-gray-100 rounded px-1"
+       target="_blank"
+    > 下载
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+      </svg>
+    </a>
   </div>
 </turbo-frame>
