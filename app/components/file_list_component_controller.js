@@ -25,11 +25,11 @@ export default class extends ApplicationController {
 
   async goto(event) {
     event?.preventDefault()
-    const file_id = this.gotoFileTarget.value
-    if (file_id === '') return
+    const fileName = this.gotoFileTarget.value
+    if (fileName === '') return
 
     let path = window.location.pathname.match(/project_files|night_conversation|grathmeld_conversation/g)[0]
-    let response = await fetch(`/${path}/goto/${file_id}.json`)
+    let response = await fetch(`/${path}/goto/${fileName}.json`)
     if (response.status === 200) {
       let data = await response.json()
       if (data.url === undefined) return -1

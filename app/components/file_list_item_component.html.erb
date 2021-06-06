@@ -1,9 +1,9 @@
 <% cache [@project_file, @frame] do %>
   <%= link_to @project_file, id: "project_file_#{@project_file.id}",
-              class: "flex flex-row justify-between px-1 even:bg-gray-200 odd:bg-gray-100 dark:odd:bg-gray-700 dark:even:bg-gray-500 dark:text-gray-200",
+              class: "flex flex-row justify-between p-1 even:bg-gray-200 odd:bg-gray-100 dark:odd:bg-gray-700 dark:even:bg-gray-500 dark:text-gray-200",
               data: { "turbo-frame": @frame, action: "file-list-component#click" },
               "@click": "file_list = 'close'" do %>
-    <span class=""><%= @project_file.name %></span>
+    <span class="truncate hover:overflow-clip hover:overflow-visible hover:mr-8"><%= @project_file.display_name %></span>
     <%= render(FileProgressComponent.new(project_file: @project_file)) %>
   <% end %>
 <% end %>
