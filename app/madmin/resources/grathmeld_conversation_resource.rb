@@ -1,4 +1,4 @@
-class ProjectFileResource < Madmin::Resource
+class GrathmeldConversationResource < Madmin::Resource
   # Attributes
   attribute :id, form: false
   attribute :name

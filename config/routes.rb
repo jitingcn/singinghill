@@ -46,6 +46,8 @@ Rails.application.routes.draw do
   authenticate :user, ->(u) { u.role == "admin" } do
     mount AuditLog::Engine => "/audit-log"
     namespace :madmin do
+      resources :grathmeld_conversations
+      resources :night_conversations
       resources :nouns
       resources :users
       resources :entries
