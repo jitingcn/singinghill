@@ -39,7 +39,8 @@
         <%= form.text_area :chinese,
                            class: "w-full h-full rounded border-1 border-blue-400 hover:border-blue-400 dark:bg-gray-600 p-1 font-cn",
                            data: { action: "keydown->entry-form#keydown" },
-                           disable: "#{current_user.nil? ? 'true' : 'false'}" %>
+                           disable: "#{current_user.nil? ? 'true' : 'false'}",
+                           lang: "zh-Hans" %>
       </div>
       <% unless current_user.nil? %>
         <div id="entry_form_actions" class="">

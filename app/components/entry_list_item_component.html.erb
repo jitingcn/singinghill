@@ -7,8 +7,8 @@
     <span class="w-20 text-sm hidden md:block"><%= @entry.narrator&.narrator_chinese || "" %></span>
   </span>
   <span class="flex flex-row flex-auto space-x-3">
-    <span class="sm:w-1/3"><%= @entry.source %></span>
-    <span class="w-1/3 hidden sm:block"><%= @entry.english %></span>
-    <span class="w-1/3 hidden sm:block font-cn"><%= @entry.chinese %></span>
+    <span class="sm:w-1/3" lang="ja"><%= @entry.source %></span>
+    <span class="w-1/3 hidden sm:block" lang="en"><%= @entry.english %></span>
+    <span class="w-1/3 hidden sm:block font-cn" lang="zh-Hans"><%= @entry.chinese %></span>
   </span>
 <% end %>
