@@ -63,7 +63,7 @@ class ProjectFilesController < ApplicationController
   def download_all
     dir = Dir.mktmpdir("ProjectFile_")
     begin
-      project_file_type.all.order(:id).each do |project_file|
+      ProjectFile.all.order(:id).each do |project_file|
         next if project_file.entries.order(:index).where.not(chinese: "").count.zero?
 
         File.open("#{dir}/#{project_file.name}", "w", encoding: "UTF-8") do |file|
