@@ -1,6 +1,6 @@
 <%= link_to @entry, id: "entry_list_item_#{@entry.id}",
             class:"inline-flex flex-row hover:bg-blue-300 justify-start break-words even:bg-gray-200 odd:bg-gray-100
-            dark:even:bg-gray-700 dark:odd:bg-gray-500 #{ @active == true ? 'text-lightBlue-600 dark:text-indigo-400' : ''}",
+            dark:even:bg-gray-700 dark:odd:bg-gray-500 #{ @active == true ? 'text-sky-600 dark:text-indigo-400' : ''}",
             data: { "turbo-frame": "entry-details", "action": "entry-list-component#click" } do %>
   <span class="flex flex-row text-sm">
     <span class="w-12 text-sm"><%= @entry.humanize_status %></span>
