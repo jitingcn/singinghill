@@ -71,20 +71,6 @@ class Entry < ApplicationRecord
 
   def text
     string = chinese.blank? ? source : chinese
-    symbol = 0
-    string.chars.map do |char|
-      symbol = 0 if char == "}" # match control symbol end
-      next char if symbol == 1
-
-      case char
-      when "{"  # match control symbol start
-        symbol = 1
-        ""
-      when "}"  # match control symbol end
-        ""
-      else
-        char.to_fullwidth
-      end
-    end.join.gsub("\r\n", "CR")
+    string.to_line
   end
 end
