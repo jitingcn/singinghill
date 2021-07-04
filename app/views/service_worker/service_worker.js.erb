@@ -3,7 +3,6 @@ const CACHE_NAME = CACHE_VERSION + ':sw-cache-';
 const REQUIRED_FILES = [
   <%== vite_javascript_tag("application.js").scan(/(?:src|href)="(.+?)"/).map{|x| "'#{x[0]}'"}.join(",\n  ") + "," %>
   '/',
-  '/project_files',
   '/offline.html',
 ]
 function onInstall(event) {
