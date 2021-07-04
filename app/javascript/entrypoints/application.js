@@ -38,5 +38,5 @@ import StimulusReflex from 'stimulus_reflex'
 import consumer from '../channels/consumer'
 application.consumer = consumer
 import StimulusController from '../controllers/application_controller'
-StimulusReflex.initialize(application, { consumer, StimulusController, isolate: true })
+StimulusReflex.initialize(application, { StimulusController, isolate: true })
 StimulusReflex.debug = import.meta.env.MODE === 'development'
