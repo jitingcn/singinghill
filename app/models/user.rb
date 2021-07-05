@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  before_create :generate_authentication_token
+
   enum role: { default: 0, admin: 1 }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -20,5 +22,17 @@ class User < ApplicationRecord
 
   def name
     nickname
+  end
+
+  def generate_authentication_token
+    loop do
+      self.authentication_token = SecureRandom.base64(64)
+      break unless User.find_by(authentication_token: authentication_token)
+    end
+  end
+
+  def reset_auth_token!
+    generate_authentication_token
+    save
   end
 end

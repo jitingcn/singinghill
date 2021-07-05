@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   root to: "home#index"
 
+  namespace :api, defaults: { format: "json" } do
+    namespace :v1 do
+      get "/sessions", to: "sessions#create"
+      get "/me", to: "users#me"
+      get "/entries/search", to: "entries#search"
+    end
+  end
+
   # Service Worker Routes
   get "/service-worker.js" => "service_worker#service_worker"
   get "/manifest.json" => "service_worker#manifest"
