@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/heartcombo/devise.git
+  remote: https://github.com.cnpmjs.org/heartcombo/devise.git
   revision: c82e4cf47b02002b2fd7ca31d441cf1043fc634c
   specs:
     devise (4.8.0)
@@ -10,8 +10,8 @@ GIT
       warden (~> 1.2.3)
 
 GIT
-  remote: https://github.com/hopsoft/stimulus_reflex.git
-  revision: 1e469ad0a44fa10b5b98a3713538b67e77c19328
+  remote: https://github.com.cnpmjs.org/hopsoft/stimulus_reflex.git
+  revision: 92ccc2ac58b43ff50613a3d51110f46c41f70d19
   branch: master
   specs:
     stimulus_reflex (3.5.0.pre1)
@@ -22,7 +22,7 @@ GIT
       redis
 
 GIT
-  remote: https://github.com/jitingcn/madmin.git
+  remote: https://github.com.cnpmjs.org/jitingcn/madmin.git
   revision: 674ac81ff649643a8e3d381d60e23162fa60c221
   specs:
     madmin (1.0.2)
@@ -30,7 +30,7 @@ GIT
       rails (>= 6.0.3)
 
 GEM
-  remote: https://rubygems.org/
+  remote: https://gems.ruby-china.com/
   specs:
     action_policy (0.5.7)
       ruby-next-core (>= 0.11.0)
@@ -182,14 +182,19 @@ GEM
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashie (4.1.0)
+    hiredis (0.6.3)
     hotwire-rails (0.1.3)
       rails (>= 6.0.0)
       stimulus-rails
       turbo-rails
+    httparty (0.18.1)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
+    json (2.5.1)
     jwt (2.2.3)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -217,7 +222,15 @@ GEM
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (1.0.1)
+    meilisearch (0.15.4)
+      httparty (>= 0.17.1, < 0.19.0)
+    meilisearch-rails (0.2.0)
+      json (>= 1.5.1)
+      meilisearch (>= 0.15.3)
     method_source (1.0.0)
+    mime-types (3.3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2021.0704)
     mini_mime (1.1.0)
     minitest (5.14.4)
     msgpack (1.4.2)
@@ -404,12 +417,14 @@ DEPENDENCIES
   config (~> 3.0)
   devise!
   dotenv-rails
+  hiredis
   hotwire-rails
   jbuilder (~> 2.7)
   kaminari
   listen (~> 3.3)
   lograge (~> 0.11.2)
   madmin (~> 1.0)!
+  meilisearch-rails (~> 0.2.0)
   omniauth-gitlab
   omniauth-rails_csrf_protection
   pg (~> 1.1)

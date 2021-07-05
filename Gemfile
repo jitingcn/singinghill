@@ -1,5 +1,5 @@
-source "https://rubygems.org"
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+source "https://gems.ruby-china.com/"
+git_source(:github) { |repo| "https://github.com.cnpmjs.org/#{repo}.git" }
 
 gem "rexml"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
@@ -17,7 +17,8 @@ gem "sass-rails", ">= 6"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.7"
 # Use Redis adapter to run Action Cable in production
-gem "redis", "~> 4.0"
+gem "redis", "~> 4.0", require: %w[redis redis/connection/hiredis]
+gem "hiredis"
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -91,3 +92,5 @@ gem "madmin", "~> 1.0", github: "jitingcn/madmin"
 gem "omniauth-rails_csrf_protection"
 
 gem "kaminari"
+
+gem "meilisearch-rails", "~> 0.2.0"
