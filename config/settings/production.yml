@@ -1,0 +1,2 @@
+meilisearch_host: "http://meilisearch:7700"
+meilisearch_api_key: "masterKey"

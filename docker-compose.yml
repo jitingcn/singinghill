@@ -19,6 +19,17 @@ services:
     ports:
       - 6379
 
+  meilisearch:
+    container_name: "singinghill_meilisearch"
+    image: getmeili/meilisearch:latest
+    restart: always
+    environment:
+      - MEILI_MASTER_KEY=masterKey
+    ports:
+      - 7700
+    volumes:
+      - singinghillms:/data.ms
+
   web:
     container_name: "singinghill_web"
     build: .
@@ -35,6 +46,7 @@ services:
     links:
       - postgresql
       - redis
+      - meilisearch
     logging:
       options:
         max-size: "50m"
@@ -49,12 +61,10 @@ services:
       - -c
       - |
         rake db:migrate 2>/dev/null || rake db:setup
-        rake import_narrator
-        rake import_nouns
-        rake import_translations
         bundle exec puma -C config/puma.rb
     ports:
       - 3000:3000
 
 volumes:
   singinghilldb:
+  singinghillms:
