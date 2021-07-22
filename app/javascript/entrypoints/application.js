@@ -9,17 +9,12 @@ import '~/stylesheets/application.css'
 import Rails from "@rails/ujs"
 try { Rails.start() } catch { }
 
-import "@hotwired/turbo-rails"
 import * as ActiveStorage from "@rails/activestorage"
 import LocalTime from 'local-time'
-import.meta.globEager('../channels/**/*_channel.js')
 // import 'trix'
 // import '@rails/actiontext'
 import 'alpine-turbo-drive-adapter'
 import "alpinejs"
-import '@hotwired/turbo-rails'
-import { Turbo, cable } from "@hotwired/turbo-rails"
-window.Turbo = Turbo
 import 'vite/dynamic-import-polyfill'
 
 ActiveStorage.start()
@@ -29,14 +24,15 @@ import { Application } from 'stimulus'
 import { registerControllers } from 'stimulus-vite-helpers'
 
 const application = Application.start()
+import consumer from '../channels/consumer'
+application.consumer = consumer
 const controllers = import.meta.globEager('../controllers/**/*_controller.js')
 const componentsControllers = import.meta.globEager('../../components/**/*_controller.js')
 registerControllers(application, controllers)
 registerControllers(application, componentsControllers)
-
+import "@hotwired/turbo-rails"
+const channels = import.meta.globEager('../channels/**/*_channel.js')
 import StimulusReflex from 'stimulus_reflex'
-import consumer from '../channels/consumer'
-application.consumer = consumer
 import StimulusController from '../controllers/application_controller'
 StimulusReflex.initialize(application, { StimulusController, isolate: true })
 StimulusReflex.debug = import.meta.env.MODE === 'development'

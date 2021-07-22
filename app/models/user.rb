@@ -7,7 +7,7 @@ class User < ApplicationRecord
   # devise :database_authenticatable, :registerable,
   #        :recoverable, :rememberable, :validatable,
   #        :timeoutable, :trackable
-  devise :database_authenticatable, :omniauthable, omniauth_providers: %i[gitlab]
+  devise :database_authenticatable, :trackable, :omniauthable, omniauth_providers: %i[gitlab]
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth["uid"]).first_or_create do |user|
@@ -34,5 +34,10 @@ class User < ApplicationRecord
   def reset_auth_token!
     generate_authentication_token
     save
+  end
+
+  def self.online
+    ids = ActionCable.server.pubsub.redis_connection_for_subscriptions.smembers "online"
+    where(id: ids)
   end
 end
