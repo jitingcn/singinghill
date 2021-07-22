@@ -10,6 +10,11 @@ class ProjectFile < ApplicationRecord
                          locals: { project_file: self.class != ProjectFile ? self.becomes(ProjectFile) : self }
   end
 
+  include MeiliSearch
+  meilisearch do
+    attribute %i[name title status]
+  end
+
   def to_txt
     entries.order(:index).map do |entry|
       entry.prefix + entry.text
@@ -17,9 +22,9 @@ class ProjectFile < ApplicationRecord
   end
 
   def progress
-    status = entries.group(:status).count
-    empty = entries.where(chinese: "").where.not(status: 4).count
-    draft = status.fetch("draft", 0) - entries.where(status: 0, chinese: "").count
+    status = entries.group(:status).size
+    empty = entries.where(chinese: "").where.not(status: 4).size
+    draft = status.fetch("draft", 0) - entries.where(status: 0, chinese: "").size
     draft = 0 if draft.negative?
     proofreading = status.fetch("accept", 0) + status.fetch("double_check", 0) + status.fetch("final_check", 0)
     finished = status.fetch("finished", 0)

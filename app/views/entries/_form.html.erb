@@ -61,9 +61,9 @@
       条目[<%= @entry.id %>] 最近更改
       <% @entry.history_change.each do |history| %>
         <div class="flex flex-row gap-x-3 gap-y-1">
-          <div><%= history[2].in_time_zone("Asia/Shanghai").strftime('%Y-%m-%d %H:%M:%S (CST)') %></div>
-          <div>[<%= history[0] || "匿名" %>]</div>
-          <div><%= history[1]["message"] ? history[1]["message"] : history[1]["chinese"] %></div>
+          <div><%= history.fetch(:time)&.in_time_zone("Asia/Shanghai").strftime('%Y-%m-%d %H:%M:%S (CST)') %></div>
+          <div>[<%= history.fetch(:user, "匿名") %>]</div>
+          <div><%= history.fetch(:data)["message"] ? history.fetch(:data)["message"] : history.fetch(:data)["chinese"] %></div>
         </div>
       <% end %>
     </div>

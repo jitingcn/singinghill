@@ -13,6 +13,17 @@ class Entry < ApplicationRecord
     # broadcast_replace_to "project_file", target: "project_file_#{project_file.id}_entry_#{id}", partial: "entries/entry_list", locals: { entries: self }
   end
 
+  include MeiliSearch
+  meilisearch enqueue: true do
+    attribute %i[source english chinese]
+    attribute :user do
+      user&.name
+    end
+    attribute :history_change do
+      history_change
+    end
+  end
+
   def update_associates
     project_file.touch if project_file.present?
   end
@@ -57,7 +68,7 @@ class Entry < ApplicationRecord
                  .order("id DESC")
                  .limit(limit)
                  .pluck(:user_id, :payload, :created_at)
-                 .map { |data| [User.find_by(id: data[0])&.name, data[1], data[2]] }
+                 .map { |data| { user: User.find_by(id: data[0])&.name, data: data[1], time: data[2] } }
 
   end
 
