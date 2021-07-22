@@ -1,9 +1,11 @@
 <div class="flex flex-col w-full h-screen-12 justify-center items-center dark:text-gray-50">
   <div class="mx-auto my-4 text-2xl">首页施工中</div>
   <div class="grid grid-rows grid-flow-row text-center gap-3">
-    <%= link_to "全部文件列表(event&others)", project_files_path(page: 1), class: "text-blue-800 dark:text-blue-300" %>
-    <%= link_to "夜会话列表", night_conversation_index_path(page: 1), class: "text-blue-800 dark:text-blue-300" %>
-    <%= link_to "调和会话列表", grathmeld_conversation_index_path(page: 1), class: "text-blue-800 dark:text-blue-300" %>
+    <%= link_to "剧情对话&其他所有项目", project_files_path(page: 1), class: "text-blue-800 dark:text-blue-300" %>
+    <%= link_to "夜会话", night_conversation_index_path(page: 1), class: "text-blue-800 dark:text-blue-300" %>
+    <%= link_to "调和会话", grathmeld_conversation_index_path(page: 1), class: "text-blue-800 dark:text-blue-300" %>
+    <%= link_to "CS散落对话", cosmosphere_random_index_path(page: 1), class: "text-blue-800 dark:text-blue-300" %>
+    <%= link_to "送礼与安装对话", gift_install_index_path(page: 1), class: "text-blue-800 dark:text-blue-300" %>
     <% if current_user&.admin? %>
       <%= link_to "管理面板", madmin_root_path, class: "text-blue-800 dark:text-blue-300" %>
       <%= link_to "Audit Log", audit_log_path, class: "text-blue-800 dark:text-blue-300" %>

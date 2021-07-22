@@ -1,0 +1,2 @@
+class GiftInstall < ProjectFile
+end

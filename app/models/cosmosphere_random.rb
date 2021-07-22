@@ -1,0 +1,2 @@
+class CosmosphereRandom < ProjectFile
+end

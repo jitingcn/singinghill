@@ -182,7 +182,7 @@ class ProjectFilesController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
+  # Use callbacks to share common setup or constraints between actions.
   def set_project_file
     if params[:filename]&.match(/\d+.evd.txt/)
       @filename = params[:filename].match(/\d+.evd.txt/)[0]
@@ -192,13 +192,13 @@ class ProjectFilesController < ApplicationController
     @project_file = project_file_type.find(params[:id])
   end
 
-    # Only allow a list of trusted parameters through.
+  # Only allow a list of trusted parameters through.
   def project_file_params
     params.fetch(:project_file, {})
   end
 
   def project_file_types
-    %w[ProjectFile NightConversation GrathmeldConversation]
+    %w[ProjectFile NightConversation GrathmeldConversation CosmosphereRandom GiftInstall]
   end
 
   def project_file_type

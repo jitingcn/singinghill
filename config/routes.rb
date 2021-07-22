@@ -20,18 +20,15 @@ Rails.application.routes.draw do
     get "output", to: "project_files#output", as: :output
     post "batch", to: "project_files#batch_update_entry", as: :batch_update_entry
   end
-  resources :night_conversation, controller: "project_files", type: "NightConversation" do
-    get "output", to: "project_files#output", as: :output
-    post "batch", to: "project_files#batch_update_entry", as: :batch_update_entry
-  end
-  resources :grathmeld_conversation, controller: "project_files", type: "GrathmeldConversation" do
-    get "output", to: "project_files#output", as: :output
-    post "batch", to: "project_files#batch_update_entry", as: :batch_update_entry
-  end
+  get "project_files/goto/:name", to: "project_files#goto", type: "ProjectFile", constraints: {name: /.+?(?:json)?/}
 
-  get "project_files/goto/:name", to: "project_files#goto", type: "ProjectFile", constraints: { name: /.+?(?:json)?/ }
-  get "night_conversation/goto/:name", to: "project_files#goto", type: "NightConversation", constraints: { name: /.+?(?:json)?/ }
-  get "grathmeld_conversation/goto/:name", to: "project_files#goto", type: "GrathmeldConversation", constraints: { name: /.+?(?:json)?/ }
+  [:night_conversation, :grathmeld_conversation, :cosmosphere_random, :gift_install].each do |type|
+    resources type, controller: "project_files", type: type.to_s.camelize do
+      get "output", to: "project_files#output", as: :output
+      post "batch", to: "project_files#batch_update_entry", as: :batch_update_entry
+    end
+    get "#{type}/goto/:name", to: "project_files#goto", type: type.to_s.camelize, constraints: {name: /.+?(?:json)?/}
+  end
 
   resources :entries do
     get "hints", to: "entries#hints"
