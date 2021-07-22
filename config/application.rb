@@ -13,6 +13,7 @@ module Singinghill
     config.hosts.append(*Settings.hosts)
     config.i18n.available_locales = [:en, "zh-CN"]
     config.i18n.default_locale = "zh-CN"
+    config.time_zone = "Asia/Shanghai"
 
     config.middleware.insert_after Rack::Sendfile, Rack::Brotli
     # Configuration for the application, engines, and railties goes here.

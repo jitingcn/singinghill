@@ -37,7 +37,11 @@ class User < ApplicationRecord
   end
 
   def self.online
-    ids = ActionCable.server.pubsub.redis_connection_for_subscriptions.smembers "online"
+    ids = ActionCable.server.pubsub.redis_connection_for_subscriptions.zrange "online", 0, -1
     where(id: ids)
+  end
+
+  def online?
+    !ActionCable.server.pubsub.redis_connection_for_subscriptions.zscore("online", id).nil?
   end
 end

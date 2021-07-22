@@ -24,9 +24,9 @@
       <%# end %>
       <nav class="sticky top-0 z-40 lg:z-50 w-full max-w-8xl h-12 mx-auto bg-gray-100 dark:bg-gray-700 flex-none flex flex-row px-4 py-2 items-center justify-between">
         <a href="<%= root_path %>" id="logo" class="w-[22] h-6 rounded-full text-gray-700 dark:text-gray-200 font-bold"><%= t("SingingHill") %></a>
-        <div class="navbar-item" data-controller="service-worker">
-          <%= image_tag "cloud-check.svg", width: "23px", height: "23px", alt: "Webpage saved for offline use", data: { 'service-worker-target':"pageSavedNotice" }, class: "hidden" %>
-          <%= image_tag "cloud-download.svg", width: "23px", height: "23px", alt: "Saving webpage for offline use", data: { 'service-worker-target':"savingPageNotice" }, class: "" %>
+        <div class="navbar-item" data-controller="service-worker" style="display: none;">
+          <%= image_tag "cloud-check.svg", width: "23px", height: "23px", alt: "", data: { 'service-worker-target':"pageSavedNotice" }, class: "hidden" %>
+          <%= image_tag "cloud-download.svg", width: "23px", height: "23px", alt: "", data: { 'service-worker-target':"savingPageNotice" }, class: "" %>
         </div>
         <%= turbo_frame_tag "flash", class: "dark:text-gray-200 min-w-8 hidden sm:block" do %>
           <%= render "shared/flash" %>

@@ -38,10 +38,10 @@ export default class extends Controller {
 
   stateChange() {
     let state = navigator.serviceWorker.controller.state;
-    console.log(
-        "[controllerchange][statechange] " + 'A "statechange" has occured: ',
-        state
-    );
+    // console.log(
+    //     "[controllerchange][statechange] " + 'A "statechange" has occured: ',
+    //     state
+    // );
 
     if (state === "activated" || state === "redundant") {
       this.savingPageNoticeTarget.classList.add("hidden");
