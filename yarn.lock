@@ -473,9 +473,9 @@ error-ex@^1.3.1:
     is-arrayish "^0.2.1"
 
 esbuild@^0.12.8:
-  version "0.12.13"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.13.tgz#666e1e6c50dbde40c02824cc60296574ebd588c5"
-  integrity sha512-fnKinmXcW1DMYnf1Ol3ZO0yU7dBDCuPcE4XDwceIy2zqTvB4G0NfonqgdvPMJi/IXRoVi/w9r9O5xxg/SqiAxA==
+  version "0.12.15"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.15.tgz#9d99cf39aeb2188265c5983e983e236829f08af0"
+  integrity sha512-72V4JNd2+48eOVCXx49xoSWHgC3/cCy96e7mbXKY+WOWghN00cCmlGnwVLRhRHorvv0dgCyuMYBZlM2xDM5OQw==
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -1238,7 +1238,7 @@ postcss@^7.0.14, postcss@^7.0.17, postcss@^7.0.2, postcss@^7.0.32, postcss@^7.0.
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-postcss@^8.1.6, postcss@^8.2.1, postcss@^8.2.9, postcss@^8.3.4:
+postcss@^8.1.6, postcss@^8.2.1, postcss@^8.2.9, postcss@^8.3.5:
   version "8.3.5"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.3.5.tgz#982216b113412bc20a86289e91eb994952a5b709"
   integrity sha512-NxTuJocUhYGsMiMFHDUkmjSKT3EdH4/WbGF6GCi1NDGk+vbcUTun4fpbOqaPtD8IIsztA2ilZm2DhYCuyN58gA==
@@ -1318,9 +1318,9 @@ rimraf@^3.0.0:
     glob "^7.1.3"
 
 rollup@^2.38.5:
-  version "2.52.6"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.52.6.tgz#7c7546d170dead0e7db0b6c709f7f34398498a8e"
-  integrity sha512-H+Xudmwf8KO+xji8njQNoIQRp8l+iQge/NdUR20JngTxVYdEEnlpkMvQ71YGLl3+xZcPecmdj4q2lrClKaPdRA==
+  version "2.52.7"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.52.7.tgz#e15a8bf734f6e4c204b7cdf33521151310250cb2"
+  integrity sha512-55cSH4CCU6MaPr9TAOyrIC+7qFCHscL7tkNsm1MBfIJRRqRbCEY0mmeFn4Wg8FKsHtEH8r389Fz38r/o+kgXLg==
   optionalDependencies:
     fsevents "~2.3.2"
 
@@ -1332,9 +1332,9 @@ run-parallel@^1.1.9:
     queue-microtask "^1.2.2"
 
 sass@^1.32.8:
-  version "1.35.1"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.35.1.tgz#90ecf774dfe68f07b6193077e3b42fb154b9e1cd"
-  integrity sha512-oCisuQJstxMcacOPmxLNiLlj4cUyN2+8xJnG7VanRoh2GOLr9RqkvI4AxA4a6LHVg/rsu+PmxXeGhrdSF9jCiQ==
+  version "1.35.2"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.35.2.tgz#b732314fcdaf7ef8d0f1698698adc378043cb821"
+  integrity sha512-jhO5KAR+AMxCEwIH3v+4zbB2WB0z67V1X0jbapfVwQQdjHZUGUyukpnoM6+iCMfsIUC016w9OPKQ5jrNOS9uXw==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
 
@@ -1380,7 +1380,7 @@ stimulus@^2.0.0:
 
 stimulus_reflex@hopsoft/stimulus_reflex#master:
   version "3.5.0-pre1"
-  resolved "https://codeload.github.com/hopsoft/stimulus_reflex/tar.gz/1e469ad0a44fa10b5b98a3713538b67e77c19328"
+  resolved "https://codeload.github.com/hopsoft/stimulus_reflex/tar.gz/ad40e213e54f18bb6b2f9272c9eb9f8e64b3970b"
   dependencies:
     "@rails/actioncable" ">= 6.0"
     cable_ready "5.0.0-pre1"
@@ -1485,10 +1485,10 @@ vite-plugin-full-reload@^0.2.1:
     chalk "^4.1"
     picomatch "^2.2.2"
 
-vite-plugin-ruby@^1.0.13:
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/vite-plugin-ruby/-/vite-plugin-ruby-1.0.18.tgz#ef0dd26b3435e64704a88d5bf4c512b6bc534ca5"
-  integrity sha512-lFoyao23eWAzMzUregVe4FTYsfBKP7i4wQlE0PNj26C+cJcf5cEtv7c+PZjVVOhZF2p/FwbtmKCBqjl7Gj9Crw==
+vite-plugin-ruby@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/vite-plugin-ruby/-/vite-plugin-ruby-2.0.4.tgz#3f9b1d9b2f652d33dc1fc7b70b07d6ca9deabf32"
+  integrity sha512-1YawT1DKSbY/N8OveNvhNuUOnXNgilMY38SzgLgTEIjIbauyvbArjKii3eK3JzmUcjr0rsPtKin7Omszhc/kvA==
   dependencies:
     debug "^4.3.1"
     fast-glob "^3.2.4"
@@ -1502,12 +1502,12 @@ vite-plugin-stimulus-hmr@^1.0.1:
     stimulus-vite-helpers "^1.0"
 
 vite@^2.0.3:
-  version "2.3.8"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-2.3.8.tgz#42e3e03953859fd410e4e6ab3d1cca0aab2adc3c"
-  integrity sha512-QiEx+iqNnJntSgSF2fWRQvRey9pORIrtNJzNyBJXwc+BdzWs83FQolX84cTBo393cfhObrtWa6180dAa4NLDiQ==
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.4.1.tgz#2e48b8dbfc69e4edbf7f4d1c0798d621585cb8da"
+  integrity sha512-4BpKRis9uxIqPfIEcJ18LTBsamqnDFxTx45CXwagHjNltHa6PFEvf8Pe6OpgIHb0OyWT30OXOSSQvdOaX4OBiQ==
   dependencies:
     esbuild "^0.12.8"
-    postcss "^8.3.4"
+    postcss "^8.3.5"
     resolve "^1.20.0"
     rollup "^2.38.5"
   optionalDependencies:

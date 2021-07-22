@@ -1,6 +1,6 @@
 module.exports = {
   plugins: {
-    // require('postcss-import'),
+    // 'postcss-import': {},
     tailwindcss: {},
     'postcss-nested': {},
     'postcss-flexbugs-fixes': {},
