@@ -9,4 +9,7 @@ export default defineConfig({
     FullReload(['config/routes.rb', 'app/views/**/*', 'app/components/**/*']),
     StimulusHMR(),
   ],
+  // build: {
+  //   target: "esnext,chrome89"
+  // }
 })

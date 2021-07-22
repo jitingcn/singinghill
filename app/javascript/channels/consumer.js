@@ -2,6 +2,8 @@
 // You can generate new channels where WebSocket features live using the `bin/rails generate channel` command.
 
 import { cable } from "@hotwired/turbo-rails"
-const consumer = await cable.getConsumer()
+// https://caniuse.com/?search=top%20level%20await
+// export default await cable.getConsumer()
 
-export default consumer
+import { createConsumer } from "@rails/actioncable"
+export default createConsumer()
