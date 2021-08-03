@@ -51,16 +51,31 @@ Rails.application.routes.draw do
   authenticate :user, ->(u) { u.role == "admin" } do
     mount AuditLog::Engine => "/audit-log"
     namespace :madmin do
+      namespace :action_text do
+        resources :rich_texts
+      end
       resources :grathmeld_conversations
-      resources :night_conversations
       resources :nouns
-      resources :users
       resources :entries
+      resources :users
+      resources :gift_installs
       resources :narrators
+      resources :cosmosphere_randoms
+      resources :night_conversations
       resources :project_files
+      namespace :active_storage do
+        resources :attachments
+      end
       namespace :active_storage do
         resources :variant_records
       end
+      namespace :active_storage do
+        resources :blobs
+      end
+      root to: "dashboard#show"
+      namespace :active_storage do
+          resources :variant_records
+        end
       namespace :active_storage do
         resources :blobs
       end
@@ -73,7 +88,6 @@ Rails.application.routes.draw do
       namespace :active_storage do
         resources :attachments
       end
-      root to: "dashboard#show"
     end
   end
 end

@@ -87,7 +87,7 @@ gem "rails-i18n", "~> 6.0.0"
 
 gem "stimulus_reflex", github: "hopsoft/stimulus_reflex", branch: "master"
 
-gem "madmin", "~> 1.0", github: "jitingcn/madmin"
+gem "madmin", "~> 1.0", github: "excid3/madmin"
 
 gem "omniauth-rails_csrf_protection"
 

@@ -6,7 +6,7 @@ module Madmin
       # TODO: Add your authentication logic here
 
       # For example, we could redirect if the user isn't an admin
-      # redirect_to "/", alert: "Not authorized." unless user_signed_in? && current_user.admin?
+      redirect_to "/", alert: "Not authorized." unless user_signed_in? && current_user.admin?
     end
 
     # Authenticate with Clearance

@@ -1,4 +1,4 @@
-class GrathmeldConversationResource < Madmin::Resource
+class GiftInstallResource < Madmin::Resource
   # Attributes
   attribute :id, form: false
   attribute :name
