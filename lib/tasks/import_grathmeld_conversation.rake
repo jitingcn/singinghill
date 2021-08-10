@@ -12,10 +12,10 @@ task import_grathmeld_conversation: :environment do
       csv = CSV.parse(csv_text, headers: true)
       csv.each_with_index do |row, index|
         source = row["text_jp"]
-        source = source.gsub("CR", "\r\n").gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
+        source = source.gsub("CR", "\r\n").gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-\/!.]+(##)?)+)/) { |w| "{#{w}}" }
         english = row.fetch("text_en", "") || ""
         english = english.gsub("CR", "\r\n")
-                         .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
+                         .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-\/!.]+(##)?)+)/) { |w| "{#{w}}" }
                          .tr("\uFF01-\uFF5E\u3000\u2019", "\u0021-\u007E\u0020\u0027")
         location = row.fetch("id", "") || ""
         narrator_id = row.fetch("narrator", "") || ""

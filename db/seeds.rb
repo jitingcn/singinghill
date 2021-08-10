@@ -24,11 +24,11 @@ event_jp_files.size.times do |i|
     location, narrator_id = content_jp[j].scan(/^[-\d]+,[-\d]+,/)[0]&.split(",") || ["", ""]
     source = content_jp[j].remove("#{location},#{narrator_id},")
                           .gsub("CR", "\r\n")
-                          .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
+                          .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-\/!.]+(##)?)+)/) { |w| "{#{w}}" }
     english = content_en[j].remove("#{location},#{narrator_id},")
                            .gsub(/^[-\d]+,[-\d]+,/, "")
                            .gsub("CR", "\r\n")
-                           .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
+                           .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-\/!.]+(##)?)+)/) { |w| "{#{w}}" }
                            .tr("\uFF01-\uFF5E\u3000\u2019", "\u0021-\u007E\u0020\u0027")
     entries = Entry.where(location: location, narrator_id: narrator_id,
                           source: source, project_file_id: project_file.id)
