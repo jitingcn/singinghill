@@ -93,6 +93,6 @@ gem "omniauth-rails_csrf_protection"
 
 gem "kaminari"
 
-gem "meilisearch-rails"
+gem "meilisearch-rails", github: "jitingcn/meilisearch-rails"
 
 gem "bullet", group: "development"

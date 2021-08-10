@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com.cnpmjs.org/excid3/madmin.git
-  revision: 89b20ad499474dc7c3588dfc9966925f845c69be
+  revision: 43551cbc00c1afeece5fc17ac9959fb95815f39e
   specs:
-    madmin (1.2.0)
+    madmin (1.2.1)
       pagy (>= 3.5, < 5.0)
       rails (>= 6.0.3)
 
@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: https://github.com.cnpmjs.org/hopsoft/stimulus_reflex.git
-  revision: 623ca60a7c2d7ec0d5baa7c23ca89a2ebeb964e7
+  revision: 8d5bb23b14796c07ba686186d1f82c1b13a6d9a0
   branch: master
   specs:
     stimulus_reflex (3.5.0.pre2)
@@ -28,6 +28,14 @@ GIT
       rack
       rails (>= 5.2)
       redis
+
+GIT
+  remote: https://github.com.cnpmjs.org/jitingcn/meilisearch-rails.git
+  revision: b8727a4653f23dc22af5b976da827e457d289d5b
+  specs:
+    meilisearch-rails (0.2.1)
+      json (>= 1.5.1)
+      meilisearch (>= 0.15.4)
 
 GEM
   remote: https://gems.ruby-china.com/
@@ -101,7 +109,7 @@ GEM
       rails (>= 5.2)
     bcrypt (3.1.16)
     bindex (0.8.1)
-    bootsnap (1.7.5)
+    bootsnap (1.7.7)
       msgpack (~> 1.0)
     brotli (0.4.0)
     builder (3.2.4)
@@ -168,7 +176,7 @@ GEM
       dry-initializer (~> 3.0)
       dry-schema (~> 1.5, >= 1.5.2)
     erubi (1.10.0)
-    faraday (1.5.1)
+    faraday (1.7.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -176,6 +184,7 @@ GEM
       faraday-net_http (~> 1.0)
       faraday-net_http_persistent (~> 1.1)
       faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords (>= 0.0.4)
     faraday-em_http (1.0.0)
@@ -185,9 +194,10 @@ GEM
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
     ffi (1.15.3)
-    globalid (0.4.2)
-      activesupport (>= 4.2.0)
+    globalid (0.5.2)
+      activesupport (>= 5.0)
     hashie (4.1.0)
     hiredis (0.6.3)
     hotwire-rails (0.1.3)
@@ -223,7 +233,7 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    loofah (2.10.0)
+    loofah (2.11.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -231,9 +241,6 @@ GEM
     marcel (1.0.1)
     meilisearch (0.15.4)
       httparty (>= 0.17.1, < 0.19.0)
-    meilisearch-rails (0.2.1)
-      json (>= 1.5.1)
-      meilisearch (>= 0.15.4)
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
@@ -244,8 +251,8 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
-    nio4r (2.5.7)
-    nokogiri (1.11.7-x86_64-linux)
+    nio4r (2.5.8)
+    nokogiri (1.12.2-x86_64-linux)
       racc (~> 1.4)
     oauth2 (1.4.7)
       faraday (>= 0.8, < 2.0)
@@ -276,7 +283,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.6)
-    puma (5.3.2)
+    puma (5.4.0)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
@@ -325,7 +332,7 @@ GEM
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.3.1)
+    redis (4.4.0)
     regexp_parser (2.1.1)
     request_store (1.5.0)
       rack (>= 1.4)
@@ -333,16 +340,16 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.5)
-    rubocop (1.18.3)
+    rubocop (1.18.4)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
-      rubocop-ast (>= 1.7.0, < 2.0)
+      rubocop-ast (>= 1.8.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.8.0)
+    rubocop-ast (1.9.0)
       parser (>= 3.0.1.1)
     rubocop-rails (2.11.3)
       activesupport (>= 4.2.0)
@@ -386,13 +393,13 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
     uniform_notifier (1.14.2)
-    view_component (2.35.0)
+    view_component (2.37.0)
       activesupport (>= 5.0.0, < 8.0)
       method_source (~> 1.0)
-    vite_rails (2.0.12)
+    vite_rails (2.0.13)
       railties (>= 5.1, < 8)
       vite_ruby (~> 1.0)
-    vite_ruby (1.2.18)
+    vite_ruby (1.2.20)
       dry-cli (~> 0.7.0)
       rack-proxy (~> 0.6, >= 0.6.1)
       zeitwerk (~> 2.2)
@@ -434,7 +441,7 @@ DEPENDENCIES
   listen (~> 3.3)
   lograge (~> 0.11.2)
   madmin (~> 1.0)!
-  meilisearch-rails
+  meilisearch-rails!
   omniauth-gitlab
   omniauth-rails_csrf_protection
   pg (~> 1.1)
