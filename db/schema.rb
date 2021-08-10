@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_04_115111) do
+ActiveRecord::Schema.define(version: 2021_08_10_083242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"

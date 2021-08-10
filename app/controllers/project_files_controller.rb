@@ -7,7 +7,7 @@ class ProjectFilesController < ApplicationController
     @file_id = params[:file_id] ? params[:file_id].to_i : project_file_type.first&.id
     @page = if params[:page]
               params[:page]&.to_i
-            elsif params[:file_id] && params[:page].nil?
+            elsif params[:file_id].nil? && params[:page].nil?
               1
             else
               project_file_type.find(params[:file_id]).page_num
@@ -184,11 +184,6 @@ class ProjectFilesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_project_file
-    if params[:filename]&.match(/\d+.evd.txt/)
-      @filename = params[:filename].match(/\d+.evd.txt/)[0]
-      return @project_file = project_file_type.find_by(name: @filename)
-    end
-
     @project_file = project_file_type.find(params[:id])
   end
 
@@ -198,7 +193,7 @@ class ProjectFilesController < ApplicationController
   end
 
   def project_file_types
-    %w[ProjectFile NightConversation GrathmeldConversation CosmosphereRandom GiftInstall]
+    %w[ProjectFile Event NightConversation GrathmeldConversation CosmosphereRandom GiftInstall]
   end
 
   def project_file_type
