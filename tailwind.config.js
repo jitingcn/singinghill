@@ -11,7 +11,7 @@ module.exports = {
       "./app/helpers/**/*.*",
     ],
     options: {
-      whitelist: [],
+      whitelist: ['pagy'],
     },
   },
   darkMode: 'media', // or 'media' or 'class'

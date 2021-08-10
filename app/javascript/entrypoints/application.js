@@ -31,6 +31,7 @@ const componentsControllers = import.meta.globEager('../../components/**/*_contr
 registerControllers(application, controllers)
 registerControllers(application, componentsControllers)
 import "@hotwired/turbo-rails"
+Turbo.navigator.view.snapshotCache.size = 20
 const channels = import.meta.globEager('../channels/**/*_channel.js')
 import StimulusReflex from 'stimulus_reflex'
 import StimulusController from '../controllers/application_controller'
