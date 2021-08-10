@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com.cnpmjs.org/excid3/madmin.git
-  revision: 43551cbc00c1afeece5fc17ac9959fb95815f39e
-  specs:
-    madmin (1.2.1)
-      pagy (>= 3.5, < 5.0)
-      rails (>= 6.0.3)
-
-GIT
   remote: https://github.com.cnpmjs.org/heartcombo/devise.git
   revision: c82e4cf47b02002b2fd7ca31d441cf1043fc634c
   specs:
@@ -28,6 +20,15 @@ GIT
       rack
       rails (>= 5.2)
       redis
+
+GIT
+  remote: https://github.com.cnpmjs.org/jitingcn/madmin.git
+  revision: c48611a22f017fce16de74846578f43af6cfc44f
+  branch: fix-order
+  specs:
+    madmin (1.2.1)
+      pagy (>= 3.5, < 5.0)
+      rails (>= 6.0.3)
 
 GIT
   remote: https://github.com.cnpmjs.org/jitingcn/meilisearch-rails.git
