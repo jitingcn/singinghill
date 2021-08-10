@@ -84,4 +84,17 @@ class Entry < ApplicationRecord
     string = chinese.blank? ? source : chinese
     string.to_line
   end
+
+  class << self
+    def replace_all(source, chinese)
+      where(source: source).update_all(chinese: chinese)
+    end
+
+    def replace_all_term(search, original, replace)
+      where("source ILIKE ?", "%#{search}%").each do |entry|
+        entry.chinese = entry.chinese.gsub(original, replace)
+        entry.save
+      end
+    end
+  end
 end
