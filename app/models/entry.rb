@@ -1,7 +1,7 @@
 class Entry < ApplicationRecord
   enum status: { draft: 0, accept: 1, double_check: 2, final_check: 3, finished: 4 }
   belongs_to :user, optional: true
-  belongs_to :project_file, dependent: :destroy
+  belongs_to :project_file
   after_save :update_associates
 
   after_update_commit do

@@ -1,7 +1,7 @@
 class ProjectFile < ApplicationRecord
   default_scope -> { order("id") }
   enum status: { working: 0, done: 1 }
-  has_many :entries
+  has_many :entries, dependent: :destroy
 
   after_update_commit do
     broadcast_replace_to "main-app",
