@@ -24,7 +24,9 @@ const onlineChannel = consumer.subscriptions.create("OnlineChannel", {
 
   received(data) {
     // Called when there's incoming data on the websocket for this channel
-    console.log(...[data])
+    for (const [key, value] of Object.entries(data)) {
+      console.log(key, value);
+    }
   },
 
   install() {
