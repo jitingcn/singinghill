@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   before_create :generate_authentication_token
+  has_many :entries
 
   enum role: { default: 0, admin: 1 }
   # Include default devise modules. Others available are:
