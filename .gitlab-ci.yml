@@ -15,4 +15,7 @@ deploy_job:
     - docker-compose build
     - docker-compose up -d
     - docker exec singinghill_web rake clear_cache
+  environment:
+    name: production
+    url: https://singinghill.revth.com/
   when: manual
