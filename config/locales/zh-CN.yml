@@ -1,5 +1,13 @@
 zh-CN:
+  SingingHill: "歌颂之丘"
   activerecord:
+    models:
+      project_file: "项目文件"
+      event: "剧情对话"
+      night_conversation: "夜会话"
+      grathmeld_conversation: "调和对话"
+      cosmosphere_random: "CS散落对话"
+      gift_install: "送礼与安装对话"
     attributes:
       entry:
         statuses:
@@ -8,7 +16,6 @@ zh-CN:
           double_check: "二校"
           final_check: "三校"
           finished: "完成"
-  SingingHill: "歌颂之丘"
   views:
     pagination:
       first: "首页"
