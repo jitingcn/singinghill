@@ -1,6 +1,7 @@
 stages:
   - deploy
-production:
+
+deploy_job:
   stage: deploy
   variables:
     RAILS_ENV: production
@@ -14,5 +15,4 @@ production:
     - docker-compose build
     - docker-compose up -d
     - docker exec singinghill_web rake clear_cache
-  only:
-    - production
+  when: manual
