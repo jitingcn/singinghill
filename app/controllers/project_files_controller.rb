@@ -111,7 +111,7 @@ class ProjectFilesController < ApplicationController
       entry = entries[index]
       next if entry.status.to_i >= 2
 
-      location, narrator_id = line.scan(/^[-\d]+,[-\d]+,/)[0]&.split(",") || ["", ""]
+      location, narrator_id = line.scan(/^.+?,[-\d]+,/)[0]&.split(",") || ["", ""]
       text = line.remove("#{location},#{narrator_id},")
                  .gsub("CR", "\r\n")
                  .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
