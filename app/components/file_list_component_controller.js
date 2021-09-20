@@ -28,7 +28,7 @@ export default class extends ApplicationController {
     const fileName = this.gotoFileTarget.value
     if (fileName === '') return
 
-    let path = window.location.pathname.match(/project_files|event|night_conversation|grathmeld_conversation|cosmosphere_random|gift_install/g)[0]
+    let path = window.location.pathname.match(/project_files|event|night_conversation|grathmeld_conversation|cosmosphere_random|gift_install|misc/g)[0]
     let response = await fetch(`/${path}/goto/${fileName}.json`)
     if (response.status === 200) {
       let data = await response.json()

@@ -193,7 +193,7 @@ class ProjectFilesController < ApplicationController
   end
 
   def project_file_types
-    %w[ProjectFile Event NightConversation GrathmeldConversation CosmosphereRandom GiftInstall]
+    %w[ProjectFile Event NightConversation GrathmeldConversation CosmosphereRandom GiftInstall Misc]
   end
 
   def project_file_type

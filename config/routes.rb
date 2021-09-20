@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   end
   get "project_files/goto/:name", to: "project_files#goto", type: "ProjectFile", constraints: {name: /.+?(?:json)?/}
 
-  [:event, :night_conversation, :grathmeld_conversation, :cosmosphere_random, :gift_install].each do |type|
+  [:event, :night_conversation, :grathmeld_conversation, :cosmosphere_random, :gift_install, :misc].each do |type|
     resources type, controller: "project_files", type: type.to_s.camelize do
       get "output", to: "project_files#output", as: :output
       post "batch", to: "project_files#batch_update_entry", as: :batch_update_entry

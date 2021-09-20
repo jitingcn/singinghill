@@ -3,13 +3,14 @@
   <div class="my-4">
     <%= render "recent_change" %>
   </div>
-  <div class="grid grid-rows grid-flow-row text-center gap-2">
-    <%= link_to "所有项目", project_files_path, class: "text-blue-800 dark:text-blue-300" %>
-    <%= link_to "剧情对话", event_index_path, class: "text-blue-800 dark:text-blue-300" %>
-    <%= link_to "夜会话", night_conversation_index_path, class: "text-blue-800 dark:text-blue-300" %>
-    <%= link_to "调和对话", grathmeld_conversation_index_path, class: "text-blue-800 dark:text-blue-300" %>
-    <%= link_to "CS散落对话", cosmosphere_random_index_path, class: "text-blue-800 dark:text-blue-300" %>
-    <%= link_to "送礼与安装对话", gift_install_index_path, class: "text-blue-800 dark:text-blue-300" %>
+  <div class="grid grid-rows grid-flow-row text-center gap-2 text-blue-800 dark:text-blue-300">
+    <%= link_to "所有项目", project_files_path %>
+    <%= link_to "剧情对话", event_index_path %>
+    <%= link_to "夜会话", night_conversation_index_path %>
+    <%= link_to "调和对话", grathmeld_conversation_index_path %>
+    <%= link_to "CS散落对话", cosmosphere_random_index_path %>
+    <%= link_to "送礼与安装对话", gift_install_index_path %>
+    <%= link_to "其他杂项", misc_index_path %>
     <% if current_user&.admin? %>
       <%= link_to "管理面板", madmin_root_path, class: "text-blue-800 dark:text-blue-300" %>
       <%= link_to "Audit Log", audit_log_path, class: "text-blue-800 dark:text-blue-300" %>
