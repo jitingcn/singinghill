@@ -95,6 +95,7 @@ class ProjectFilesController < ApplicationController
         format.html { redirect_to @project_file, status: :unprocessable_entity }
         format.json { render json: @project_file.errors, status: :unprocessable_entity }
       end
+      return
     end
 
     data = File.open(uploaded_file.tempfile, "r", encoding: "utf-8").read
@@ -104,6 +105,7 @@ class ProjectFilesController < ApplicationController
         format.html { redirect_to @project_file, status: :unprocessable_entity }
         format.json { render json: @project_file.errors, status: :unprocessable_entity }
       end
+      return
     end
 
     entries = @project_file.entries.order(:index)
@@ -111,7 +113,7 @@ class ProjectFilesController < ApplicationController
       entry = entries[index]
       next if entry.status.to_i >= 2
 
-      location, narrator_id = line.scan(/\A[^,],[-\d]+,/)[0]&.split(",") || ["", ""]
+      location, narrator_id = line.scan(/\A[^,]+,[-\d]+,/)[0]&.split(",") || ["", ""]
       text = line.remove("#{location},#{narrator_id},")
                  .gsub("CR", "\r\n")
                  .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
