@@ -84,28 +84,27 @@ class ProjectFilesController < ApplicationController
   def batch_update_entry
     @project_file = project_file_type.find(params[:project_file_id])
     @status = (params.fetch(:status)[0] if current_user.admin?) || nil
-    return render file: "public/404.html", status: :not_found, layout: false if @project_file.nil?
+    render file: "public/404.html", status: :not_found, layout: false and return if @project_file.nil?
 
     uploaded_file = params[:uploaded_file]
-    return render file: "public/404.html", status: :not_found, layout: false if uploaded_file.nil?
+    render file: "public/404.html", status: :not_found, layout: false and return if uploaded_file.nil?
 
-    if uploaded_file.content_type != "text/plain" || uploaded_file.original_filename != @project_file.name ||
-       params["uploaded_file"].nil?
+    unless %w[text/plain application/vnd.ms-excel].include?(uploaded_file.content_type) && uploaded_file.original_filename == @project_file.name
       respond_to do |format|
+        flash[:alert] = "文件类型或文件名不匹配"
         format.html { redirect_to @project_file, status: :unprocessable_entity }
         format.json { render json: @project_file.errors, status: :unprocessable_entity }
-      end
-      return
+      end and return
     end
 
     data = File.open(uploaded_file.tempfile, "r", encoding: "utf-8").read
     data = data.split(/\r\n|(?<!\r)\n/).reject(&:empty?)
     if data.count != @project_file.entries.count
       respond_to do |format|
+        flash[:alert] = "文件条目数量不符"
         format.html { redirect_to @project_file, status: :unprocessable_entity }
         format.json { render json: @project_file.errors, status: :unprocessable_entity }
-      end
-      return
+      end and return
     end
 
     entries = @project_file.entries.order(:index)
@@ -125,12 +124,12 @@ class ProjectFilesController < ApplicationController
       entry.user_id = current_user.id
       if entry.save
         audit! :update_entry, entry,
-               payload: { message: "从文件批量导入条目，状态变更为#{entry.status}，新文本：#{entry.chinese}" }
+          payload: { message: "从文件批量导入条目，状态变更为#{entry.status}，新文本：#{entry.chinese}" }
       end
     end
 
     respond_to do |format|
-      format.html { redirect_to @project_file, notice: "Project file was successfully updated." }
+      format.html { redirect_to @project_file, notice: "文件更新成功" }
       format.json { render :show, status: :ok, location: @project_file }
     end
 
