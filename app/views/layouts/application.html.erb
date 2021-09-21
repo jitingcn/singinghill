@@ -28,9 +28,6 @@
           <%= image_tag "cloud-check.svg", width: "23px", height: "23px", alt: "", data: { 'service-worker-target':"pageSavedNotice" }, class: "hidden" %>
           <%= image_tag "cloud-download.svg", width: "23px", height: "23px", alt: "", data: { 'service-worker-target':"savingPageNotice" }, class: "" %>
         </div>
-        <%= turbo_frame_tag "flash", class: "dark:text-gray-200 min-w-8 hidden sm:block" do %>
-          <%= render "shared/flash" %>
-        <% end %>
         <% if controller.controller_name == "project_files" %>
           <%= render "entries/total_progress" %>
         <% end %>
@@ -48,6 +45,9 @@
         </div>
       </nav>
 <!--      <main class="w-full h-5/6 flex flex-row flex-auto">-->
+      <%= turbo_frame_tag "flash", class: "dark:text-gray-200 min-w-8 hidden sm:block" do %>
+        <%= render "shared/flash" %>
+      <% end %>
       <main class="w-full min-h-screen-12 max-w-8xl mx-auto dark:bg-gray-800">
           <%= yield %>
       </main>

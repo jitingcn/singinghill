@@ -35,5 +35,8 @@ Turbo.navigator.view.snapshotCache.size = 20
 const channels = import.meta.globEager('../channels/**/*_channel.js')
 import StimulusReflex from 'stimulus_reflex'
 import StimulusController from '../controllers/application_controller'
+import { Alert } from "tailwindcss-stimulus-components"
+application.register('alert', Alert)
 StimulusReflex.initialize(application, { StimulusController, isolate: true })
 StimulusReflex.debug = import.meta.env.MODE === 'development'
+

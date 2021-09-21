@@ -1429,7 +1429,7 @@ stimulus_reflex@hopsoft/stimulus_reflex#master:
   resolved "https://codeload.github.com/hopsoft/stimulus_reflex/tar.gz/1aa42461ea97659dc602545575e5353158f9cf75"
   dependencies:
     "@rails/actioncable" ">= 6.0"
-    cable_ready "5.0.0-pre3"
+    cable_ready "5.0.0-pre2"
 
 supports-color@^5.3.0:
   version "5.5.0"
@@ -1451,6 +1451,13 @@ supports-color@^7.1.0:
   integrity sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==
   dependencies:
     has-flag "^4.0.0"
+
+tailwindcss-stimulus-components@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/tailwindcss-stimulus-components/-/tailwindcss-stimulus-components-2.2.2.tgz#aaa03d13a5b701044dc07a82010370712e6d6f08"
+  integrity sha512-JganwGTRXfKbie6iRoZytDbgyB+YK1Cmj8xiatuK8mJqKtdUFv47n+bzszh1RZfWGf9k0dGJ5427k5LC6uxcaA==
+  dependencies:
+    stimulus "^2.0.0"
 
 tailwindcss@^2.1.1:
   version "2.2.15"

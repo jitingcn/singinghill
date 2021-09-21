@@ -23,6 +23,7 @@
     "stimulus-vite-helpers": "^1.0.3",
     "stimulus_reflex": "hopsoft/stimulus_reflex#master",
     "tailwindcss": "^2.1.1",
+    "tailwindcss-stimulus-components": "^2.2.2",
     "trix": "^1.2.0",
     "vite": "2.4.2",
     "vite-plugin-full-reload": "^0.2.1",
