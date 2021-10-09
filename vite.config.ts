@@ -6,7 +6,6 @@ import legacy from '@vitejs/plugin-legacy'
 import viteCompression from 'vite-plugin-compression'
 
 export default defineConfig({
-  server: { fs: { strict: false } },
   plugins: [
     RubyPlugin(),
     FullReload(['config/routes.rb', 'app/views/**/*', 'app/components/**/*'], { delay: 500 }),
