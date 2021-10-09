@@ -1,5 +1,9 @@
 # Below are the routes for madmin
 namespace :madmin do
+  resources :miscs
+  namespace :audit_log do
+    resources :logs
+  end
   namespace :action_text do
     resources :rich_texts
   end
