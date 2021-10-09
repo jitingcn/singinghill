@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get "/manifest.json" => "service_worker#manifest"
   get "/offline.html" => "service_worker#offline"
 
+  get "/progress/total" => "progress#total"
+
   get "project_files/download", to: "project_files#download_all", as: :download_all_file
 
   resources :project_files, controller: "project_files", type: "ProjectFile" do
@@ -40,10 +42,12 @@ Rails.application.routes.draw do
   #                            as: :project_filename, constraints: { name: /\d+.evd.txt/ }
 
   devise_for :users, controllers: {
+    registrations: "users/registrations",
     sessions: "users/sessions",
     omniauth_callbacks: "users/omniauth_callbacks"
   } do
     devise_scope :user do
+      get "edit", to: "users/registrations#edit", as: :edit_user_registration
       get "sign_in", to: "users/sessions#new", as: :new_user_session
       get "sign_out", to: "users/sessions#destroy", as: :destroy_user_session
     end

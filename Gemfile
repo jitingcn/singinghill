@@ -81,13 +81,13 @@ gem "lograge", "~> 0.11.2"
 
 gem "config", "~> 3.0"
 
-gem "vite_rails", "~> 2.0"
+gem "vite_rails", "~> 3.0"
 
 gem "rails-i18n", "~> 6.0.0"
 
-gem "stimulus_reflex", github: "hopsoft/stimulus_reflex", branch: "master"
+gem "stimulus_reflex", github: "stimulusreflex/stimulus_reflex", tag: "v3.5.0.pre3"
 
-gem "madmin", "~> 1.0", github: "excid3/madmin"
+gem "madmin", "~> 1.0", github: "jitingcn/madmin", branch: "dev"
 
 gem "omniauth-rails_csrf_protection"
 
@@ -96,3 +96,5 @@ gem "kaminari"
 gem "meilisearch-rails", github: "jitingcn/meilisearch-rails"
 
 gem "bullet", group: "development"
+
+gem "vite_plugin_legacy", "~> 3.0"

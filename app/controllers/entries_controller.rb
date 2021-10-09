@@ -109,7 +109,6 @@ class EntriesController < ApplicationController
   def entry_params
     params["entry"]["chinese"] = params["entry"]["chinese"].gsub(/(?<!\r)\n/, "\r\n")
                                                            .gsub(/\.\.\./, "…")
-                                                           .strip
     params.fetch(:entry, {}).merge(user_id: current_user.id).permit(:chinese, :user_id)
   end
 end

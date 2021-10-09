@@ -8,7 +8,7 @@ class User < ApplicationRecord
   # devise :database_authenticatable, :registerable,
   #        :recoverable, :rememberable, :validatable,
   #        :timeoutable, :trackable
-  devise :database_authenticatable, :trackable, :omniauthable, omniauth_providers: %i[gitlab]
+  devise :database_authenticatable, :registerable, :trackable, :omniauthable, omniauth_providers: %i[gitlab]
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth["uid"]).first_or_create do |user|

@@ -12,8 +12,6 @@
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
 
-    <%#= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %>
-    <%#= stylesheet_pack_tag "application", "data-turbo-track": "reload" %>
     <%= vite_client_tag %>
     <%= vite_javascript_tag 'application', "data-turbo-track": "reload", media: "all" %>
   </head>
@@ -33,10 +31,29 @@
         <% end %>
         <div class="flex flex-row space-x-3 items-center justify-center">
           <% if user_signed_in? %>
-            <div class="dark:text-gray-200"><%= current_user.name %></div>
-            <%= link_to "退出", destroy_user_session_path,
-                        class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-red-400 appearance-none focus:outline-none focus:ring-2 focus:ring-red-600 dark:bg-gray-600 dark:text-gray-200 focus:dark:ring-gray-400 text-center tracking-wide",
-                        method: :delete %>
+            <% if current_user %>
+              <div class="dark:text-gray-100"><%= current_user.name %></div>
+            <% end %>
+            <div class="inline-block px-1 py-1 text-sm leading-none no-underline text-gray lg:mt-0">
+              <div class="relative" data-controller="dropdown" data-dropdown-open-value="false">
+                <div data-action="click->dropdown#toggle click@window->dropdown#hide" role="button" data-dropdown-target="button" tabindex="0" class="inline-block select-none">
+                <span class="flex items-center inline-block appearance-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-4 h-4 text-gray-700 fill-current dark:text-gray-100"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path></svg>
+                </span>
+                </div>
+                <div data-dropdown-target="menu" class="absolute right-0 hidden mt-2">
+                  <div class="overflow-hidden text-right text-gray-900 border border-gray-700 rounded shadow bg-gray-50 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-400 hover:bg-gray-300 hover:dark:bg-gray-500">
+                      <%#= link_to "修改用户", edit_user_registration_path, data: { action: "click->dropdown#toggle" }, class: 'no-underline block px-6 py-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-300 hover:dark:bg-gray-500 whitespace-nowrap' %>
+                      <%= link_to "总进展", progress_total_path, data: { action: "click->dropdown#toggle" }, class: 'no-underline block px-6 py-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-300 hover:dark:bg-gray-500 whitespace-nowrap' %>
+                      <%= button_to "登出", destroy_user_session_path, method: :delete, data: { action: "click->dropdown#toggle" }, form_class: "border-t border-gray-700 dark:border-gray-400 hover:bg-gray-300", class: "!border-0 no-underline block !px-6 !py-3 w-full !bg-gray-50 !rounded-none dark:!bg-gray-700 hover:!bg-gray-300 hover:dark:!bg-gray-500 hover:cursor-pointer whitespace-nowrap" %>
+                  </div>
+
+                </div>
+              </div>
+            </div>
           <% else %>
             <%= button_to "登录", user_gitlab_omniauth_authorize_path,
                         class: "w-14 h-8 px-1 py-1 rounded-lg shadow-lg bg-gray-300 appearance-none focus:outline-none focus:ring-2 focus:ring-gray-600 dark:bg-indigo-600 dark:text-gray-200 focus:dark:ring-indigo-400 text-center tracking-wide",
@@ -52,5 +69,6 @@
           <%= yield %>
       </main>
     </div>
+    <%= vite_legacy_javascript_tag 'application' %>
   </body>
 </html>
