@@ -29,8 +29,7 @@ gem "hiredis"
 gem "bootsnap", ">= 1.4.4", require: false
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem "byebug", platforms: %i[mri mingw x64_mingw]
+  gem "debug" #, require: false
   gem "dotenv-rails"
 end
 
@@ -44,8 +43,6 @@ group :development do
   gem "rack-mini-profiler", "~> 2.0"
   gem "rubocop"
   gem "rubocop-rails"
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem "spring"
 end
 
 group :test do
