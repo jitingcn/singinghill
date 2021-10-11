@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com.cnpmjs.org/jitingcn/madmin.git
-  revision: 62059181c5e467050761ebfac34b23747ebfffcf
+  revision: 9f89d2dd61bebb9b8b70089e953ca96a88792e40
   branch: dev
   specs:
     madmin (1.2.5)
