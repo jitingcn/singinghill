@@ -1,4 +1,4 @@
-<% if current_user %>
+<% if current_user && current_user.entries.any? %>
   <% entry = current_user.entries.reorder(updated_at: :desc).first %>
   <% project_file = entry.project_file %>
   <%= link_to "#{url_for(project_file)}?entry=#{entry.id}", class: "text-blue-800 dark:text-blue-300 flex flex-col items-center" do %>
