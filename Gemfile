@@ -70,7 +70,7 @@ gem "rack-brotli"
 
 gem "action_policy", "~> 0.5.5"
 
-gem "audit-log", "~> 1.1"
+gem "audit-log", github: "jitingcn/audit-log"
 
 gem "lograge", "~> 0.11.2"
 
