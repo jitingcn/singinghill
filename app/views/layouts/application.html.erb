@@ -17,9 +17,6 @@
   </head>
   <body class="">
     <div class="h-full w-full">
-      <%#= turbo_frame_tag "flash", class: "z-60 absolute top-8 right-4" do %>
-        <%#= render "shared/flash" %>
-      <%# end %>
       <nav class="sticky top-0 z-40 lg:z-50 w-full max-w-8xl h-12 mx-auto bg-gray-100 dark:bg-gray-700 flex-none flex flex-row px-4 py-2 items-center justify-between">
         <a href="<%= root_path %>" id="logo" class="w-[22] h-6 rounded-full text-gray-700 dark:text-gray-200 font-bold"><%= t("SingingHill") %></a>
         <div class="navbar-item" data-controller="service-worker" style="display: none;">
