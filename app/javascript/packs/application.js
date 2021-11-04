@@ -19,3 +19,11 @@ ActiveStorage.start()
 import "stylesheets/application"
 
 require("application")
+import StimulusReflex from 'stimulus_reflex'
+import consumer from '../channels/consumer'
+import controller from '../controllers/application_controller'
+import CableReady from 'cable_ready'
+application.consumer = consumer
+StimulusReflex.initialize(application, { controller, isolate: true })
+StimulusReflex.debug = process.env.RAILS_ENV === 'development'
+CableReady.initialize({ consumer })
