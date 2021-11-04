@@ -11,6 +11,7 @@ class NounResource < Madmin::Resource
 
   # Associations
   attribute :user
+  attribute :versions
 
   # Uncomment this to customize the display name of records in the admin area.
   # def self.display_name(record)

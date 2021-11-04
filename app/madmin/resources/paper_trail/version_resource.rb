@@ -1,20 +1,14 @@
-class ActiveStorage::BlobResource < Madmin::Resource
+class PaperTrail::VersionResource < Madmin::Resource
   # Attributes
   attribute :id, form: false
-  attribute :key
-  attribute :filename
-  attribute :content_type
-  attribute :service_name
-  attribute :byte_size
-  attribute :checksum
+  attribute :event
+  attribute :whodunnit
+  attribute :object
   attribute :created_at, form: false
-  attribute :analyzed
-  attribute :identified
-  attribute :preview_image, index: false
+  attribute :object_changes
 
   # Associations
-  attribute :variant_records
-  attribute :attachments
+  attribute :item
 
   # Uncomment this to customize the display name of records in the admin area.
   # def self.display_name(record)

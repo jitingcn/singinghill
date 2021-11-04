@@ -1,5 +1,8 @@
 # Below are the routes for madmin
 namespace :madmin do
+  namespace :paper_trail do
+    resources :versions
+  end
   resources :miscs
   namespace :audit_log do
     resources :logs

@@ -95,3 +95,5 @@ gem "meilisearch-rails", github: "jitingcn/meilisearch-rails"
 gem "bullet", group: "development"
 
 gem "vite_plugin_legacy", "~> 3.0"
+
+gem "paper_trail", "~> 12.1"
