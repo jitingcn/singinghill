@@ -13,6 +13,18 @@
   .font-cn {
     @apply font-mono-cn subpixel-antialiased;
   }
+  .button {
+    @apply px-3 py-2 rounded-md border border-gray-900 dark:border-gray-100 shadow text-center focus:ring-2 focus:dark:ring-gray-200;
+  }
+  .button-sky {
+    @apply bg-sky-300 dark:bg-sky-900 hover:bg-sky-400 dark:hover:bg-sky-800 focus:outline-none focus:ring-2 focus:dark:ring-sky-200 focus:border-sky-600;
+  }
+  .button-lime {
+    @apply bg-lime-300 dark:bg-lime-900 hover:bg-lime-400 dark:hover:bg-lime-800 focus:outline-none focus:ring-2 focus:dark:ring-lime-200 focus:border-lime-600;
+  }
+  .button-teal {
+    @apply bg-teal-300 dark:bg-teal-900 hover:bg-teal-400 dark:hover:bg-teal-800 focus:outline-none focus:ring-2 focus:dark:ring-teal-200 focus:border-teal-600;
+  }
   .min-h-screen-12 {
     min-height: calc(100vh - 3rem);
   }
