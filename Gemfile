@@ -29,7 +29,7 @@ gem "hiredis"
 gem "bootsnap", ">= 1.4.4", require: false
 
 group :development, :test do
-  gem "debug" #, require: false
+  gem "debug", require: false
   gem "dotenv-rails"
 end
 

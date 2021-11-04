@@ -35,9 +35,5 @@
     "vite-plugin-stimulus-hmr": "^1.0.1"
   },
   "version": "0.1.0",
-  "devDependencies": {},
-  "resolutions": {
-    "browserslist": "4.17.3",
-    "caniuse-lite": "1.0.30001265"
-  }
+  "devDependencies": {}
 }
