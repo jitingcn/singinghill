@@ -412,7 +412,7 @@ GEM
     thor (1.1.0)
     thread-local (1.1.0)
     tilt (2.0.10)
-    turbo-rails (7.1.1)
+    turbo-rails (0.8.1)
       rails (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
@@ -488,6 +488,7 @@ DEPENDENCIES
   selenium-webdriver
   stimulus_reflex!
   tailwindcss-rails
+  turbo-rails (~> 0.8)
   tzinfo-data
   view_component
   vite_plugin_legacy (~> 3.0)

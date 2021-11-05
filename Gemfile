@@ -62,6 +62,8 @@ gem "hotwire-rails"
 
 gem "tailwindcss-rails"
 
+gem "turbo-rails", "~> 0.8"
+
 gem "view_component", require: "view_component/engine"
 
 gem "omniauth-gitlab"
