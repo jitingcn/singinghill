@@ -4,8 +4,13 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   config.cache_store = :redis_cache_store, { driver: :hiredis, url: ENV.fetch("REDIS_URL") { "redis://redis:6379/1" } }
 
-  config.session_store :cache_store, key: "_session_singinghill", compress: true, expire_after: 1.months
-
+  # config.session_store :cache_store, key: "_session_singinghill", compress: true, expire_after: 1.months
+  config.session_store :redis_store,
+                       servers: ENV.fetch("REDIS_URL") { "redis://redis:6379/1" },
+                       expire_after: 1.months,
+                       key: "_session_singinghill",
+                       compress: true,
+                       secure: true
   # Code is not reloaded between requests.
   config.cache_classes = true
 

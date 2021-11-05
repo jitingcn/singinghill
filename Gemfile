@@ -97,3 +97,5 @@ gem "bullet", group: "development"
 gem "vite_plugin_legacy", "~> 3.0"
 
 gem "paper_trail", "~> 12.1"
+
+gem "redis-actionpack", "~> 5.2"
