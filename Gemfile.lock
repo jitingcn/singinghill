@@ -49,7 +49,7 @@ GIT
 GEM
   remote: https://gems.ruby-china.com/
   specs:
-    action_policy (0.5.7)
+    action_policy (0.6.0)
       ruby-next-core (>= 0.11.0)
     actioncable (6.1.4.1)
       actionpack (= 6.1.4.1)
@@ -407,7 +407,7 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (0.7.1)
       rails (>= 6.0.0)
-    tailwindcss-rails (0.3.3)
+    tailwindcss-rails (0.5.1)
       rails (>= 6.0.0)
     thor (1.1.0)
     thread-local (1.1.0)
@@ -452,7 +452,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  action_policy (~> 0.5.5)
+  action_policy
   audit-log!
   bootsnap (>= 1.4.4)
   bullet
@@ -487,7 +487,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   selenium-webdriver
   stimulus_reflex!
-  tailwindcss-rails (~> 0.3.3)
+  tailwindcss-rails
   tzinfo-data
   view_component
   vite_plugin_legacy (~> 3.0)

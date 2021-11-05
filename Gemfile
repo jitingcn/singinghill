@@ -60,7 +60,7 @@ gem "devise", github: "heartcombo/devise"
 
 gem "hotwire-rails"
 
-gem "tailwindcss-rails", "~> 0.3.3"
+gem "tailwindcss-rails"
 
 gem "view_component", require: "view_component/engine"
 
@@ -68,7 +68,7 @@ gem "omniauth-gitlab"
 
 gem "rack-brotli"
 
-gem "action_policy", "~> 0.5.5"
+gem "action_policy"
 
 gem "audit-log", github: "jitingcn/audit-log"
 
