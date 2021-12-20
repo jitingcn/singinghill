@@ -6,8 +6,8 @@ Rails.application.configure do
 
   # config.session_store :cache_store, key: "_session_singinghill", compress: true, expire_after: 1.months
   config.session_store :redis_store,
-                       servers: { driver: :hiredis, url: ENV.fetch("REDIS_URL") { "redis://redis:6379/2" } },
-                       expire_after: 1.months,
+                       servers: { driver: :hiredis, url: ENV.fetch("REDIS_SESSION_URL") { "redis://redis:6379/2" } },
+                       expire_after: 3.months,
                        key: "_session_singinghill",
                        compress: true,
                        secure: true

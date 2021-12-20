@@ -18,6 +18,8 @@ services:
     restart: always
     ports:
       - 6379
+    volumes:
+      - singinghill_redis:/data
 
   meilisearch:
     container_name: "singinghill_meilisearch"
@@ -39,6 +41,7 @@ services:
       - RAILS_SERVE_STATIC_FILES=true
       - DATABASE_URL=postgres://postgres:@postgresql:5432/singinghill
       - REDIS_URL=redis://redis:6379/1
+      - REDIS_SESSION_URL=redis://redis:6379/2/session
       - WEB_CONCURRENCY=2
       - RAILS_MIN_THREADS=8
       - RAILS_MAX_THREADS=16
