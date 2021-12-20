@@ -3,22 +3,19 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "rexml"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem "rails", "~> 6.1.2", ">= 6.1.2.1"
+gem "rails", "~> 7"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use Puma as the app server
 gem "puma", "~> 5.0"
 # Use SCSS for stylesheets
 gem "sass-rails", ">= 6"
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-# gem "webpacker", "~> 6.0.0.pre.2"
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.7"
 # Use Redis adapter to run Action Cable in production
-gem "redis", "~> 4.0", require: %w[redis redis/connection/hiredis]
 gem "hiredis"
+gem "redis", "~> 4.0", require: %w[redis redis/connection/hiredis]
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -29,6 +26,7 @@ gem "hiredis"
 gem "bootsnap", ">= 1.4.4", require: false
 
 group :development, :test do
+  gem "bullet"
   gem "debug", require: false
   gem "dotenv-rails"
 end
@@ -62,7 +60,7 @@ gem "hotwire-rails"
 
 gem "turbo-rails", "~> 0.8"
 
-gem "view_component", require: "view_component/engine"
+gem "view_component"
 
 gem "omniauth-gitlab"
 
@@ -80,9 +78,7 @@ gem "config", "~> 3.0"
 
 gem "vite_rails", "~> 3.0"
 
-gem "rails-i18n", "~> 6.0.0"
-
-gem "stimulus_reflex", github: "stimulusreflex/stimulus_reflex", tag: "v3.5.0.pre3"
+gem "stimulus_reflex", github: "stimulusreflex/stimulus_reflex", tag: "v3.5.0.pre8"
 
 gem "madmin", "~> 1.0", github: "jitingcn/madmin", branch: "dev"
 
@@ -92,10 +88,8 @@ gem "kaminari"
 
 gem "meilisearch-rails", github: "jitingcn/meilisearch-rails"
 
-gem "bullet", group: "development"
-
 gem "vite_plugin_legacy", "~> 3.0"
 
 gem "paper_trail", "~> 12.1"
 
-gem "redis-actionpack", "~> 5.2"
+gem "redis-actionpack", github: "redis-store/redis-actionpack"

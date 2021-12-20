@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Singinghill
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.0
     config.hosts.append(*Settings.hosts)
     config.i18n.available_locales = [:en, "zh-CN"]
     config.i18n.default_locale = "zh-CN"

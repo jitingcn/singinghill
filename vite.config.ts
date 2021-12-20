@@ -15,7 +15,7 @@ export default defineConfig({
     viteCompression({ algorithm: 'brotliCompress', ext: '.br' })
   ],
   build: {
-    target: "es2015",
+    target: "es2017",
     minify: "terser"
   }
 })

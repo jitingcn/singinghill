@@ -1,5 +1,3 @@
-const colors = require('tailwindcss/colors')
-
 module.exports = {
   mode: 'jit',
   purge: {
@@ -22,9 +20,6 @@ module.exports = {
     }
   },
   theme: {
-    colors: {
-      ...colors,
-    },
     extend: {
       fontFamily: {
         'mono-cn': `'Sarasa Gothic SC', 'Source Code Pro','DejaVu Sans Mono','Ubuntu Mono','Anonymous Pro','Droid Sans Mono',Menlo,Monaco,Consolas,Inconsolata,Courier,monospace,'PingFang SC','Microsoft YaHei',sans-serif`,
