@@ -6,16 +6,16 @@ deploy_job:
   variables:
     RAILS_ENV: production
   before_script:
-    - cd /opt/singinghill
+    - cd /srv/singinghill
     - git pull
     - docker pull jiting/rails-base:builder-latest
     - docker pull jiting/rails-base:production-latest
   script:
-    - cd /opt/singinghill
+    - cd /srv/singinghill
     - docker-compose build
     - docker-compose up -d
     - docker exec singinghill_web rake clear_cache
   environment:
     name: production
-    url: https://singinghill.revth.com/
+    url: https://singinghill.jtcat.com/
   when: manual
