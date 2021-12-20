@@ -1,5 +1,5 @@
-source "https://gems.ruby-china.com/"
-git_source(:github) { |repo| "https://github.com.cnpmjs.org/#{repo}.git" }
+source "https://rubygems.org/"
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "rexml"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
