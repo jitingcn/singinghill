@@ -27,14 +27,6 @@ GIT
       rails (>= 6.0.3)
 
 GIT
-  remote: https://github.com/jitingcn/meilisearch-rails.git
-  revision: edf14a59cd0b22c68765ff17303f62c6bbffc525
-  specs:
-    meilisearch-rails (0.2.3)
-      json (>= 1.5.1)
-      meilisearch (>= 0.15.4)
-
-GIT
   remote: https://github.com/redis-store/redis-actionpack.git
   revision: daf349101adfb395654be687d46c0f5c0c734e99
   specs:
@@ -261,6 +253,9 @@ GEM
     matrix (0.4.2)
     meilisearch (0.17.3)
       httparty (>= 0.17.1, < 0.21.0)
+    meilisearch-rails (0.3.0)
+      json (>= 1.5.1)
+      meilisearch (>= 0.15.4)
     method_source (1.0.0)
     mime-types (3.4.1)
       mime-types-data (~> 3.2015)
@@ -469,7 +464,7 @@ DEPENDENCIES
   listen (~> 3.3)
   lograge (~> 0.11.2)
   madmin (~> 1.0)!
-  meilisearch-rails!
+  meilisearch-rails (~> 0.3)
   omniauth-gitlab
   omniauth-rails_csrf_protection
   paper_trail (~> 12.1)
@@ -496,4 +491,4 @@ DEPENDENCIES
   webdrivers
 
 BUNDLED WITH
-   2.2.22
+   2.2.26

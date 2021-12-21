@@ -1,17 +1,12 @@
 module.exports = {
   mode: 'jit',
-  purge: {
-    content: [
-      "./app/javascript/stylesheets/**/*.*css",
-      "./app/javascript/controllers/*.js",
-      "./app/views/**/*.*",
-      "./app/components/*.*",
-      "./app/helpers/**/*.*",
-    ],
-    options: {
-      whitelist: ['pagy'],
-    },
-  },
+  content: [
+    "./app/javascript/stylesheets/**/*.*css",
+    "./app/javascript/controllers/*.js",
+    "./app/views/**/*.*",
+    "./app/components/*.*",
+    "./app/helpers/**/*.*",
+  ],
   darkMode: 'media', // or 'media' or 'class'
   variants: {
     extend: {
@@ -40,6 +35,7 @@ module.exports = {
     },
   },
   plugins: [
+    require('daisyui'),
     require('@tailwindcss/forms'),
   ],
 }

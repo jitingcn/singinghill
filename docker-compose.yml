@@ -71,3 +71,4 @@ services:
 volumes:
   singinghilldb:
   singinghillms:
+  singinghill_redis:

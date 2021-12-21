@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <link rel="manifest" href="/manifest.json">
@@ -23,10 +23,21 @@
           <%= image_tag "cloud-check.svg", width: "23px", height: "23px", alt: "", data: { 'service-worker-target':"pageSavedNotice" }, class: "hidden" %>
           <%= image_tag "cloud-download.svg", width: "23px", height: "23px", alt: "", data: { 'service-worker-target':"savingPageNotice" }, class: "" %>
         </div>
-        <% if controller.controller_name == "project_files" %>
-          <%= render "entries/total_progress" %>
-        <% end %>
+        <%= yield :nav %>
+
         <div class="flex flex-row space-x-3 items-center justify-center">
+          <%= yield :nav_right %>
+          <div>
+            <%= render(ModalComponent.new(open_text: "搜索", modal_id: "search")) do %>
+              <%= render partial: "shared/search" %>
+            <% end %>
+          </div>
+          <div>
+            <%= render(ModalComponent.new(open_text: "查看进度", modal_id: "progress-box")) do %>
+              <turbo-frame src="<%= progress_total_path %>" class="flex flex-col dark:text-gray-100 items-center justify-center space-y-2"  id="total_progress">
+              </turbo-frame>
+            <% end %>
+          </div>
           <% if user_signed_in? %>
             <% if current_user %>
               <div class="dark:text-gray-100"><%= current_user.name %></div>

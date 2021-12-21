@@ -9,8 +9,6 @@ class Entry < ApplicationRecord
                                      partial: "entries/entry_list_item",
                                      locals: { entry: self, active: true }
     broadcast_replace_to "main-app", target: "entry_#{id}", partial: "entries/entry", locals: { entry: self }
-    broadcast_replace_to "main-app", target: "entry_total_progress", partial: "entries/total_progress"
-    # broadcast_replace_to "project_file", target: "project_file_#{project_file.id}_entry_#{id}", partial: "entries/entry_list", locals: { entries: self }
   end
 
   include MeiliSearch

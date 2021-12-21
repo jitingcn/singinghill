@@ -1,0 +1,30 @@
+<div data-controller="search" data-reflex-root="#search_result">
+  <input type="text" name="search" id="search" placeholder="Search"
+         data-search-target="query" data-action="input->search#perform"
+         class="input input-accent input-bordered">
+  <div id="search_result" class="">
+    <span data-search-target="activity" class="" hidden>
+      <button class="btn btn-square loading"></button>
+      搜索中...
+    </span>
+    <span data-search-target="count" class="mt-2 <%= "hidden" if @result&.count.to_i > 0 %>">
+      <strong>无结果</strong>
+    </span>
+    <div data-search-target="list" class="mt-2 <%= "hidden" unless @result.present? %>">
+      <% if @result.present? %>
+        <% @result.each do |item| %>
+          <%= link_to "#{url_for(item.project_file)}?entry=#{item.id}",
+                      class: "my-1 p-1 border flex flex-col text-sm",
+                      target: "_blank" do %>
+            <span class="truncate"><%= item.source %></span>
+            <span class="truncate"><%= item.chinese %></span>
+            <span class="flex justify-between text-xs">
+              <span><%= item.project_file.type %></span>
+              <span><%= item.project_file.name %></span>
+            </span>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

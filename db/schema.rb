@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2021_12_20_194926) do
     t.index ["chinese"], name: "index_entries_on_chinese"
     t.index ["project_file_id"], name: "index_entries_on_project_file_id"
     t.index ["source"], name: "index_entries_on_source"
+    t.index ["source"], name: "trgm_idx", opclass: :gist_trgm_ops, using: :gist
     t.index ["user_id"], name: "index_entries_on_user_id"
   end
 

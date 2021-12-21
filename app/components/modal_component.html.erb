@@ -1,0 +1,10 @@
+<label for="<%= @modal_id %>" class="btn btn-sm modal-button"><%= @open_text %></label>
+<input type="checkbox" id="<%= @modal_id %>" class="modal-toggle">
+<label class="modal" for="<%= @modal_id %>">
+  <label class="modal-box">
+    <%= content %>
+    <span class="modal-action">
+      <label for="<%= @modal_id %>" class="btn">关闭</label>
+    </span>
+  </label>
+</label>
