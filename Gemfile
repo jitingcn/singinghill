@@ -58,7 +58,7 @@ gem "devise", github: "heartcombo/devise"
 
 gem "hotwire-rails"
 
-gem "turbo-rails", "~> 0.8"
+gem "turbo-rails", "~> 0.8", "< 7"
 
 gem "view_component"
 
@@ -90,6 +90,6 @@ gem "meilisearch-rails", "~> 0.3"
 
 gem "vite_plugin_legacy", "~> 3.0"
 
-gem "paper_trail", "~> 12.1"
+gem "paper_trail", "~> 12"
 
 gem "redis-actionpack", github: "redis-store/redis-actionpack"
