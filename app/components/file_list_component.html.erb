@@ -36,7 +36,7 @@
   </div>
 
   <turbo-frame id="file_list_nav" class="ml-4 w-80 flex text-sm my-2 items-center justify-between rounded-md lg:w-auto lg:ml-0 dark:text-gray-200" target="file_list">
-    <%= paginate @project_files, params: { file_id: 0 } %>
+    <%= paginate @project_files, params: { file_id: @file_id } %>
   </turbo-frame>
 </turbo-frame>
 
