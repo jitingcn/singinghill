@@ -10,7 +10,7 @@ class ProjectFile < ApplicationRecord
                          locals: { project_file: self.class != ProjectFile ? self.becomes(ProjectFile) : self }
   end
 
-  include MeiliSearch
+  include MeiliSearch::Rails
   meilisearch do
     attribute %i[name title status]
   end

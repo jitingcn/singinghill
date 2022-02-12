@@ -11,7 +11,7 @@ class Entry < ApplicationRecord
     broadcast_replace_to "main-app", target: "entry_#{id}", partial: "entries/entry", locals: { entry: self }
   end
 
-  include MeiliSearch
+  include MeiliSearch::Rails
   meilisearch enqueue: true do
     attribute %i[source english chinese]
     attribute :user do
