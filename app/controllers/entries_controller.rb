@@ -19,7 +19,7 @@ class EntriesController < ApplicationController
 
   # GET /entries/1/edit
   def edit
-    @nouns = Noun.where("? ~ source", @entry.source).pluck(:source, :chinese)
+    @nouns = Noun.where("? ~ source", @entry.source)
   end
 
   def hints

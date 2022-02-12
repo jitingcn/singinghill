@@ -19,13 +19,15 @@
         <div class="text-sm ">
           <% unless @entry.narrator.nil? %>
             <div class="text-sm">
-              叙述者: [<%= @entry.narrator.narrator_chinese %>]
+              叙述者：【<%= @entry.narrator.narrator_chinese %>】
             </div>
           <% end %>
           <% cache @nouns do %>
             <% @nouns.each do |noun| %>
               <div class="font-cn">
-                <span class=""><%= noun[0] %></span> -> <span class=""><%= noun[1] %></span>
+                <span class="">
+                  <%= "［#{noun.leixing}］#{noun.source}：#{noun.chinese}" %><%= noun.comment.blank? ? "" : "（#{noun.comment}）" %>
+                </span>
               </div>
             <% end %>
           <% end %>
