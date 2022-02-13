@@ -7,7 +7,7 @@ class ProjectFile < ApplicationRecord
     broadcast_replace_to "main-app",
                          target: "project_file_#{id}_progress",
                          partial: "project_files/progress",
-                         locals: { project_file: self.class != ProjectFile ? self.becomes(ProjectFile) : self }
+                         locals: { project_file: instance_of?(ProjectFile) ? self : becomes(ProjectFile) }
   end
 
   include MeiliSearch::Rails

@@ -86,7 +86,7 @@ gem "omniauth-rails_csrf_protection"
 
 gem "kaminari"
 
-gem "meilisearch-rails", "~> 0.3"
+gem "meilisearch-rails", github: "jitingcn/meilisearch-rails", branch: "fix-job"
 
 gem "vite_plugin_legacy", "~> 3.0"
 
