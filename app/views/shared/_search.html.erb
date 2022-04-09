@@ -14,8 +14,7 @@
       <% if @result.present? %>
         <% @result.each do |item| %>
           <%= link_to "#{url_for(item.project_file)}?entry=#{item.id}",
-                      class: "my-1 p-1 border flex flex-col text-sm",
-                      target: "_blank" do %>
+                      class: "my-1 p-1 border flex flex-col text-sm" do %>
             <span class="truncate"><%= item.source %></span>
             <span class="truncate"><%= item.chinese %></span>
             <span class="flex justify-between text-xs">
