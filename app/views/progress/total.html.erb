@@ -1,5 +1,8 @@
 <turbo-frame class="px-4 py-6 flex flex-col dark:text-gray-100 items-center justify-center space-y-2" id="total_progress">
-  <p>校对进度</p>
+  <div class="flex flex-row">
+    <p class="mr-3">校对进度</p>
+    <p><%= (Entry.where("status >= ?", 1).count.to_f / Entry.all.count * 100).round(2) %>%</p>
+  </div>
   <% @total.sort_by { |k, v | v }.to_h.keys.reverse.each do |type| %>
     <div class="rounded shadow bg-sky-300 dark:bg-sky-600 px-3 py-1.5 w-full max-w-xl flex flex-row items-center justify-between">
       <span class="w-1/2 truncate">
