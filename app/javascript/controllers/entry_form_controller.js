@@ -12,7 +12,6 @@ export default class extends ApplicationController {
   }
 
   keydown(event) {
-    console.log(event)
     if (event.target.hasAttribute("loading")) return
 
     if ((event.ctrlKey || event.metaKey) && (event.keyCode === 13 || event.keyCode === 10)) {
