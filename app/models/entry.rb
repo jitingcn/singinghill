@@ -14,14 +14,9 @@ class Entry < ApplicationRecord
   include MeiliSearch::Rails
   extend Pagy::Meilisearch
   ActiveRecord_Relation.include Pagy::Meilisearch
+
   meilisearch enqueue: true do
     attribute %i[source english chinese]
-    attribute :user do
-      user&.name
-    end
-    attribute :history_change do
-      history_change
-    end
   end
 
   def update_associates
