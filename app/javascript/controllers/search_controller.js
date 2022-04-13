@@ -4,32 +4,39 @@ import {debounce} from "lodash"
  * Learn more at: https://docs.stimulusreflex.com
  */
 export default class extends ApplicationController {
-  static targets = ['query', 'activity', 'count', 'list']
+  static targets = ['query', 'dbMode', 'regexMode', 'activity', 'count', 'list']
 
-  connect () {
+  connect() {
     super.connect()
     this.perform = debounce(this.perform, 500).bind(this)
     this.gotoPage = debounce(this.gotoPage, 1000).bind(this)
   }
 
-  beforePerform (element, reflex) {
+  beforePerform(element, reflex) {
     this.activityTarget.classList.remove("hidden")
     this.countTarget.hidden = true
   }
 
-  perform (event) {
+  perform(event, page = 1) {
     event.preventDefault()
-    this.stimulate('SearchReflex#perform', {query: this.queryTarget.value})
+    this.stimulate('SearchReflex#perform', {
+      query: this.queryTarget.value,
+      page: page,
+      db_mode: this.dbModeTarget.checked,
+      regex_mode: this.regexModeTarget.checked
+    })
   }
 
   nextPage(event) {
     event.preventDefault()
-    this.stimulate('SearchReflex#perform', {query: this.queryTarget.value, page: event.target.dataset.page})
+    this.perform(event, event.target.dataset.page)
   }
 
   gotoPage(event) {
-    this.stimulate('SearchReflex#perform', {query: this.queryTarget.value, page: event.target.value})
+    event.preventDefault()
+    this.perform(event, event.target.value)
   }
+
   /* Reflex specific lifecycle methods.
    *
    * For every method defined in your Reflex class, a matching set of lifecycle methods become available

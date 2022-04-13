@@ -33,12 +33,30 @@ class SearchReflex < ApplicationReflex
   #
   # Learn more at: https://docs.stimulusreflex.com/rtfm/reflex-classes
   def perform(args = {})
-    query = args[:query]
-    page = args[:page] || 1
+    query = args[:query] || ""
     return if query.blank?
 
-    results = Entry.pagy_search(query)
-    @pagy, @results = pagy_meilisearch(results, items: 8, page: page.to_i)
-    @pagy = pagy_metadata(@pagy)
+    page = args[:page] || 1
+    @db_mode = args[:db_mode] || false
+
+    @regex_mode = args[:regex_mode] || false
+    if @regex_mode
+      begin
+        Regexp.new(query)
+      rescue RegexpError
+        @regex_mode = false
+      end
+    end
+
+    if @db_mode
+      op =  @regex_mode ? "~" : "ILIKE"
+      pagy, @results = pagy(Entry.where("(source #{op} ?) or (chinese #{op} ?) or (english #{op} ?)",
+                                        *[query.to_s] * 3),
+                            items: 8, page: page)
+    else
+      results = Entry.pagy_search(query)
+      pagy, @results = pagy_meilisearch(results, items: 8, page: page.to_i)
+    end
+    @pagy = pagy_metadata(pagy)
   end
 end
