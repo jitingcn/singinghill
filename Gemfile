@@ -70,7 +70,7 @@ gem "action_policy"
 
 gem "audit-log", github: "jitingcn/audit-log"
 
-gem "lograge", "~> 0.11.2"
+gem "lograge"
 
 # gem "natto", "~> 1.2"
 
@@ -78,7 +78,7 @@ gem "config", "~> 3.0"
 
 gem "vite_rails", "~> 3.0"
 
-gem "stimulus_reflex", github: "stimulusreflex/stimulus_reflex", tag: "v3.5.0.pre8"
+gem "stimulus_reflex", github: "stimulusreflex/stimulus_reflex", tag: "v3.5.0.pre9"
 
 gem "madmin", "~> 1.0", github: "jitingcn/madmin", branch: "dev"
 
@@ -86,7 +86,7 @@ gem "omniauth-rails_csrf_protection"
 
 gem "kaminari"
 
-gem "meilisearch-rails", github: "jitingcn/meilisearch-rails", branch: "fix-job"
+gem "meilisearch-rails"
 
 gem "vite_plugin_legacy", "~> 3.0"
 
