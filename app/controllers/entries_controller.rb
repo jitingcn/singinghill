@@ -77,7 +77,7 @@ class EntriesController < ApplicationController
         if status_update
           audit! :update_entry, @entry, payload: { message: "条目状态更改为 #{@entry.status}" }
         end
-        format.html { redirect_to @entry, notice: "Entry was successfully updated." }
+        format.html { redirect_to @entry, notice: "条目更新成功" }
         format.json { render :show, status: :ok, location: @entry }
       else
         format.html { render :edit, status: :unprocessable_entity }

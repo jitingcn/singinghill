@@ -1,20 +1,24 @@
 <div data-controller="search" data-reflex-root="#search_result">
-  <input type="text" name="search" id="search" placeholder="Search"
-         data-search-target="query" data-action="input->search#perform"
-         class="input input-accent input-bordered" autocomplete="off">
-  <div id="search_result" class="">
-    <span data-search-target="activity" class="" hidden>
+  <div class="flex flex-row">
+    <input type="text" name="search" id="search" placeholder="Search"
+           data-search-target="query" data-action="input->search#perform"
+           class="input input-accent input-bordered" autocomplete="off">
+
+  </div>
+  <div id="search_result" class="relative">
+    <span data-search-target="activity" class="absolute transition hidden">
       <button class="btn btn-square loading"></button>
       搜索中...
     </span>
-    <span data-search-target="count" class="mt-2 <%= "hidden" if @result&.count.to_i > 0 %>">
+    <span data-search-target="count" class="mt-2 <%= "hidden" if @results&.count.to_i > 0 %>">
       <strong>无结果</strong>
     </span>
-    <div data-search-target="list" class="mt-2 <%= "hidden" unless @result.present? %>">
-      <% if @result.present? %>
-        <% @result.each do |item| %>
+    <div data-search-target="list" class="mt-2 <%= "hidden" unless @results.present? %>">
+      <% if @results.present? %>
+        <% @results.each do |item| %>
           <%= link_to "#{url_for(item.project_file)}?entry=#{item.id}",
-                      class: "my-1 p-1 border flex flex-col text-sm" do %>
+                      class: "my-1 p-1 border flex flex-col text-sm rounded",
+                      "data-turbo-frame": "editor" do %>
             <span class="truncate"><%= item.source %></span>
             <span class="truncate"><%= item.chinese %></span>
             <span class="flex justify-between text-xs">
@@ -23,6 +27,23 @@
             </span>
           <% end %>
         <% end %>
+        <div class="inline-flex row items-center gap-2">
+          <% if @pagy[:prev] %>
+            <button data-page="<%= @pagy[:prev] %>" data-action="search#nextPage" class="btn btn-outline btn-sm md:btn-md">
+              上页
+            </button>
+          <% end %>
+          <div class="inline-flex flex-row items-center">
+            <input type="range" class="w-auto range mr-1" min="1" max="<%= @pagy[:last] %>" step="1" value="<%= @pagy[:page] %>" data-current="<%= @pagy[:page] %>" data-action="search#gotoPage">
+            (<%= @pagy[:page] %>/<%= @pagy[:pages] %>)
+          </div>
+          <% if @pagy[:next] %>
+            <button data-page="<%= @pagy[:next] %>" data-action="search#nextPage" class="btn btn-outline btn-sm md:btn-md">
+              下页
+            </button>
+          <% end %>
+
+        </div>
       <% end %>
     </div>
   </div>

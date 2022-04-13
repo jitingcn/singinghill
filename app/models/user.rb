@@ -38,9 +38,9 @@ class User < ApplicationRecord
     save
   end
 
-  def self.online
-    ids = ActionCable.server.pubsub.redis_connection_for_subscriptions.zrange "online", 0, -1
-    where(id: ids)
+  def self.online(raw: false)
+    ids = ActionCable.server.pubsub.redis_connection_for_subscriptions.zrange "online", 0, -1, with_scores: raw
+    raw ? ids : where(id: ids)
   end
 
   def online?

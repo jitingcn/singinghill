@@ -27,7 +27,7 @@ gem "bootsnap", ">= 1.4.4", require: false
 
 group :development, :test do
   gem "bullet"
-  gem "debug", require: false
+  gem "debug"
   gem "dotenv-rails"
 end
 
@@ -93,3 +93,5 @@ gem "vite_plugin_legacy", "~> 3.0"
 gem "paper_trail", "~> 12"
 
 gem "redis-actionpack", github: "redis-store/redis-actionpack"
+
+gem "pagy"

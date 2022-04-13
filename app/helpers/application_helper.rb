@@ -1,5 +1,6 @@
 module ApplicationHelper
-  def full_title(page_title = '')
+  include Pagy::Frontend
+  def full_title(page_title = "")
     base_title = t("SingingHill")
     if page_title.empty?
       base_title

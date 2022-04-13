@@ -32,8 +32,13 @@ class SearchReflex < ApplicationReflex
   #   end
   #
   # Learn more at: https://docs.stimulusreflex.com/rtfm/reflex-classes
-  def perform(query = "")
-    return unless query.size > 1
-    @result = Entry.search(query, hitsPerPage: 8)
+  def perform(args = {})
+    query = args[:query]
+    page = args[:page] || 1
+    return if query.blank?
+
+    results = Entry.pagy_search(query)
+    @pagy, @results = pagy_meilisearch(results, items: 8, page: page.to_i)
+    @pagy = pagy_metadata(@pagy)
   end
 end

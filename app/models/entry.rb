@@ -12,6 +12,8 @@ class Entry < ApplicationRecord
   end
 
   include MeiliSearch::Rails
+  extend Pagy::Meilisearch
+  ActiveRecord_Relation.include Pagy::Meilisearch
   meilisearch enqueue: true do
     attribute %i[source english chinese]
     attribute :user do

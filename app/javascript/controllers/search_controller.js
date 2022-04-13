@@ -8,17 +8,27 @@ export default class extends ApplicationController {
 
   connect () {
     super.connect()
-    this.perform = debounce(this.perform, 300).bind(this)
+    this.perform = debounce(this.perform, 500).bind(this)
+    this.gotoPage = debounce(this.gotoPage, 1000).bind(this)
   }
 
   beforePerform (element, reflex) {
-    this.activityTarget.hidden = false
+    this.activityTarget.classList.remove("hidden")
     this.countTarget.hidden = true
   }
 
   perform (event) {
     event.preventDefault()
-    this.stimulate('SearchReflex#perform', this.queryTarget.value)
+    this.stimulate('SearchReflex#perform', {query: this.queryTarget.value})
+  }
+
+  nextPage(event) {
+    event.preventDefault()
+    this.stimulate('SearchReflex#perform', {query: this.queryTarget.value, page: event.target.dataset.page})
+  }
+
+  gotoPage(event) {
+    this.stimulate('SearchReflex#perform', {query: this.queryTarget.value, page: event.target.value})
   }
   /* Reflex specific lifecycle methods.
    *

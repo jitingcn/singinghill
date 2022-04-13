@@ -19,11 +19,11 @@ GIT
 
 GIT
   remote: https://github.com/jitingcn/madmin.git
-  revision: f0cbdfbd6d098ab48b5eca255daf674f193aa796
+  revision: 980d1fd44579b29658158fd8c5894e707aec9c71
   branch: dev
   specs:
     madmin (1.2.5)
-      pagy (>= 3.5, < 5.0)
+      pagy (>= 3.5, < 6.0)
       rails (>= 6.0.3)
 
 GIT
@@ -304,7 +304,8 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
-    pagy (4.11.0)
+    pagy (5.10.1)
+      activesupport
     paper_trail (12.3.0)
       activerecord (>= 5.2)
       request_store (~> 1.1)
@@ -484,6 +485,7 @@ DEPENDENCIES
   meilisearch-rails
   omniauth-gitlab
   omniauth-rails_csrf_protection
+  pagy
   paper_trail (~> 12)
   pg (~> 1.1)
   pry

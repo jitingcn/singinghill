@@ -12,7 +12,7 @@ export default class extends ApplicationController {
   }
 
   keyboard(event) {
-    console.debug(event.keyCode)
+    // console.debug(event.keyCode)
     if (document.getElementById(this.currentEntryID()).hasAttribute("loading")) return
 
     if (event.ctrlKey || event.metaKey)  {
@@ -77,7 +77,7 @@ export default class extends ApplicationController {
     setTimeout(() => {
       document.querySelector("#entry_list_body").lastElementChild.click()
       document.querySelector("#entry_list_body").lastElementChild.scrollIntoView()
-    }, 500)
+    }, 700)
   }
 
   nextFile() {
@@ -88,7 +88,7 @@ export default class extends ApplicationController {
       document.querySelector("#file_list_nav > nav > .next > a").click()
       setTimeout(() => {
         document.querySelector("#file_list_body").firstElementChild.click()
-      }, 500)
+      }, 700)
     }
   }
 
