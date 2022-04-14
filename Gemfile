@@ -95,3 +95,5 @@ gem "paper_trail", "~> 12"
 gem "redis-actionpack", github: "redis-store/redis-actionpack"
 
 gem "pagy"
+
+gem "kredis", "~> 1.1"

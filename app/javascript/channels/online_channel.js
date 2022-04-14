@@ -1,10 +1,17 @@
 import consumer from "./consumer";
 
-const onlineChannel = consumer.subscriptions.create("OnlineChannel", {
+const onlineChannel = consumer.subscriptions.create(
+    {
+      channel: "OnlineChannel",
+      location: window.location.href
+    }, {
   connected() {
     // Called when the subscription is ready for use on the server
     this.install()
     this.current_online()
+    setInterval(function() {
+      onlineChannel.perform('ping', {});
+    }, 5000);
   },
 
   disconnected() {
@@ -25,7 +32,11 @@ const onlineChannel = consumer.subscriptions.create("OnlineChannel", {
   received(data) {
     // Called when there's incoming data on the websocket for this channel
     for (const [key, value] of Object.entries(data)) {
-      console.log(key, value);
+      if (key === "message") {
+        console.log(value);
+      } else {
+        console.log(key, value);
+      }
     }
   },
 
