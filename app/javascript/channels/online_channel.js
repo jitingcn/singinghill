@@ -22,7 +22,7 @@ const onlineChannel = consumer.subscriptions.create(
   appear() {
     setTimeout(() => {
       onlineChannel.perform("appear", {location: window.location.href})
-	}, 50)
+	}, 100)
   },
 
   current_online() {

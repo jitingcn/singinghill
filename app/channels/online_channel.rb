@@ -2,7 +2,7 @@ class OnlineChannel < ApplicationCable::Channel
   periodically :check_pings, every: 10.seconds
 
   def subscribed
-    return unless current_user
+    reject && return unless current_user
 
     @connection_token = generate_connection_token
 

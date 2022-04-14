@@ -38,7 +38,7 @@ class OnlineUser
     end
 
     def get_connection_ids(user_id)
-      store.to_h.select { |k, v| v["user_id"] == user_id }.keys
+      store.to_h.select { |_k, v| v["user_id"] == user_id }.keys
     end
   end
 end
