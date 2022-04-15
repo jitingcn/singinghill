@@ -487,6 +487,7 @@ DEPENDENCIES
   lograge
   madmin (~> 1.0)!
   meilisearch-rails
+  omniauth
   omniauth-gitlab
   omniauth-rails_csrf_protection
   pagy

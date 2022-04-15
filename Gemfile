@@ -62,8 +62,6 @@ gem "turbo-rails", "~> 0.8", "< 7"
 
 gem "view_component"
 
-gem "omniauth-gitlab"
-
 gem "rack-brotli"
 
 gem "action_policy"
@@ -82,7 +80,10 @@ gem "stimulus_reflex", github: "stimulusreflex/stimulus_reflex", tag: "v3.5.0.pr
 
 gem "madmin", "~> 1.0", github: "jitingcn/madmin", branch: "dev"
 
+gem "omniauth"
 gem "omniauth-rails_csrf_protection"
+
+gem "omniauth-gitlab"
 
 gem "kaminari"
 

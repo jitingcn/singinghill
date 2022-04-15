@@ -291,7 +291,9 @@ Devise.setup do |config|
   config.omniauth :gitlab, Rails.application.credentials[:GITLAB_KEY],
                   Rails.application.credentials[:GITLAB_SECRET],
                   scope: "read_user openid",
-                  client_options: { site: "https://gitlab.jtcat.com/api/v4" }
+                  client_options: { site: "https://gitlab.jtcat.com/api/v4",
+                                    authorize_url: "/oauth/authorize",
+                                    token_url: "/oauth/token" }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
