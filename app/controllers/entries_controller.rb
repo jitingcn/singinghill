@@ -24,16 +24,18 @@ class EntriesController < ApplicationController
 
   def hints
     @entry = Entry.find(params[:entry_id])
-    @hints = Entry.joins(:project_file)
-                  .where.not(id: @entry.id)
-                  .where("(source <-> '#{@entry.source}') < 0.6")
-                  .from("(SELECT DISTINCT ON (chinese) * FROM entries) entries")
-                  .select(:name, :source, :chinese, "(source <-> '#{@entry.source}') as distance")
-                  .order("distance")
-                  .limit(4)
-                  .to_a.map(&:serializable_hash)
-                  .uniq { |p| p["chinese"] }
-                  .each { |p| p.delete("id") }
+    @hints =
+      Entry
+      .joins(:project_file)
+      .where.not(id: @entry.id)
+      .where.not(source: @entry.source)
+      .where("(source <->> '#{@entry.source}') < 0.7")
+      .select(:name, :source, :chinese, "(source <->> '#{@entry.source}') as distance")
+      .order("distance")
+      .limit(4)
+      .to_a.map(&:serializable_hash)
+      .uniq { |p| p["chinese"] }
+      .each { |p| p.delete("id") }
 
     render partial: "entries/hints", locals: { hints: @hints }
   end
