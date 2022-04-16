@@ -1,5 +1,5 @@
 class OnlineChannel < ApplicationCable::Channel
-  periodically :check_pings, every: 10.seconds
+  periodically :check_pings, every: 30.seconds
 
   def subscribed
     reject && return unless current_user
@@ -7,7 +7,7 @@ class OnlineChannel < ApplicationCable::Channel
     @connection_token = generate_connection_token
 
     OnlineUser.store.update(
-      @connection_token => { user_id: current_user.id, last_updated: DateTime.current.to_i, location: params[:location] }
+      @connection_token => { user_id: current_user.id, last_updated: DateTime.current.to_i, location: "" }
     )
 
     stream_from "online:users"
@@ -46,14 +46,12 @@ class OnlineChannel < ApplicationCable::Channel
       time_diff = DateTime.current.to_i - info["last_updated"]
       next unless time_diff > 300
 
-      OnlineUser.get_connection_ids(info["user_id"]).each do |id|
-        OnlineUser.delete(id)
-      end
-      broadcast_to "users", { message: "(#{User.find(info["user_id"]).name}) 大概是掉线了" }
+      OnlineUser.delete(connection_id)
+      # broadcast_to "users", { message: "(#{User.find(info["user_id"]).name}) 大概是掉线了" }
     end
   end
 
   def generate_connection_token
-    SecureRandom.hex(8)
+    SecureRandom.hex(4)
   end
 end

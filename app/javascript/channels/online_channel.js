@@ -1,13 +1,10 @@
 import consumer from "./consumer";
 
-const onlineChannel = consumer.subscriptions.create(
-    {
-      channel: "OnlineChannel",
-      location: window.location.href
-    }, {
+const onlineChannel = consumer.subscriptions.create({channel: "OnlineChannel"}, {
   connected() {
     // Called when the subscription is ready for use on the server
     this.install()
+    this.appear()
     this.current_online()
     setInterval(function() {
       onlineChannel.perform('ping', {});

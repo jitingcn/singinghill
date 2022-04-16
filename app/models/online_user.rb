@@ -10,12 +10,16 @@ class OnlineUser
 
     def update_time(connection_id)
       current = store[connection_id]
+      return if current.nil?
+
       current[:last_updated] = DateTime.current.to_i
       store.update(connection_id => current)
     end
 
     def update_location(connection_id, location)
       current = store[connection_id]
+      return if current.nil?
+
       current[:location] = location
       store.update(connection_id => current)
     end
