@@ -2,7 +2,8 @@ class User < ApplicationRecord
   before_create :generate_authentication_token
   has_many :entries
   has_many :nouns
-
+  has_one_attached :avatar
+  store_accessor :extra, :qq
   enum role: { default: 0, admin: 1 }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -36,5 +37,21 @@ class User < ApplicationRecord
   def reset_auth_token!
     generate_authentication_token
     save
+  end
+
+  def set_qq(number = nil)
+    if number
+      self.qq = number
+      save
+    elsif self.email.match(/(\d+)@qq.com/)
+      self.qq = Regexp.last_match(1)
+      save
+    end
+  end
+
+  def set_avatar_from_qq
+    if set_qq && qq.present?
+      avatar.attach(io: URI.parse("https://q1.qlogo.cn/g?b=qq&nk=#{qq}&s=100").open, filename: "#{qq}.jpg")
+    end
   end
 end
