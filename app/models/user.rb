@@ -50,8 +50,9 @@ class User < ApplicationRecord
   end
 
   def set_avatar_from_qq
-    if set_qq && qq.present?
-      avatar.attach(io: URI.parse("https://q1.qlogo.cn/g?b=qq&nk=#{qq}&s=100").open, filename: "#{qq}.jpg")
+    set_qq
+    if qq.present?
+      avatar.attach(io: URI.parse("https://q1.qlogo.cn/g?b=qq&nk=#{qq}&s=100").open, filename: "#{self.name}.jpg")
     end
   end
 end

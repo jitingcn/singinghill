@@ -18,10 +18,12 @@ class UserResource < Madmin::Resource
   attribute :uid
   attribute :role
   attribute :authentication_token
+  attribute :qq
+  attribute :avatar, form: false
 
   # Associations
-  attribute :entries
-  attribute :nouns
+  attribute :entries, form: false
+  attribute :nouns, form: false
 
   # Uncomment this to customize the display name of records in the admin area.
   # def self.display_name(record)

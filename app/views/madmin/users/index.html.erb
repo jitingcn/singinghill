@@ -1,0 +1,64 @@
+<div class="items-center justify-between space-y-4 md:flex md:space-y-0">
+  <h1 class="text-xl font-semibold"><%= resource.friendly_name.pluralize %></h1>
+
+  <div class="flex flex-grow gap-4 md:justify-end">
+    <form class="relative flex items-center gap-2">
+      <%= hidden_field_tag :page, params[:page], value: 1, class: "hidden" %>
+      <%= search_field_tag :q, params[:q], placeholder: "Search", class: "rounded-full px-4 focus:bg-white focus:border-indigo-500" %>
+      <%= link_to clear_search_params, class: "absolute top-1/2 right-3 text-gray-500 bg-white transform -translate-y-1/2" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+        </svg>
+      <% end %>
+    </form>
+
+    <%= link_to resource.new_path, class: "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" do %>
+      New <span class="hidden md:inline"><%= resource.friendly_name %></span>
+    <% end %>
+  </div>
+</div>
+
+<div class="mb-4">
+  <% if resource.scopes.any? %>
+    <%= link_to "All", resource.index_path, class: class_names("p-2 rounded", {"bg-gray-100" =>  params[:scope].blank?}) %>
+  <% end %>
+
+  <% resource.scopes.each do |scope| %>
+    <%= link_to scope.to_s.humanize, resource.index_path(scope: scope), class: class_names("p-2 rounded", {"bg-gray-100" => params[:scope] == scope.to_s}) %>
+  <% end %>
+</div>
+<div class="max-w-xl min-w-full pb-2 mb-2 overflow-x-auto">
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead>
+      <tr class="border-b border-gray-200">
+        <th class="max-w-xl px-2 py-2 text-xs font-medium text-left text-gray-500 uppercase w-36">Actions</th>
+        <% resource.attributes.values.each do |attribute| %>
+          <% next if attribute.field.nil? %>
+          <% next unless attribute.field.visible?(action_name) %>
+
+          <th class="px-2 py-2 text-xs font-medium text-left text-gray-500 uppercase whitespace-nowrap"><%= sortable attribute.name, attribute.name.to_s.titleize %></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody class="text-sm divide-y">
+      <% @records.each do |record| %>
+        <tr>
+          <td class="px-2 py-2">
+            <div class="grid text-center gap-x-1 gap-y-2 place-items-center" style="grid-template-columns: repeat(auto-fill, minmax(3.5rem, 1fr));">
+              <%= link_to "View", resource.show_path(record), class: "w-14 px-3 py-1 bg-green-400 shadow rounded" %>
+              <%= link_to "Edit", resource.edit_path(record), class: "w-14 px-3 py-1 bg-blue-400 shadow rounded" %>
+              <%= button_to "Switch", "/madmin/impersonates/#{record.id}/impersonate", method: :post, class: "w-14 px-2 py-1 bg-red-400 shadow rounded" %>
+            </div>
+          </td>
+          <% resource.attributes.values.each do |attribute| %>
+            <% next if attribute.field.nil? %>
+            <% next unless attribute.field.visible?(action_name) %>
+            <td class="px-2 py-2"><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record, resource: resource } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>

@@ -7,12 +7,16 @@ class OnlineChannel < ApplicationCable::Channel
     @connection_token = generate_connection_token
 
     OnlineUser.store.update(
-      @connection_token => { user_id: current_user.id, last_updated: DateTime.current.to_i, location: "" }
+      @connection_token => { user_id: current_user.id,
+                             last_updated: DateTime.current.to_i,
+                             first_updated: DateTime.current.to_i,
+                             location: "" }
     )
 
     stream_from "online:users"
 
-    broadcast_to "users", { message: "[#{DateTime.current}] (#{current_user.name}) 上线了" }
+    broadcast_to "users", { message: "[#{DateTime.current}] (#{current_user.name}) 上线了",
+                            current_online: OnlineUser.current_online }
   end
 
   def unsubscribed
@@ -20,7 +24,8 @@ class OnlineChannel < ApplicationCable::Channel
 
     OnlineUser.delete(@connection_token)
 
-    broadcast_to "users", { message: "[#{DateTime.current}] (#{current_user.name}) 下线了" }
+    broadcast_to "users", { message: "[#{DateTime.current}] (#{current_user.name}) 下线了",
+                            drop: @connection_token }
   end
 
   def receive(data)
@@ -28,11 +33,11 @@ class OnlineChannel < ApplicationCable::Channel
 
   def appear(data)
     OnlineUser.update_location(@connection_token, data["location"])
-    broadcast_to "users", { user: current_user.name, location: data["location"] }
+    broadcast_to "users", { appear: [@connection_token, data["location"]] }
   end
 
   def current_online
-    broadcast_to "users", { current_online: OnlineUser.users.map(&:name) }
+    broadcast_to "users", { current_online: OnlineUser.current_online }
   end
 
   def ping

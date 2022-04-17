@@ -98,3 +98,5 @@ gem "redis-actionpack", github: "redis-store/redis-actionpack"
 gem "pagy"
 
 gem "kredis", "~> 1.1"
+
+gem "pretender", "~> 0.4.0"

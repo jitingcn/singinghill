@@ -1,18 +1,15 @@
 module.exports = {
   mode: 'jit',
   content: [
-    "./app/javascript/stylesheets/**/*.*css",
-    "./app/javascript/controllers/*.js",
+    "./app/javascript/**/*.*css",
+    "./app/javascript/**/*.js",
     "./app/views/**/*.*",
     "./app/components/*.*",
     "./app/helpers/**/*.*",
   ],
   darkMode: 'media', // or 'media' or 'class'
   variants: {
-    extend: {
-      backgroundColor: ['odd', 'even'],
-      margin: ['dark'],
-    }
+    extend: {}
   },
   theme: {
     extend: {

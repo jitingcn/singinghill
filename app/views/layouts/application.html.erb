@@ -17,39 +17,51 @@
   </head>
   <body class="">
     <div class="h-full w-full">
-      <nav class="sticky top-0 z-40 lg:z-50 w-full max-w-8xl h-12 mx-auto bg-gray-100 dark:bg-gray-700 flex-none flex flex-row px-4 py-2 items-center justify-between">
-        <a href="<%= root_path %>" id="logo" class="w-[22] h-6 rounded-full text-gray-700 dark:text-gray-200 font-bold"><%= t("SingingHill") %></a>
-        <div class="navbar-item" data-controller="service-worker" style="display: none;">
-          <%= image_tag "cloud-check.svg", width: "23px", height: "23px", alt: "", data: { 'service-worker-target':"pageSavedNotice" }, class: "hidden" %>
-          <%= image_tag "cloud-download.svg", width: "23px", height: "23px", alt: "", data: { 'service-worker-target':"savingPageNotice" }, class: "" %>
+      <nav class="sticky top-0 z-40 lg:z-50 w-full max-w-8xl h-12 mx-auto bg-gray-100 dark:bg-gray-700 flex-none flex flex-row px-2 sm:px-4 py-2 items-center justify-between">
+        <div class="flex flex-row space-x-2 items-center">
+          <div class="navbar-item hidden" data-controller="service-worker" style="display: none;" hidden>
+            <%= image_tag "cloud-check.svg", width: "23px", height: "23px", alt: "", data: { 'service-worker-target':"pageSavedNotice" }, class: "hidden" %>
+            <%= image_tag "cloud-download.svg", width: "23px", height: "23px", alt: "", data: { 'service-worker-target':"savingPageNotice" }, class: "" %>
+          </div>
+          <a href="<%= root_path %>" id="logo" class="inline-flex h-6 rounded-full text-gray-700 dark:text-gray-200 font-bold shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <span class="hidden sm:block"><%= t("SingingHill") %></span>
+          </a>
+          <online-users data-turbo-permanent></online-users>
+          <%= yield :nav %>
         </div>
-        <%= yield :nav %>
 
-        <div class="flex flex-row space-x-3 items-center justify-center">
+        <div class="flex flex-row space-x-1 md:space-x-3 items-center justify-center">
           <%= yield :nav_right %>
-          <div>
+          <div class="text-xs sm:text-sm md:text-base">
             <%= render(ModalComponent.new(open_text: "搜索", modal_id: "search")) do %>
               <%= render partial: "shared/search" %>
             <% end %>
           </div>
-          <div>
-            <%= render(ModalComponent.new(open_text: "查看进度", modal_id: "progress-box")) do %>
+          <div class="text-xs sm:text-sm md:text-base">
+            <%= render(ModalComponent.new(open_text: "进度", modal_id: "progress-box")) do %>
               <turbo-frame src="<%= progress_total_path %>" class="flex flex-col dark:text-gray-100 items-center justify-center space-y-2"  id="total_progress">
               </turbo-frame>
             <% end %>
           </div>
           <% if user_signed_in? %>
-            <% if current_user %>
-              <div class="dark:text-gray-100"><%= current_user.name %></div>
-            <% end %>
+            <div class="dark:text-gray-100 text-xs sm:text-sm md:text-base truncate">
+              <% if current_user != true_user %>
+                <%= current_user.name %>(F)
+              <% elsif current_user %>
+                <%= current_user.name %>
+              <% end %>
+            </div>
             <div class="inline-block px-1 py-1 text-sm leading-none no-underline text-gray lg:mt-0">
               <div class="relative" data-controller="dropdown" data-dropdown-open-value="false">
                 <div data-action="click->dropdown#toggle click@window->dropdown#hide" role="button" data-dropdown-target="button" tabindex="0" class="inline-block select-none">
                 <span class="flex items-center inline-block appearance-none">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6 dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                   </svg>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-4 h-4 text-gray-700 fill-current dark:text-gray-100"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="hidden sm:block w-4 h-4 text-gray-700 fill-current dark:text-gray-100"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path></svg>
                 </span>
                 </div>
                 <div data-dropdown-target="menu" class="absolute right-0 hidden mt-2">
@@ -59,6 +71,9 @@
                       <% if current_user&.admin? %>
                         <%= link_to "管理面板", madmin_root_path, data: { action: "click->dropdown#toggle" }, class: 'no-underline block px-6 py-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-300 hover:dark:bg-gray-500 whitespace-nowrap' %>
                         <%= link_to "审计日志", audit_log_path, data: { action: "click->dropdown#toggle" }, class: 'no-underline block px-6 py-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-300 hover:dark:bg-gray-500 whitespace-nowrap' %>
+                      <% end %>
+                      <% if current_user != true_user %>
+                        <%= button_to "停止伪装", "/madmin/impersonates/stop_impersonating", method: :post, data: { action: "click->dropdown#toggle" }, form_class: "border-t border-gray-700 dark:border-gray-400 hover:bg-gray-300", class: "!border-0 no-underline block !px-6 !py-3 w-full !bg-gray-50 !rounded-none dark:!bg-gray-700 hover:!bg-gray-300 hover:dark:!bg-gray-500 hover:cursor-pointer whitespace-nowrap" %>
                       <% end %>
                       <%= button_to "登出", destroy_user_session_path, method: :delete, data: { action: "click->dropdown#toggle" }, form_class: "border-t border-gray-700 dark:border-gray-400 hover:bg-gray-300", class: "!border-0 no-underline block !px-6 !py-3 w-full !bg-gray-50 !rounded-none dark:!bg-gray-700 hover:!bg-gray-300 hover:dark:!bg-gray-500 hover:cursor-pointer whitespace-nowrap" %>
                   </div>

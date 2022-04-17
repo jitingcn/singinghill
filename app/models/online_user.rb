@@ -44,5 +44,24 @@ class OnlineUser
     def get_connection_ids(user_id)
       store.to_h.select { |_k, v| v["user_id"] == user_id }.keys
     end
+
+    def current_online
+      store
+        .to_h
+        .select { |_k, v| DateTime.current.to_i - v["last_updated"] < 30.seconds }
+        .sort_by { |_k, v| v["first_updated"] }
+        .reverse
+        .map do |key, record|
+          user = User.find_by(id: record["user_id"])
+          avatar_path = user.avatar.attached? ? Rails.application.routes.url_helpers.rails_blob_path(user.avatar, only_path: true) : nil
+          {
+            id: key,
+            user: user.name,
+            avatar: avatar_path,
+            location: record["location"],
+            t: record["last_updated"]
+          }
+        end
+    end
   end
 end

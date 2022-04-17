@@ -1,5 +1,9 @@
 # Below are the routes for madmin
 namespace :madmin do
+  resources :impersonates do
+    post :impersonate, on: :member, as: :fake
+    post :stop_impersonating, on: :collection, as: :stop_fake
+  end
   namespace :paper_trail do
     resources :versions
   end

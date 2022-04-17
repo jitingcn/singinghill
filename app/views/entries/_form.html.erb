@@ -59,8 +59,8 @@
     </div>
   </div>
   <% unless @entry.history_change.none? %>
-    <div class="mt-2 flex flex-col text-sm">
-      条目[<%= @entry.id %>] 最近更改
+    <turbo-frame id="entry_<%= @entry.id %>_log" class="mt-2 flex flex-col text-sm">
+      <p>条目[<%= @entry.id %>] 变更记录</p>
       <% @entry.history_change.each do |history| %>
         <div class="flex flex-row gap-x-3 gap-y-1">
           <div><%= history.fetch(:time)&.in_time_zone("Asia/Shanghai").strftime('%Y-%m-%d %H:%M:%S (CST)') %></div>
@@ -68,6 +68,6 @@
           <div><%= history.fetch(:data)["message"] ? history.fetch(:data)["message"] : history.fetch(:data)["chinese"] %></div>
         </div>
       <% end %>
-    </div>
+    </turbo-frame>
   <% end %>
 <% end %>
