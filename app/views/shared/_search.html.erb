@@ -27,7 +27,7 @@
         <% @results.each do |item| %>
           <%= link_to "#{url_for(item.project_file)}?entry=#{item.id}",
                       class: "my-1 p-1 border flex flex-col text-sm rounded",
-                      "data-turbo-frame": "editor" do %>
+                      data: { "turbo-action": "advance", "turbo-frame": "editor" } do %>
             <span class="truncate"><%= item.source %></span>
             <span class="truncate"><%= item.chinese %></span>
             <span class="flex justify-between text-xs">

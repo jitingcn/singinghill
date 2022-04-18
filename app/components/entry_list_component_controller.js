@@ -23,7 +23,7 @@ export default class extends ApplicationController {
       if (this.entry != null) return
 
       this.url.searchParams.set("entry", id)
-      window.history.pushState('','', this.url)
+      Turbo.navigator.history.push(this.url, `entry_${id}`)
       return
     }
 
@@ -36,7 +36,7 @@ export default class extends ApplicationController {
       this.nextElement = this.activeElement.nextElementSibling
 
       this.url.searchParams.set("entry", id)
-      window.history.pushState('','', this.url)
+      Turbo.navigator.history.push(this.url, `entry_${id}`)
       return
     }
     this.activeElement?.classList.add(...this.activeClassList)
@@ -47,8 +47,7 @@ export default class extends ApplicationController {
   click(event) {
     const id = event.currentTarget.id.match(/(\d+)/)?.[0]
     this.url.searchParams.set("entry", id)
-    window.history.pushState('','', this.url)
-    // document.getElementById("entry-edit")?.setAttribute("src", `/entries/${id}/edit`)
+    Turbo.navigator.history.push(this.url, `entry_${id}`)
 
     if (this.activeElement != null) {
       this.activeElement.classList.remove(...this.activeClassList)
