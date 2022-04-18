@@ -48,7 +48,7 @@ class OnlineUser
     def current_online
       store
         .to_h
-        .select { |_k, v| DateTime.current.to_i - v["last_updated"] < 30.seconds }
+        .select { |_k, v| DateTime.current.to_i - v["last_updated"] < 60 }
         .sort_by { |_k, v| v["first_updated"] }
         .reverse
         .map do |key, record|

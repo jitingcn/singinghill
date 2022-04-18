@@ -49,10 +49,11 @@ class OnlineChannel < ApplicationCable::Channel
   def check_pings
     OnlineUser.all.each do |connection_id, info|
       time_diff = DateTime.current.to_i - info["last_updated"]
-      next unless time_diff > 300
+      next unless time_diff > 120
 
       OnlineUser.delete(connection_id)
-      # broadcast_to "users", { message: "(#{User.find(info["user_id"]).name}) 大概是掉线了" }
+      broadcast_to "users", { message: "(#{User.find(info["user_id"]).name}) 大概是掉线了",
+                              drop: connection_id }
     end
   end
 

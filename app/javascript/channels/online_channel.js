@@ -1,6 +1,7 @@
 import consumer from "./consumer";
 import {LitElement, html} from 'lit';
 import {repeat} from 'lit/directives/repeat.js';
+import { uniqBy } from "lodash";
 
 let online = { channel: null, element: null, record: [] };
 online.channel = consumer.subscriptions.create({channel: "OnlineChannel"}, {
@@ -44,6 +45,11 @@ online.channel = consumer.subscriptions.create({channel: "OnlineChannel"}, {
               record.location = value[1]
             }
             return record;
+          })
+          break;
+        case "drop":
+          online.record = online.element.online_users = online.element.online_users.filter((record) => {
+            return record.id !== value
           })
           break;
         default:
@@ -102,16 +108,21 @@ export class OnlineUsers extends LitElement {
     }
   }
 
+  uniqueUser() {
+      return uniqBy(this.online_users, 'user');
+  }
+
   renderAvatar(record) {
-    return record.avatar ?
-        html`
-            <img class="w-5 h-5 object-cover" src="${record.avatar}" alt="${record.user}">
-        ` :
-        html`
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
-            </svg>
-        `
+      return record.avatar ?
+          html`
+              <img class="w-5 h-5 object-cover" src="${record.avatar}" alt="${record.user}">
+          ` :
+          html`
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20"
+                   fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+              </svg>
+          `
 
   }
 
@@ -119,14 +130,15 @@ export class OnlineUsers extends LitElement {
     return html`
       <div class="dropdown">
         <label tabindex="0" class="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ${this.online_users.length === 0 ? 'hidden' : ''}" viewBox="0 0 20 20" fill="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 ${this.online_users.length === 0 ? 'hidden' : ''}" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
           </svg>
           <span class="flex flex-row items-center">
-            ${repeat(this.online_users, 
-                    (record) => record.id,
+            ${repeat(this.uniqueUser(), 
+                    (record) => record.user,
                     (record, index)=> html`
-              <span class="border border-black rounded-sm ${index > (2-1) ? 'hidden sm:block' : ''} ${index > (4-1) ? 'hidden' : ''}">
+              <span class="border border-black rounded-sm bg-gray-100 -ml-1 ${index > (3-1) ? 'hidden sm:block' : ''} ${index > (5-1) ? 'hidden' : ''}" 
+                    style="z-index: ${110-index}">
                   ${this.renderAvatar(record)}
               </span>`
             )}
