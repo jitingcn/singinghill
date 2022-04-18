@@ -648,6 +648,11 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+hotkeys-js@>=3:
+  version "3.8.9"
+  resolved "https://registry.yarnpkg.com/hotkeys-js/-/hotkeys-js-3.8.9.tgz#47b10fef2f4fc6fa74b09646d2014dae1fa64472"
+  integrity sha512-R73wV21xjHq+sJcBhh+LJGvfZO5+p1vGFtEwCc6sCj5nnTyiZKBa1knge6LNBxHmlRe55PVBXNNM/4lJOIVAwQ==
+
 immutable@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.0.0.tgz#b86f78de6adef3608395efb269a91462797e2c23"
@@ -1178,6 +1183,13 @@ spark-md5@^3.0.1:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/spark-md5/-/spark-md5-3.0.2.tgz#7952c4a30784347abcee73268e473b9c0167e3fc"
   integrity sha512-wcFzz9cDfbuqe0FZzfi2or1sgyIrsDwmPwfZC4hiNidPdPINjeUwNfv5kldczoEAcjl9Y1L3SM7Uz2PUEQzxQw==
+
+stimulus-use@^0.41.0:
+  version "0.41.0"
+  resolved "https://registry.yarnpkg.com/stimulus-use/-/stimulus-use-0.41.0.tgz#afe2559281ebe0504b1d35eb0e8e77df9ebd6fb6"
+  integrity sha512-d+XWb5YN2L9I+4zQDtE1sJVy1DBO+1qgNcjV0XpMw7KXPJ8m8JA5lcJk3qgbxV86ePHko0CP9F3dzVsapQwzmA==
+  dependencies:
+    hotkeys-js ">=3"
 
 stimulus-vite-helpers@^3.0.0:
   version "3.0.0"

@@ -1,5 +1,6 @@
 import ApplicationController from '~/controllers/application_controller'
 import { throttle } from "lodash"
+import { useResize } from 'stimulus-use'
 
 export default class extends ApplicationController {
   static targets = []
@@ -14,6 +15,13 @@ export default class extends ApplicationController {
     this.next = throttle(this.next, 1000).bind(this)
     this.url = new URL(window.location.href)
     this.entry = this.url.searchParams.get("entry")
+    const height = this.getBodyHeight()
+    if (height) {
+      document.getElementById("entry_list_body").style.height = `${height}px`
+    }
+    this.setBodyHeight = throttle(this.setBodyHeight, 120).bind(this)
+
+    useResize(this, {element: document.getElementById("entry_list_body")})
 
     if (this.entry == null) {
       let id = this.element.querySelectorAll('[id^=entry_list_item]')?.[0]?.id.match(/(\d+)/)?.[0]
@@ -68,5 +76,17 @@ export default class extends ApplicationController {
     setTimeout(() => {
       this.nextElement.click()
     }, 200)
+  }
+
+  resize({height}) {
+    this.setBodyHeight(height)
+  }
+
+  getBodyHeight() {
+    return localStorage.getItem("entry_list_height")
+  }
+
+  setBodyHeight(height) {
+    localStorage.setItem("entry_list_height", height)
   }
 }

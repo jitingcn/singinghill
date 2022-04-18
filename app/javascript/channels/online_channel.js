@@ -144,7 +144,7 @@ export class OnlineUsers extends LitElement {
             )}
           </span>
         </label>
-        <ul tabindex="0" class="dropdown-content menu menu-compact bg-gray-300 bg-opacity-90 rounded w-max">
+        <ul tabindex="0" class="dropdown-content menu menu-compact bg-gray-300/90 dark:bg-gray-700/90 rounded w-max">
             ${repeat(this.online_users,
                     (record) => `detail_${record.id}`,
                     (record, index)=> html`

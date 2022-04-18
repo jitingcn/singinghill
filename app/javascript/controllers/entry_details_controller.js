@@ -4,7 +4,9 @@ import { throttle } from "lodash"
 export default class extends ApplicationController {
   connect() {
     document.getElementById("source").disabled = true
-    document.getElementById("english").disabled = true
+    if (document.getElementById("english")) {
+      document.getElementById("english").disabled = true
+    }
     document.getElementById("chinese").disabled = true
     this.resize_textarea = throttle(this.resize_textarea, 100).bind(this)
     this.resize_textarea()

@@ -33,26 +33,6 @@
   }
 }
 
-@supports ((position: -webkit-sticky) or (position:sticky)) {
-  .sticky\?\:h-screen {
-    height:100vh!important
-  }
-
-  .sticky\?\:h-\(screen-24\) {
-    height: calc(100vh - 6rem);
-  }
-
-  @media (min-width:1024px) {
-    .sticky\?lg\:h-screen {
-      height:100vh!important
-    }
-
-    .sticky\?lg\:h-\(screen-11\) {
-      height: calc(100vh - 11rem);
-    }
-  }
-}
-
 .hidden-scrollbar::-webkit-scrollbar {
   display: none;
 }

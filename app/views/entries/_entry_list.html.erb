@@ -7,7 +7,7 @@
     <div class="w-full">文本</div>
     <div class="w-2 text-xs self-end invisible" id="entry-list-next" data-action="click->entry-list-component#next">N</div>
   </div>
-  <div id="entry_list_body" class="flex flex-col h-60 overflow-auto resize-vertical gap-y-1">
+  <div id="entry_list_body" class="flex flex-col h-60 overflow-auto resize-vertical gap-y-1" data-action="resize->entry-list-component#resizeBody">
     <% cache entries do %>
       <% entries.each do |entry| %>
         <%= render EntryListItemComponent.new(entry) %>

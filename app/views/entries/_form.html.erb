@@ -32,15 +32,17 @@
             <% end %>
           <% end %>
         </div>
-        <turbo-frame id="entry_edit_hints" src="<%= entry_hints_path @entry %>"></turbo-frame>
+        <turbo-frame id="entry_edit_hints" class="max-h-[10rem] overflow-y-scroll hidden-scrollbar"
+                     src="<%= entry_hints_path @entry %>">
+        </turbo-frame>
       </div>
     </div>
     <div class="sm:w-2/5 flex flex-col gap-1">
       <%= form.label :chinese, "中文翻译" %>
-      <div class="h-32">
+      <div class="">
         <%= form.text_area :chinese,
-                           class: "w-full h-full rounded border-1 border-blue-400 hover:border-blue-400 dark:bg-gray-600 p-1 font-cn",
-                           data: { action: "keydown->entry-form#keydown" },
+                           class: "w-full h-auto rounded border-1 border-blue-400 hover:border-blue-400 dark:bg-gray-600 px-2 py-1 font-cn block overflow-hidden",
+                           data: { action: "keydown->entry-form#keydown input->entry-form#autoResize" },
                            disable: "#{current_user.nil? ? 'true' : 'false'}",
                            lang: "zh-Hans" %>
       </div>
@@ -63,7 +65,7 @@
       <p>条目[<%= @entry.id %>] 变更记录</p>
       <% @entry.history_change.each do |history| %>
         <div class="flex flex-row gap-x-3 gap-y-1">
-          <div><%= history.fetch(:time)&.in_time_zone("Asia/Shanghai").strftime('%Y-%m-%d %H:%M:%S (CST)') %></div>
+          <div><%= history.fetch(:time)&.in_time_zone("Asia/Shanghai").strftime('%Y-%m-%d %H:%M:%S') %></div>
           <div>[<%= history.fetch(:user, "匿名") %>]</div>
           <div><%= history.fetch(:data)["message"] ? history.fetch(:data)["message"] : history.fetch(:data)["chinese"] %></div>
         </div>
