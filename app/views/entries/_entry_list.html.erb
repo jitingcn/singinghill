@@ -1,7 +1,9 @@
 <turbo-frame id="entry_list" class="flex flex-col font-sans" data-controller="entry-list-component">
   <div id="entry_list_header" class="flex flex-row justify-start font-semibold gap-x-2">
     <div class="w-12">状态</div>
+    <% unless entries.filter{ |entry| entry.narrator_id != "0" }.none? %>
     <div class="w-16 hidden md:block mr-3">叙述者</div>
+    <% end %>
     <div class="w-full">文本</div>
     <div class="w-2 text-xs self-end invisible" id="entry-list-next" data-action="click->entry-list-component#next">N</div>
   </div>

@@ -4,11 +4,18 @@
             data: { "turbo-frame": "entry-details", "action": "entry-list-component#click" } do %>
   <span class="flex flex-row text-sm">
     <span class="w-12 text-sm"><%= @entry.humanize_status %></span>
+    <% unless @entry.narrator_id == "0" %>
     <span class="w-20 text-sm hidden md:block"><%= @entry.narrator&.narrator_chinese || "" %></span>
+    <% end %>
   </span>
   <span class="flex flex-row flex-auto space-x-3">
-    <span class="sm:w-1/3" lang="ja"><%= @entry.source %></span>
-    <span class="w-1/3 hidden sm:block" lang="en"><%= @entry.english %></span>
-    <span class="w-1/3 hidden sm:block font-cn" lang="zh-Hans"><%= @entry.chinese %></span>
+    <% if @entry.english.blank? %>
+      <span class="sm:w-1/2" lang="ja"><%= @entry.source %></span>
+      <span class="w-1/2 hidden sm:block font-cn" lang="zh-Hans"><%= @entry.chinese %></span>
+    <% else %>
+      <span class="sm:w-1/3" lang="ja"><%= @entry.source %></span>
+      <span class="w-1/3 hidden sm:block" lang="en"><%= @entry.english %></span>
+      <span class="w-1/3 hidden sm:block font-cn" lang="zh-Hans"><%= @entry.chinese %></span>
+    <% end %>
   </span>
 <% end %>
