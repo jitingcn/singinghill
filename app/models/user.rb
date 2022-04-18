@@ -55,4 +55,8 @@ class User < ApplicationRecord
       avatar.attach(io: URI.parse("https://q1.qlogo.cn/g?b=qq&nk=#{qq}&s=100").open, filename: "#{self.name}.jpg")
     end
   end
+
+  def admin?
+    role == "admin"
+  end
 end

@@ -52,7 +52,7 @@ Rails.application.routes.draw do
       get "sign_out", to: "users/sessions#destroy", as: :destroy_user_session
     end
   end
-  authenticate :user, ->(u) { u.role == "admin" } do
+  authenticate :user, ->(u) { u.admin? } do
     mount AuditLog::Engine => "/audit-log"
     draw :madmin
   end
