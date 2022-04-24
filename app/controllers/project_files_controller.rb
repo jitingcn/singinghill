@@ -12,8 +12,7 @@ class ProjectFilesController < ApplicationController
             else
               project_file_type.find(params[:file_id]).page_num
             end
-    @total_pages = project_file_type.page(1).total_pages
-    @project_files = project_file_type.page(@page)
+    @pagy, @project_files = pagy(project_file_type, page: @page, items: 25)
     @frame = params[:frame] || "_top"
   end
 
@@ -34,23 +33,6 @@ class ProjectFilesController < ApplicationController
     @entry ||= @entries.first
   end
 
-  # goto file with name
-  # # GET /projects_files/goto/{file_name}
-  def goto
-    name = params.permit(:name).fetch(:name)
-    @project_files = project_file_type.where("name LIKE ?", "%#{name}%").limit(10)
-    respond_to do |format|
-      @project_file = @project_files.find_by_name(name)
-      if @project_file
-        format.html { redirect_to @project_file }
-        format.json { render :show, status: :ok, location: @project_file }
-      else
-        format.html { render :index, status: :unprocessable_entity }
-        format.json { render json: @project_files.pluck(:id, :name).as_json }
-      end
-    end
-  end
-
   # download single file
   # GET /projects_files/1/output
   def output
@@ -61,13 +43,14 @@ class ProjectFilesController < ApplicationController
   # download all project file
   # GET /projects_files/download
   def download_all
+    source = params.fetch(:source) == "true"
     dir = Dir.mktmpdir("ProjectFile_")
     begin
       ProjectFile.all.order(:id).each do |project_file|
         next if project_file.entries.order(:index).where.not(chinese: "").count.zero?
 
         File.open("#{dir}/#{project_file.name}", "w", encoding: "UTF-8") do |file|
-          file.write(project_file.to_txt)
+          file.write(project_file.to_txt(source: source))
         end
       end
       file_list = `ls -1d #{dir}/*`.split.join(" ")

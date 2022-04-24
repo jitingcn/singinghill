@@ -1,4 +1,4 @@
 <% content_for :title, "[Page #{@page+1}] - ProjectFile" %>
 
 <%= render(FileListComponent.new(@project_files, @progress, file_id: @file_id,
-                                 page: @page, total_pages: @total_pages, frame: @frame)) %>
+                                 page: @page, frame: @frame, pagy: @pagy)) %>

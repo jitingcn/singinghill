@@ -12,31 +12,22 @@
   </div>
 
 
-  <div class="shadow"
+  <div class=""
        data-controller="file-list-component"
        data-file-list-component-current-value="<%= @file_id %>"
   >
     <div id="file_list_body"
-         class="overflow-y-scroll hidden-scrollbar mb-2 rounded <%= @frame=="_top" ? 'h-[70vh]' : 'h-[60vh] lg:h-[calc(100vh-9.5rem)]' %>"
+         class="overflow-y-scroll hidden-scrollbar mb-2 <%= @frame=="_top" ? 'h-[70vh]' : 'h-[60vh] lg:h-[calc(100vh-9.5rem)]' %>"
     >
       <% @project_files.each do |project_file| %>
         <%= render(FileListItemComponent.new(project_file: project_file, frame: @frame)) %>
       <% end %>
     </div>
-
-    <div class="flex flex-row justify-between gap-2 text-sm mx-4 md:mx-2 dark:text-gray-200">
-      <div class="">文件直达</div>
-      <label>
-        <input type="text" class="w-20 h-5 p-0 hidden-arrows rounded dark:bg-gray-500"
-               data-file-list-component-target="gotoFile" data-action="keydown->file-list-component#gotoKeyboard">
-      </label>
-      <button class="rounded-md px-2 border-2 border-blue-300 hover:appearance-none dark:border-blue-500 bg-indigo-300 dark:bg-indigo-600 font-semibold"
-              data-action="file-list-component#goto">GO</button>
-    </div>
   </div>
 
-  <turbo-frame id="file_list_nav" class="ml-4 w-80 flex text-sm my-2 items-center justify-between rounded-md lg:w-auto lg:ml-0 dark:text-gray-200" target="file_list">
-    <%= paginate @project_files, params: { file_id: @file_id } %>
+  <turbo-frame id="file_list_nav" class="ml-4 flex text-sm my-2 items-center justify-between rounded-md lg:w-auto lg:ml-0 dark:text-gray-200" target="file_list">
+    <%#= paginate @project_files, params: { file_id: @file_id }, class: "pagy-nav" %>
+    <%== pagy_nav @pagy, params: { file_id: @file_id }, size: [1,0,0,1], gap: false %>
   </turbo-frame>
 </turbo-frame>
 
