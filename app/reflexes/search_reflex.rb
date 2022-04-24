@@ -57,6 +57,6 @@ class SearchReflex < ApplicationReflex
       results = Entry.pagy_search(query)
       pagy, @results = pagy_meilisearch(results, items: 8, page: page.to_i)
     end
-    @pagy = pagy_metadata(pagy)
+    @pagy_search = pagy_metadata(pagy)
   end
 end
