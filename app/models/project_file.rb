@@ -15,9 +15,10 @@ class ProjectFile < ApplicationRecord
     attribute %i[name title status]
   end
 
-  def to_txt
+  def to_txt(source: false)
+    get_text = source ? ->(entry) { entry.source.to_line } : ->(entry) { entry.text }
     entries.order(:index).map do |entry|
-      entry.prefix + entry.text
+      entry.prefix + get_text[entry]
     end.join("\n\n").concat("\n")
   end
 
