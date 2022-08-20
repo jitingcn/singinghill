@@ -43,7 +43,7 @@ class ProjectFilesController < ApplicationController
   # download all project file
   # GET /projects_files/download
   def download_all
-    source = params.fetch(:source) == "true"
+    source = params.fetch(:source, "false") == "true"
     dir = Dir.mktmpdir("ProjectFile_")
     begin
       ProjectFile.all.order(:id).each do |project_file|
