@@ -23,7 +23,7 @@ services:
 
   meilisearch:
     container_name: "singinghill_meilisearch"
-    image: getmeili/meilisearch:latest
+    image: getmeili/meilisearch:v0.28.1
     restart: always
     environment:
       - MEILI_MASTER_KEY=masterKey
@@ -65,8 +65,6 @@ services:
       - |
         rake db:migrate 2>/dev/null || rake db:setup
         bundle exec puma -C config/puma.rb
-    ports:
-      - 3000:3000
 
 volumes:
   singinghilldb:
