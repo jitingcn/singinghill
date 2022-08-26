@@ -291,7 +291,7 @@ Devise.setup do |config|
   config.omniauth :gitlab, Rails.application.credentials[:GITLAB_KEY],
                   Rails.application.credentials[:GITLAB_SECRET],
                   scope: "read_user openid",
-                  client_options: { site: "https://gitlab.jtcat.com/api/v4",
+                  client_options: { site: "https://gitlab.jtcat.com",
                                     authorize_url: "/oauth/authorize",
                                     token_url: "/oauth/token" }
 
