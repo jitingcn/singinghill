@@ -1,26 +1,28 @@
 <turbo-frame id="entry_list" class="flex flex-col font-sans" data-controller="entry-list-component">
-  <div id="entry_list_header" class="flex flex-row justify-start font-semibold gap-x-2">
-    <div class="w-12">状态</div>
-    <% unless entries.filter{ |entry| entry.narrator_id != "0" }.none? %>
-    <div class="w-16 hidden md:block mr-3">叙述者</div>
-    <% end %>
-    <div class="w-full">文本</div>
+  <div id="entry_list_header" class="flex flex-row justify-start font-semibold gap-x-0.5 sm:gap-x-2">
+    <div class="shrink-0 sm:w-32 flex flex-col sm:flex-row">
+      <div class="w-7 sm:w-12 shrink-0 text-xs sm:text-sm sm:mr-2">状态</div>
+      <% unless entries.filter{ |entry| entry.narrator_id != "0" }.none? %>
+        <div class="w-12 sm:w-16 shrink-0 text-xs sm:text-sm mr-1 sm:mr-3">叙述者</div>
+      <% end %>
+    </div>
+    <div class="w-full text-xs sm:text-sm">文本</div>
     <div class="w-2 text-xs self-end invisible" id="entry-list-next" data-action="click->entry-list-component#next">N</div>
   </div>
-  <div id="entry_list_body" class="flex flex-col h-60 overflow-auto resize-vertical gap-y-1" data-action="resize->entry-list-component#resizeBody">
-    <% cache entries do %>
+  <div id="entry_list_body" class="flex flex-col h-60 overflow-auto resize-vertical gap-y-1 style-resizer" data-action="resize->entry-list-component#resizeBody">
+    <%# cache entries do %>
       <% entries.each do |entry| %>
         <%= render EntryListItemComponent.new(entry) %>
       <% end %>
-    <% end %>
+    <%# end %>
   </div>
-  <div class="flex flex-row items-center text-sm mt-2 space-x-5">
+  <div class="flex flex-row items-center text-xs sm:text-sm mt-2 space-x-4">
     <div class="">标题: <%= @project_file.display_name %></div>
     <div class="">文件名: <%= @project_file.name %></div>
     <a href="<%= project_file_output_path @project_file.id %>"
-       class="ml-4 text-blue-700 dark:text-blue-300 border border-black dark:border-gray-100 rounded px-1"
+       class="ml-4 inline-flex items-center text-blue-700 dark:text-blue-300 border border-black dark:border-gray-100 rounded p-1"
        target="_blank"
-    > 下载
+    > <span class="hidden sm:block">下载</span>
       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
       </svg>

@@ -2,10 +2,10 @@
             class:"inline-flex flex-row hover:bg-blue-300 justify-start break-words even:bg-gray-200 odd:bg-gray-100
             dark:even:bg-gray-700 dark:odd:bg-gray-500 #{ @active == true ? 'text-sky-600 dark:text-indigo-400' : ''}",
             data: { "turbo-frame": "entry-details", "action": "entry-list-component#click" } do %>
-  <span class="flex flex-row text-sm">
-    <span class="w-12 text-sm"><%= @entry.humanize_status %></span>
+  <span class="flex flex-col sm:flex-row sm:gap-x-2 mr-2 sm:mr-3 justify-between bg-stone-300/70 dark:bg-stone-600/70">
+    <span class="w-7 sm:w-12 text-xs sm:text-sm"><%= @entry.humanize_status %></span>
     <% unless @entry.narrator_id == "0" %>
-    <span class="w-20 text-sm hidden md:block"><%= @entry.narrator&.narrator_chinese || "" %></span>
+    <span class="w-12 sm:w-16 text-xs sm:text-sm"><%= @entry.narrator&.narrator_chinese || "" %></span>
     <% end %>
   </span>
   <span class="flex flex-row flex-auto space-x-3">

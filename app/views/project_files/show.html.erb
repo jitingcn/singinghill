@@ -32,15 +32,15 @@
       <% if current_user.nil? %>
         <%= render(LoginPromptComponent.new) %>
       <% end %>
-      <div class="rounded-md shadow mx-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 ">
+      <div class="rounded-md shadow mx-2 px-1 md:px-4 py-2 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 ">
         <%= render(partial: "entries/entry_list", locals: { entries: @entries }) %>
       </div>
       <turbo-frame id="entry-details"
-                   class="flex flex-col rounded-md shadow p-2 mx-2 min-h-[5rem] bg-gray-100 dark:bg-gray-700 dark:text-gray-200"
+                   class="flex flex-col rounded-md shadow p-1 sm:p-2 text-sm sm:text-md mx-2 min-h-[5rem] bg-gray-100 dark:bg-gray-700 dark:text-gray-200"
                    src="<%= entry_path @entry %>"
       ></turbo-frame>
       <turbo-frame id="entry-edit"
-                   class="flex flex-col rounded-md shadow p-2 mx-2 min-h-[11rem] bg-gray-100 dark:bg-gray-700 dark:text-gray-200"
+                   class="flex flex-col rounded-md shadow p-1 sm:p-2 mx-2 min-h-[11rem] bg-gray-100 dark:bg-gray-700 dark:text-gray-200"
                    src="<%= edit_entry_path @entry %>"
       ></turbo-frame>
       <% unless current_user.nil? %>
