@@ -41,11 +41,11 @@
       <%= form.label :chinese, "中文翻译" %>
       <div class="relative">
         <%= form.text_area :chinese,
-                           class: "w-full h-auto rounded border-1 border-blue-400 hover:border-blue-400 dark:bg-gray-600 px-2 py-1 font-cn block overflow-hidden",
+                           class: "w-full h-auto rounded border-1 border-blue-400 hover:border-blue-400 dark:bg-gray-600 px-2 py-1 font-noto-sans block overflow-hidden",
                            data: { action: "keydown->entry-form#keydown input->entry-form#autoResize" },
                            disable: "#{current_user.nil? ? 'true' : 'false'}",
                            lang: "zh-Hans" %>
-        <div class="absolute ml-[13em] border-l-2 border-accent/70 h-full top-0 group">
+        <div class="absolute ml-[13.5em] border-l-2 border-accent/70 h-full top-0 group">
           <span class="hidden group-hover:block text-sm -mt-5">换行提示线</span>
         </div>
       </div>

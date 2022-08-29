@@ -14,7 +14,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'mono-cn': `'Sarasa Gothic SC', 'Source Code Pro','DejaVu Sans Mono','Ubuntu Mono','Anonymous Pro','Droid Sans Mono',Menlo,Monaco,Consolas,Inconsolata,Courier,monospace,'PingFang SC','Microsoft YaHei',sans-serif`,
+        'mono-cn': `'Sarasa Gothic SC', 'DejaVu Sans Mono', 'Ubuntu Mono','Anonymous Pro','Droid Sans Mono',Menlo,Monaco,Consolas,Inconsolata,Courier,monospace,'PingFang SC','Microsoft YaHei',sans-serif`,
       },
       height: {},
       maxHeight: {
