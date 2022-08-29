@@ -109,6 +109,7 @@ export class OnlineUsers extends LitElement {
   }
 
   uniqueUser() {
+      // return this.online_users // debug
       return uniqBy(this.online_users, 'user');
   }
 
@@ -138,7 +139,7 @@ export class OnlineUsers extends LitElement {
                     (record) => record.user,
                     (record, index)=> html`
               <span class="border border-black rounded-sm bg-gray-100 -ml-1.5 shadow ${index > (3-1) ? 'hidden sm:block' : ''} ${index > (5-1) ? 'hidden' : ''}" 
-                    style="z-index: ${110-index}; box-shadow: 2px 0 2px 0 rgba(102, 102, 102, 0.8)">
+                    style="z-index: ${110-index};">
                   ${this.renderAvatar(record)}
               </span>`
             )}
