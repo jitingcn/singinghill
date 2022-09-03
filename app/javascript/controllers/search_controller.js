@@ -27,6 +27,10 @@ export default class extends ApplicationController {
     })
   }
 
+  modeCheck() {
+    this.regexModeTarget.disabled = this.dbModeTarget.checked !== true;
+  }
+
   nextPage(event) {
     event.preventDefault()
     this.perform(event, event.target.dataset.page)
