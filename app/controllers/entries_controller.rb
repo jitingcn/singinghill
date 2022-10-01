@@ -28,11 +28,10 @@ class EntriesController < ApplicationController
       Entry
       .joins(:project_file)
       .where.not(id: @entry.id)
-      .where.not(source: @entry.source)
       .where("(source <->> '#{@entry.source}') < 0.7")
       .select(:name, :source, :chinese, "(source <->> '#{@entry.source}') as distance")
       .order("distance")
-      .limit(4)
+      .limit(5)
       .to_a.map(&:serializable_hash)
       .uniq { |p| p["chinese"] }
       .each { |p| p.delete("id") }
