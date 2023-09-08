@@ -48,4 +48,26 @@ class ProjectFile < ApplicationRecord
 
     "#{name} - #{title}"
   end
+
+  class << self
+    def download_all(source=false)
+      dir = Dir.mktmpdir("#{self.class.name.demodulize}")
+      begin
+        all.order(:id).each do |project_file|
+          next if project_file.entries.order(:index).where.not(chinese: "").count.zero?
+  
+          File.open("#{dir}/#{project_file.name}", "w", encoding: "UTF-8") do |file|
+            file.write(project_file.to_txt(source: source))
+          end
+        end
+        file_list = `ls -1d #{dir}/*`.split.join(" ")
+        file = "#{Rails.root}/public/tmp/#{self.class.name.demodulize}_#{source ? '_source_': ''}#{Time.now.to_i}.zip"
+        `zip -9 -j #{file} #{file_list}`
+      ensure
+        RemoveTmpDirJob.perform_later(dir)
+        RemoveTmpDirJob.set(wait: 10.minutes).perform_later(file)
+      end
+      file.remove("#{Rails.root}/public")
+    end
+  end
 end

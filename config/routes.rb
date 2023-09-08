@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get "/sessions", to: "sessions#create"
       get "/me", to: "users#me"
       get "/entries/search", to: "entries#search"
+      get "/project_files/download_all", to: "project_files#download_all"
     end
   end
 

@@ -44,23 +44,8 @@ class ProjectFilesController < ApplicationController
   # GET /projects_files/download
   def download_all
     source = params.fetch(:source, "false") == "true"
-    dir = Dir.mktmpdir("ProjectFile_")
-    begin
-      ProjectFile.all.order(:id).each do |project_file|
-        next if project_file.entries.order(:index).where.not(chinese: "").count.zero?
-
-        File.open("#{dir}/#{project_file.name}", "w", encoding: "UTF-8") do |file|
-          file.write(project_file.to_txt(source: source))
-        end
-      end
-      file_list = `ls -1d #{dir}/*`.split.join(" ")
-      file = "#{Rails.root}/public/tmp/ProjectFile_#{Time.now.to_i}.zip"
-      `zip -9 -j #{file} #{file_list}`
-      redirect_to file.remove("#{Rails.root}/public"), layout: false
-    ensure
-      RemoveTmpDirJob.perform_later(dir)
-      RemoveTmpDirJob.set(wait: 10.minutes).perform_later(file)
-    end
+    
+    redirect_to ProjectFile.download_all(source), layout: false
   end
 
   # POST /project_files/1/batch or /project_files/1/batch.json
