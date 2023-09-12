@@ -63,3 +63,4 @@ node_modules
 .DS_Store
 
 database
+docker-compose.override.yml
