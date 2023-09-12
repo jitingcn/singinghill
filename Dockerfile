@@ -1,6 +1,6 @@
-FROM jiting/rails-base:builder-latest AS Builder
+FROM jiting/rails-base:builder-3.2.2-alpine AS Builder
 
-FROM jiting/rails-base:production-latest
+FROM jiting/rails-base:production-3.2.2-alpine
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories ; \
     apk add --no-cache zip
