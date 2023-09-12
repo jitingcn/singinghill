@@ -36,14 +36,14 @@
             </span>
           <% end %>
         <% end %>
-        <div class="inline-flex row items-center gap-2">
+        <div class="inline-flex row items-center gap-2 w-full">
           <% if @pagy_search[:prev] %>
             <button data-page="<%= @pagy_search[:prev] %>" data-action="search#nextPage" class="btn btn-outline btn-sm md:btn-md">
               上页
             </button>
           <% end %>
-          <div class="inline-flex flex-row items-center">
-            <input type="range" class="w-auto range mr-1" min="1" max="<%= @pagy_search[:last] %>" step="1" value="<%= @pagy_search[:page] %>" data-current="<%= @pagy_search[:page] %>" data-action="search#gotoPage">
+          <div class="inline-flex flex-row items-center w-full">
+            <input type="range" class="w-full range mr-1" min="1" max="<%= @pagy_search[:last] %>" step="1" value="<%= @pagy_search[:page] %>" data-current="<%= @pagy_search[:page] %>" data-action="search#gotoPage">
             (<%= @pagy_search[:page] %>/<%= @pagy_search[:pages] %>)
           </div>
           <% if @pagy_search[:next] %>

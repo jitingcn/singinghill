@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/jitingcn/madmin.git
-  revision: e33ca3d7ba0dcf68f0949c97ff22d0551beea725
+  revision: 35a206f9d68ed040309faa36a110731db58e4588
   branch: dev
   specs:
     madmin (1.2.7)
