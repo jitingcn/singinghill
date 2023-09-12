@@ -5,7 +5,7 @@ services:
     container_name: "singinghill_postgresql"
     image: postgres:alpine
     restart: always
-    ports:
+    expose:
       - 5432
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
@@ -16,18 +16,18 @@ services:
     container_name: "singinghill_redis"
     image: redis:alpine
     restart: always
-    ports:
+    expose:
       - 6379
     volumes:
       - singinghill_redis:/data
 
   meilisearch:
     container_name: "singinghill_meilisearch"
-    image: getmeili/meilisearch:v0.28.1
+    image: getmeili/meilisearch:v1.3
     restart: always
     environment:
       - MEILI_MASTER_KEY=masterKey
-    ports:
+    expose:
       - 7700
     volumes:
       - singinghillms:/data.ms
