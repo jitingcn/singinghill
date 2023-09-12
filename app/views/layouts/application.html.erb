@@ -9,6 +9,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="歌颂之丘 - 魔塔大陆汉化协作站 | By寂听 使用Rails构建">
     <link rel="stylesheet" href="https://fonts.googleapis.cn/css2?family=Noto+Sans+SC:wght@300;400;500;700&amp;display=swap">
+    <meta name="environment" content="<%= Rails.env.to_s %>">
+    <meta name="release" content="<%= Sentry.configuration&.release.to_s %>">
+    <% if ENV["SENTRY_FRONTEND_DSN"].present? %>
+      <meta name="sentry-dsn" content="<%= ENV.fetch("SENTRY_FRONTEND_DSN", "") %>">
+      <%= vite_javascript_tag "sentry" %>
+    <% end %>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>

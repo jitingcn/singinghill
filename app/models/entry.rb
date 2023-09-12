@@ -1,14 +1,15 @@
 class Entry < ApplicationRecord
-  enum status: { draft: 0, accept: 1, double_check: 2, final_check: 3, finished: 4 }
+  has_paper_trail
+  enum status: {draft: 0, accept: 1, double_check: 2, final_check: 3, finished: 4}
   belongs_to :user, optional: true
   belongs_to :project_file
   after_save :update_associates
 
   after_update_commit do
     broadcast_replace_to "main-app", target: "entry_list_item_#{id}",
-                                     partial: "entries/entry_list_item",
-                                     locals: { entry: self, active: true }
-    broadcast_replace_to "main-app", target: "entry_#{id}", partial: "entries/entry", locals: { entry: self }
+      partial: "entries/entry_list_item",
+      locals: {entry: self, active: true}
+    broadcast_replace_to "main-app", target: "entry_#{id}", partial: "entries/entry", locals: {entry: self}
   end
 
   include MeiliSearch::Rails
@@ -62,8 +63,7 @@ class Entry < ApplicationRecord
                  .order("id DESC")
                  .limit(limit)
                  .pluck(:user_id, :payload, :created_at)
-                 .map { |data| { user: User.find_by(id: data[0])&.name, data: data[1], time: data[2] } }
-
+                 .map { |data| {user: User.find_by(id: data[0])&.name, data: data[1], time: data[2]} }
   end
 
   def prefix

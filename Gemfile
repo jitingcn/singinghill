@@ -99,3 +99,7 @@ gem "pagy"
 gem "kredis", "~> 1.1"
 
 gem "pretender", "~> 0.4.0"
+
+gem "stackprof"
+gem "sentry-ruby"
+gem "sentry-rails"
