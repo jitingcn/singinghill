@@ -15,6 +15,7 @@ class EntryResource < Madmin::Resource
   # Associations
   attribute :user
   attribute :project_file
+  attribute :versions
 
   # Uncomment this to customize the display name of records in the admin area.
   # def self.display_name(record)
