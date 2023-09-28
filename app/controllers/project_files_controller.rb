@@ -57,7 +57,7 @@ class ProjectFilesController < ApplicationController
     uploaded_file = params[:uploaded_file]
     render file: "public/404.html", status: :not_found, layout: false and return if uploaded_file.nil?
 
-    unless %w[text/plain application/vnd.ms-excel].include?(uploaded_file.content_type) && uploaded_file.original_filename == @project_file.name
+    unless %w[text/plain text/csv application/vnd.ms-excel].include?(uploaded_file.content_type) && uploaded_file.original_filename == @project_file.name
       respond_to do |format|
         flash[:alert] = "文件类型或文件名不匹配"
         format.html { redirect_to @project_file, status: :unprocessable_entity }
