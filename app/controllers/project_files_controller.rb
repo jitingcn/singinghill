@@ -10,7 +10,7 @@ class ProjectFilesController < ApplicationController
             elsif params[:file_id].nil? && params[:page].nil?
               1
             else
-              project_file_type.find(params[:file_id]).page_num
+              project_file_type.find(params[:file_id]).page_num(per: 25)
             end
     @pagy, @project_files = pagy(project_file_type, page: @page, items: 25)
     @frame = params[:frame] || "_top"
