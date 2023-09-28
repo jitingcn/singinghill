@@ -20,7 +20,7 @@
        :class="{ 'hidden': file_list === 'close' }"
        class="fixed z-40 inset-0 flex-none h-full bg-base-100 bg-opacity-25 w-full lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-72 xl:w-80 lg:block transition duration-300 transform"
   >
-    <turbo-frame id="file_list" src="<%= project_files_index_path(file_id: @file_id, frame: "editor", page: @project_file.page_num) %>" @click.away="file_list = 'close'"
+    <turbo-frame id="file_list" src="<%= project_files_index_path(file_id: @file_id, frame: "editor", page: @project_file.page_num(per: 25)) %>" @click.away="file_list = 'close'"
                  class="font-sans flex flex-col bg-gray-100 px-2 py-1 lg:w-auto lg:shadow-md lg:mt-2 lg:ml-2 dark:bg-gray-800 lg:dark:mt-0 lg:dark:ml-0"
     >
     </turbo-frame>
