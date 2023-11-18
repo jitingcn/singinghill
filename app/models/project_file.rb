@@ -27,8 +27,8 @@ class ProjectFile < ApplicationRecord
     empty = entries.where(chinese: "").where.not(status: 4).size
     draft = status.fetch("draft", 0) - entries.where(status: 0, chinese: "").size
     draft = 0 if draft.negative?
-    proofreading = status.fetch("accept", 0) + status.fetch("double_check", 0) + status.fetch("final_check", 0)
-    finished = status.fetch("finished", 0)
+    proofreading = status.fetch("accept", 0) 
+    finished = status.fetch("finished", 0) + status.fetch("double_check", 0) + status.fetch("final_check", 0)
     {filename: name, empty: empty, draft: draft, proofreading: proofreading, finished: finished}
   end
 
