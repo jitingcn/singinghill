@@ -19,7 +19,7 @@ class ProgressController < ApplicationController
       Entry
         .includes(:project_file)
         .references(:project_file)
-        .where("entries.status >= 1")
+        .where("entries.status >= 2")
         .group("project_files.type")
         .count
     }
