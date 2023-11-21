@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "rexml"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem "rails", "~> 7", "< 7.1"
+gem "rails", "~> 7.1"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use Puma as the app server
@@ -71,11 +71,12 @@ gem "lograge"
 
 # gem "natto", "~> 1.2"
 
-gem "config", "~> 3.0"
+gem "config", "~> 5.0"
 
 gem "vite_rails", "~> 3.0"
 
 gem "stimulus_reflex", "3.5.0.rc3"
+gem "cable_ready", "5.0.1"
 
 gem "madmin", "~> 1.0", github: "jitingcn/madmin", branch: "dev"
 
@@ -90,7 +91,7 @@ gem "meilisearch-rails", "~> 0.10.0"
 
 gem "vite_plugin_legacy", "~> 3.0"
 
-gem "paper_trail", "~> 12"
+gem "paper_trail", "~> 15"
 
 gem "redis-actionpack", github: "redis-store/redis-actionpack"
 

@@ -1,6 +1,6 @@
 class EntriesController < ApplicationController
-  before_action :authenticate_user!, only: %i[update destroy]
-  before_action :set_entry, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: %i[update]
+  before_action :set_entry, only: %i[show edit update]
 
   # GET /entries or /entries.json
   def index
@@ -26,17 +26,17 @@ class EntriesController < ApplicationController
     @entry = Entry.find(params[:entry_id])
     @hints =
       Entry
-      .joins(:project_file)
-      .where.not(id: @entry.id)
-      .where("(source <->> '#{@entry.source}') < 0.7")
-      .select(:name, :source, :chinese, "(source <->> '#{@entry.source}') as distance")
-      .order("distance")
-      .limit(5)
-      .to_a.map(&:serializable_hash)
-      .uniq { |p| p["chinese"] }
-      .each { |p| p.delete("id") }
+        .joins(:project_file)
+        .where.not(id: @entry.id)
+        .where("(source <->> '#{@entry.source}') < 0.7")
+        .select(:name, :source, :chinese, "(source <->> '#{@entry.source}') as distance")
+        .order("distance")
+        .limit(5)
+        .to_a.map(&:serializable_hash)
+        .uniq { |p| p["chinese"] }
+        .each { |p| p.delete("id") }
 
-    render partial: "entries/hints", locals: { hints: @hints }
+    render partial: "entries/hints", locals: {hints: @hints}
   end
 
   # POST /entries or /entries.json
@@ -76,7 +76,7 @@ class EntriesController < ApplicationController
           audit! :update_entry, @entry, payload: entry_params.permit(:chinese).merge(previous_chinese: previous_chinese)
         end
         if status_update
-          audit! :update_entry, @entry, payload: { message: "条目状态更改为 #{@entry.status}" }
+          audit! :update_entry, @entry, payload: {message: "条目状态更改为 #{@entry.status}"}
         end
         format.html { redirect_to @entry, notice: "条目更新成功" }
         format.json { render :show, status: :ok, location: @entry }
@@ -109,7 +109,7 @@ class EntriesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def entry_params
     params["entry"]["chinese"] = params["entry"]["chinese"].gsub(/(?<!\r)\n/, "\r\n")
-                                                           .gsub(/\.\.\./, "…")
+      .gsub("...", "…")
     params.fetch(:entry, {}).merge(user_id: current_user.id).permit(:chinese, :user_id)
   end
 end

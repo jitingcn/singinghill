@@ -1,17 +1,17 @@
 class ProjectFilesController < ApplicationController
   before_action :authenticate_user!, only: %i[download_all batch_update_entry edit update]
-  before_action :set_project_file, only: %i[show edit update destroy]
+  before_action :set_project_file, only: %i[show edit update]
 
   # GET /project_files or /project_files.json
   def index
     @file_id = params[:file_id] ? params[:file_id].to_i : project_file_type.first&.id
     @page = if params[:page]
-              params[:page]&.to_i
-            elsif params[:file_id].nil? && params[:page].nil?
-              1
-            else
-              project_file_type.find(params[:file_id]).page_num(per: 25)
-            end
+      params[:page]&.to_i
+    elsif params[:file_id].nil? && params[:page].nil?
+      1
+    else
+      project_file_type.find(params[:file_id]).page_num(per: 25)
+    end
     @pagy, @project_files = pagy(project_file_type, page: @page, items: 25)
     @frame = params[:frame] || "_top"
   end
@@ -44,7 +44,7 @@ class ProjectFilesController < ApplicationController
   # GET /projects_files/download
   def download_all
     source = params.fetch(:source, "false") == "true"
-    
+
     redirect_to ProjectFile.download_all(source), layout: false
   end
 
@@ -82,17 +82,17 @@ class ProjectFilesController < ApplicationController
 
       location, narrator_id = line.scan(/\A[^,]+,[-\d]+,/)[0]&.split(",") || ["", ""]
       text = line.remove("#{location},#{narrator_id},")
-                 .gsub("CR", "\r\n")
-                 .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
+        .gsub("CR", "\r\n")
+        .gsub(/(?!{)((IM\d{2}|SC\d{2}|1X|VB\d{2}|CS\d{2}|#[01][ A-Za-z0-9_\-!.]+(##)?)+)/) { |w| "{#{w}}" }
       next unless location == entry.location && narrator_id == entry.narrator_id &&
-                  text != entry.source && text.to_halfwidth != entry.english && text != entry.chinese && !text.blank?
+        text != entry.source && text.to_halfwidth != entry.english && text != entry.chinese && !text.blank?
 
       entry.chinese = text
       entry.status = @status || 0
       entry.user_id = current_user.id
       if entry.save
         audit! :update_entry, entry,
-          payload: { message: "从文件批量导入条目，状态变更为#{entry.status}，新文本：#{entry.chinese}" }
+          payload: {message: "从文件批量导入条目，状态变更为#{entry.status}，新文本：#{entry.chinese}"}
       end
     end
 
@@ -100,7 +100,6 @@ class ProjectFilesController < ApplicationController
       format.html { redirect_to @project_file, notice: "文件更新成功" }
       format.json { render :show, status: :ok, location: @project_file }
     end
-
   end
 
   # GET /project_files/new

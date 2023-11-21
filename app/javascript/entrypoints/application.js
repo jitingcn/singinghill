@@ -22,13 +22,13 @@ import { registerControllers } from 'stimulus-vite-helpers'
 const application = Application.start()
 import consumer from '../channels/consumer'
 application.consumer = consumer
-const controllers = import.meta.globEager('../controllers/**/*_controller.js')
-const componentsControllers = import.meta.globEager('../../components/**/*_controller.js')
+const controllers = import.meta.glob('../controllers/**/*_controller.js', { eager: true })
+const componentsControllers = import.meta.glob('../../components/**/*_controller.js', { eager: true })
 registerControllers(application, controllers)
 registerControllers(application, componentsControllers)
 import { Turbo, cable } from "@hotwired/turbo-rails"
 Turbo.navigator.view.snapshotCache.size = 20
-const channels = import.meta.globEager('../channels/**/*_channel.js')
+const channels = import.meta.glob('../channels/**/*_channel.js', { eager: true })
 import StimulusReflex from 'stimulus_reflex'
 import StimulusController from '../controllers/application_controller'
 import { Alert, Dropdown, Modal } from "tailwindcss-stimulus-components"
