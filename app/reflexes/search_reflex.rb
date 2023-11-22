@@ -51,7 +51,7 @@ class SearchReflex < ApplicationReflex
     if @db_mode
       op = @regex_mode ? "~" : "ILIKE"
       pagy, @results = pagy(Entry.where("(source #{op} ?) or (chinese #{op} ?)",
-        *[query.to_s] * 3),
+        *[query.to_s] * 2),
         items: 8, page: page)
     else
       results = Entry.pagy_search(query)
