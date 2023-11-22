@@ -59,11 +59,12 @@ class Entry < ApplicationRecord
   end
 
   def history_change(limit: 10)
-    AuditLog::Log.where(action: "update_entry", record_type: "Entry", record_id: id)
-                 .order("id DESC")
-                 .limit(limit)
-                 .pluck(:user_id, :payload, :created_at)
-                 .map { |data| {user: User.find_by(id: data[0])&.name, data: data[1], time: data[2]} }
+    AuditLog::Log
+      .where(action: "update_entry", record_type: "Entry", record_id: id)
+      .order("id DESC")
+      .limit(limit)
+      .pluck(:user_id, :payload, :created_at)
+      .map { |data| {user: User.find_by(id: data[0])&.name, data: data[1], time: data[2]} }
   end
 
   def prefix
