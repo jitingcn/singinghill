@@ -1,9 +1,8 @@
-FROM jiting/rails-base:builder-3.2.2-alpine AS Builder
+FROM jiting/rails-base:builder-3.3-rc-slim AS Builder
 
-FROM jiting/rails-base:production-3.2.2-alpine
+FROM jiting/rails-base:production-3.3-rc-slim
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories ; \
-    apk add --no-cache zip
+RUN apt install -yq unzip zip
 
 COPY docker/entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
