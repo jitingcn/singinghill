@@ -2,3 +2,4 @@
 /data
 !/data/*.csv
 !/data/Event_*
+!/config/master_key

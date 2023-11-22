@@ -12,6 +12,7 @@ export default class extends ApplicationController {
   entry
 
   connect() {
+    super.connect()
     this.next = throttle(this.next, 1000).bind(this)
     this.url = new URL(window.location.href)
     this.entry = this.url.searchParams.get("entry")

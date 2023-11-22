@@ -76,7 +76,7 @@ class EntriesController < ApplicationController
           audit! :update_entry, @entry, payload: entry_params.permit(:chinese).merge(previous_chinese: previous_chinese)
         end
         if status_update
-          audit! :update_entry, @entry, payload: {message: "条目状态更改为 #{@entry.status}"}
+          audit! :update_entry, @entry, payload: {message: "条目状态更改为 #{Entry.human_enum_name(:status, @entry.status)}"}
         end
         format.html { redirect_to @entry, notice: "条目更新成功" }
         format.json { render :show, status: :ok, location: @entry }

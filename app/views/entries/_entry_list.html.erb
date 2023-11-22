@@ -16,16 +16,35 @@
       <% end %>
     <%# end %>
   </div>
-  <div class="flex flex-row items-center text-xs sm:text-sm mt-2 space-x-4">
-    <div class="">标题: <%= @project_file.display_name %></div>
-    <div class="">文件名: <%= @project_file.name %></div>
-    <a href="<%= project_file_output_path @project_file.id %>"
-       class="ml-4 inline-flex items-center text-blue-700 dark:text-blue-300 border border-black dark:border-gray-100 rounded p-1"
-       target="_blank"
-    > <span class="hidden sm:block">下载</span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-      </svg>
-    </a>
+  <div class="flex flex-col sm:flex-row sm:items-center text-xs sm:text-sm mt-2 space-x-4">
+    <div class="flex flex-row items-center justify-between space-x-2">
+      <div class="">标题: <%= @project_file.display_name %></div>
+      <div class="">文件名: <%= @project_file.name %></div>
+      <% if current_user %>
+      <a href="<%= project_file_output_path @project_file.id %>"
+        class="ml-4 inline-flex items-center text-blue-700 dark:text-blue-300 border border-black dark:border-gray-100 rounded p-1"
+        target="_blank"
+      > <span class="hidden sm:block">下载</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+      </a>
+      <% end %>
+    </div>
+    <% if current_user %>
+    <form class="inline-flex items-center space-x-2">
+      <span>批量修改状态:</span>
+      <%= select "", "status", status_select_list.collect { |status| [Entry.human_enum_name(:status, status), status] },
+                { include_blank: true }, class: "ml-4 w-24 h-8 px-2 py-1 rounded-sm dark:bg-gray-500 text-sm" %>
+      <button
+        class="btn btn-outline btn-sm"
+        data-file-id="<%= @project_file.id %>"
+        data-reflex="click->EntryListComponent#batch_update_status"
+        data-reflex-dataset="combined"
+      >
+        更新
+      </button>
+    </form>
+    <% end %>
   </div>
 </turbo-frame>
