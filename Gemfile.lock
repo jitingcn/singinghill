@@ -190,7 +190,7 @@ GEM
       dry-schema (>= 1.12, < 2)
       zeitwerk (~> 2.6)
     erubi (1.12.0)
-    faraday (2.7.11)
+    faraday (2.7.12)
       base64
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
@@ -213,7 +213,7 @@ GEM
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
     io-console (0.6.0)
-    irb (1.9.0)
+    irb (1.9.1)
       rdoc
       reline (>= 0.3.8)
     jbuilder (2.11.5)
@@ -268,7 +268,7 @@ GEM
     msgpack (1.7.2)
     multi_xml (0.6.0)
     mutex_m (0.2.0)
-    net-imap (0.4.5)
+    net-imap (0.4.6)
       date
       net-protocol
     net-pop (0.1.2)
@@ -277,7 +277,7 @@ GEM
       timeout
     net-smtp (0.4.0)
       net-protocol
-    nio4r (2.6.0)
+    nio4r (2.6.1)
     nokogiri (1.15.5-x86_64-linux)
       racc (~> 1.4)
     oauth2 (2.0.9)
