@@ -17,7 +17,7 @@
       提示:
       <div class="flex flex-col overflow-y-scroll hidden-scrollbar">
         <div class="text-sm ">
-          <% unless @entry.narrator.nil? %>
+          <% unless @entry.narrator.blank? %>
             <div class="text-sm">
               叙述者：【<%= @entry.narrator.narrator_chinese %>】
             </div>
@@ -45,8 +45,7 @@
                            data: { action: "keydown->entry-form#keydown input->entry-form#autoResize" },
                            disable: "#{current_user.nil? ? 'true' : 'false'}",
                            lang: "zh-Hans" %>
-        <div class="absolute ml-[13.5em] border-l-2 border-accent/70 h-full top-0 group">
-          <span class="hidden group-hover:block text-sm -mt-5">换行提示线</span>
+        <div class="absolute ml-[13.5em] border-l-2 border-accent/70 h-full top-0">
         </div>
       </div>
       <% unless current_user.nil? %>
@@ -68,7 +67,7 @@
       <% @entry.history_change.each do |history| %>
         <div class="flex flex-row gap-x-3 gap-y-1">
           <div><%= history.fetch(:time)&.in_time_zone("Asia/Shanghai").strftime('%Y-%m-%d %H:%M:%S') %></div>
-          <div>[<%= history.fetch(:user, "匿名") %>]</div>
+          <div>[<%= history.fetch(:user, "未知") %>]</div>
           <div><%= history.fetch(:data)["message"] ? history.fetch(:data)["message"] : history.fetch(:data)["chinese"] %></div>
         </div>
       <% end %>
