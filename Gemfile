@@ -89,8 +89,6 @@ gem "kaminari"
 
 gem "meilisearch-rails", "~> 0.10.0"
 
-gem "vite_plugin_legacy", "~> 3.0"
-
 gem "paper_trail", "~> 15"
 
 gem "redis-actionpack", github: "redis-store/redis-actionpack"
